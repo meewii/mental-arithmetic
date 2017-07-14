@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MentalArithmetic</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="submit">submit</string>
+    <string name="additions">Additions</string>
+    <string name="subtractions">Subtractions</string>
+    <string name="multiplications">Multiplications</string>
+    <string name="divisions">Divisions</string>
+
+    <string name="icon_credits_1">Icon made by</string>
+    <string name="icon_credits_2">from www.flaticon.com</string>
+    <string name="icon_credits_name">Pixel Buddha</string>
+    <string name="icon_credits_link">http://www.flaticon.com/authors/pixel-buddha</string>
+</resources>

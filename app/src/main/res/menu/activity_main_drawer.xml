@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/additions"
+            android:title="@string/additions" />
+        <item
+            android:id="@+id/subtractions"
+            android:title="@string/subtractions" />
+        <item
+            android:id="@+id/multiplications"
+            android:title="@string/multiplications" />
+        <item
+            android:id="@+id/divisions"
+            android:title="@string/divisions" />
+    </group>
+
+</menu>
