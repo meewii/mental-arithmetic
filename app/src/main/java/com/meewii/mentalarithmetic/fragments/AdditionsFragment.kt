@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.meewii.mentalarithmetic.R
-import kotlinx.android.synthetic.main.fragment_operation.*
+import kotlinx.android.synthetic.main.fragment_additions.*
 
 class AdditionsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_operation, container, false)
+        val view = inflater.inflate(R.layout.fragment_additions, container, false)
         return view
     }
 
