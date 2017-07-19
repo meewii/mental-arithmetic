@@ -1,19 +1,23 @@
 package com.meewii.mentalarithmetic.models
 
 data class Operation (
-        val operator: Operator = Operator.ADDITION,
-        val operandA: Int = 0,
-        val operandB: Int = 0,
+        val operator: Operator,
+        val operandA: Int,
+        val operandB: Int,
         var status: Status = Status.UNCHECKED
 ) {
 
-    var solution: Int = 0
-    init {
+    val solution: Int = initSolution()
+
+    /**
+     * Calculates its own solution according of its operands and its operator
+     */
+    private fun initSolution(): Int {
         when(this.operator) {
-            Operator.ADDITION -> this.solution = this.operandA + this.operandB
-            Operator.SUBTRACTION -> this.solution = this.operandA - this.operandB
-            Operator.MULTIPLICATION -> this.solution = this.operandA * this.operandB
-            Operator.DIVISION -> this.solution = this.operandA / this.operandB
+            Operator.ADDITION -> return this.operandA + this.operandB
+            Operator.SUBTRACTION -> return this.operandA - this.operandB
+            Operator.MULTIPLICATION -> return this.operandA * this.operandB
+            Operator.DIVISION -> return this.operandA / this.operandB
         }
     }
 
