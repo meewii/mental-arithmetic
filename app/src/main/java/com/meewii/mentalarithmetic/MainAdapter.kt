@@ -19,7 +19,7 @@ class MainAdapter(operations: MutableList<Operation>) : RecyclerView.Adapter<Mai
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val operation = mOperations[position]
-        val pastFormula : String = operation.formula + " = " + operation.solution
+        val pastFormula : String = operation.getFullOperation()
         holder.pastFormula.text = pastFormula
     }
 

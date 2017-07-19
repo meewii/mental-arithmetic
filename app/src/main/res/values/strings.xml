@@ -15,4 +15,5 @@
     <string name="icon_credits_2">from www.flaticon.com</string>
     <string name="icon_credits_name">Pixel Buddha</string>
     <string name="icon_credits_link">http://www.flaticon.com/authors/pixel-buddha</string>
+    <string name="error_empty_input">Required!</string>
 </resources>
