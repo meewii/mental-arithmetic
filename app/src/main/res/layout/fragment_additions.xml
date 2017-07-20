@@ -16,7 +16,6 @@
         android:layout_height="0dp"
         android:divider="@color/grey_400"
         android:dividerHeight="1dp"
-        tools:listitem="@layout/list_item_past_formula"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/inputContainer"

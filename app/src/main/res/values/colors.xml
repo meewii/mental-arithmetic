@@ -10,6 +10,8 @@
 
     <color name="page_background">@color/blue_grey_50</color>
 
+    <color name="operation_fail">@color/red_a_700</color>
+    <color name="operation_success">@color/grey_900</color>
 
 
 
@@ -33,4 +35,8 @@
     <color name="blue_grey_50">#eceff1</color>
     <color name="blue_grey_100">#cfd8dc</color>
     <color name="blue_grey_200">#b0bec5</color>
+
+    <color name="red_a_700">#d50000</color>
+    <color name="red_600">#e53935</color>
+    <color name="red_900">#b71c1c</color>
 </resources>

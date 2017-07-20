@@ -7,6 +7,7 @@ data class Operation (
         var status: Status = Status.UNCHECKED
 ) {
 
+    var userSolution: Int? = null
     val solution: Int = initSolution()
 
     /**
@@ -28,6 +29,15 @@ data class Operation (
     fun getFullOperation(): String {
         val operatorSign: String = operator.sign
         return "$operandA $operatorSign $operandB = $solution"
+    }
+
+    /**
+     * Returns a string of the full formula + the user's solution
+     * E.g. "12 + 5 = 125"
+     */
+    fun getFullUserOperation(): String {
+        val operatorSign: String = operator.sign
+        return "$operandA $operatorSign $operandB = $userSolution"
     }
 
     /**

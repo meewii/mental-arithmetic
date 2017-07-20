@@ -43,12 +43,13 @@ class AdditionsFragment : Fragment() {
     private fun initialize() {
         mOperationList = mutableListOf()
         mLayoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-        mMainAdapter = MainAdapter(mOperationList!!)
+        mMainAdapter = MainAdapter(context, mOperationList!!)
         submitButton.setOnClickListener { submitSolution() }
     }
 
     private fun setupList() {
         pastFormulaList!!.layoutManager = mLayoutManager
+        pastFormulaList!!.scrollToPosition(mOperationList!!.size - 1)
         pastFormulaList!!.adapter = mMainAdapter
     }
 
@@ -62,8 +63,11 @@ class AdditionsFragment : Fragment() {
             return
         }
 
-        // check if submitted input is correct
+        // get submitted input
         val inputNb: Int = Integer.valueOf(inputStr)
+        mCurrentOperation!!.userSolution = inputNb
+
+        // check if it's correct
         if(inputNb == mCurrentOperation!!.solution) {
             mCurrentOperation!!.status = Status.SUCCESS
         } else {
@@ -71,11 +75,12 @@ class AdditionsFragment : Fragment() {
         }
 
         // add submitted answer to the list
-        val listItemStr: String = mCurrentOperation!!.getFullOperation()
+        val fullUserOperation: String = mCurrentOperation!!.getFullUserOperation()
         val status: Status = mCurrentOperation!!.status
-        Log.v(TAG, "2- currentOperation: $listItemStr and status: $status")
+        Log.v(TAG, "2- currentOperation: $fullUserOperation and status: $status")
         mOperationList!!.add(mCurrentOperation!!)
         mMainAdapter!!.notifyDataSetChanged()
+        pastFormulaList!!.scrollToPosition(mOperationList!!.size - 1)
 
         // reset current operation
         resetCalculator()
