@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.meewii.mentalarithmetic.models.Operation
 import com.meewii.mentalarithmetic.models.Operator
 import com.meewii.mentalarithmetic.models.Status
+import com.meewii.mentalarithmetic.utils.OperandGenerator
 
 /*
 Controller of all Operation fragments

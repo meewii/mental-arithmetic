@@ -64,3 +64,11 @@ enum class Status {
     FAIL
 }
 
+enum class Difficulty {
+    VERY_EASY,
+    EASY,
+    MEDIUM,
+    HARD,
+    VERY_HARD
+}
+
