@@ -38,22 +38,24 @@ class OperationListController(
 
         // get submitted input
         val inputNb: Int = Integer.valueOf(inputStr)
-        mCurrentOperation!!.userSolution = inputNb
+        mCurrentOperation?.userSolution = inputNb
 
         // check if it's correct
-        if (inputNb == mCurrentOperation!!.solution) {
-            mCurrentOperation!!.status = Status.SUCCESS
+        if (inputNb == mCurrentOperation?.solution) {
+            mCurrentOperation?.status = Status.SUCCESS
         } else {
-            mCurrentOperation!!.status = Status.FAIL
+            mCurrentOperation?.status = Status.FAIL
         }
 
         // add submitted answer to the list
-        val fullUserOperation: String = mCurrentOperation!!.getFullUserOperation()
-        val status: Status = mCurrentOperation!!.status
+        val fullUserOperation: String? = mCurrentOperation?.getFullUserOperation()
+        val status: Status? = mCurrentOperation?.status
         Log.v(TAG, "2- currentOperation: $fullUserOperation and status: $status")
-        mOperationList!!.add(mCurrentOperation!!)
+        if (mCurrentOperation != null) mOperationList?.add(mCurrentOperation!!)
         mMainAdapter.notifyDataSetChanged()
-        mRecyclerView.scrollToPosition(mOperationList!!.size - 1)
+
+        val pos: Int = mOperationList?.size ?: 1
+        mRecyclerView.scrollToPosition(pos - 1)
 
         // reset current operation
         resetCalculator()

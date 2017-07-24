@@ -33,8 +33,8 @@ class SubtractionsFragment : Fragment() {
         // set up list
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
         val mainAdapter: MainAdapter = MainAdapter(context, mOperationList!!)
-        mRecyclerView!!.layoutManager = layoutManager
-        mRecyclerView!!.adapter = mainAdapter
+        mRecyclerView?.layoutManager = layoutManager
+        mRecyclerView?.adapter = mainAdapter
 
         // create controller
         val operationListController: OperationListController = OperationListController (
