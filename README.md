@@ -1,6 +1,6 @@
 # Mental Arithmetic #
 
-Mental Arithmetic is an app to exercice your brain with simple or evil math operations. Choose your level and your favorite operations and GO!. The app will remember what you failed at and make you pay for it.
+Mental Arithmetic is an app to exercise your brain with simple or evil math operations. Choose your level and your favorite operations and GO!. The app will remember what you failed at and make you pay for it.
 
 ## Story ##
 

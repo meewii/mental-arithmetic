@@ -2,18 +2,33 @@
     <string name="app_name">Mental Arithmetic</string>
     <string name="app_description">Keep your brain in shape!</string>
 
+    <!-- Activities -->
+    <string name="activity_main">@string/app_name</string>
+    <string name="activity_credits">Credits</string>
+
+    <!-- Fragments -->
+    <string name="fragment_additions">@string/additions</string>
+    <string name="fragment_subtractions">@string/subtractions</string>
+    <string name="fragment_multiplications">@string/multiplications</string>
+    <string name="fragment_divisions">@string/divisions</string>
+
+    <!-- Menus -->
+    <string name="menu_credits">Credits</string>
+    <string name="menu_settings">Settings</string>
+
+    <!-- Credits page -->
+    <string name="credits_author_title">About me</string>
+    <string name="credits_author_text">This app was entirely designed and programed by Marie-Anne Sinfreu</string>
+    <string name="credits_icon_title">Icon</string>
+    <string name="credits_icon_text">The Launcher icon was made by Pixel Buddha from
+        http://www.flaticon.com/authors/pixel-buddha</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
+    <string name="error_empty_input">Required!</string>
     <string name="submit">submit</string>
     <string name="additions">Additions</string>
     <string name="subtractions">Subtractions</string>
     <string name="multiplications">Multiplications</string>
     <string name="divisions">Divisions</string>
-
-    <string name="icon_credits_1">Icon made by</string>
-    <string name="icon_credits_2">from www.flaticon.com</string>
-    <string name="icon_credits_name">Pixel Buddha</string>
-    <string name="icon_credits_link">http://www.flaticon.com/authors/pixel-buddha</string>
-    <string name="error_empty_input">Required!</string>
 </resources>

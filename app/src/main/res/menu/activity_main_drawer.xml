@@ -3,19 +3,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/menu_group_operations"
+        android:checkableBehavior="single">
+
         <item
             android:id="@+id/additions"
-            android:title="@string/additions" />
+            android:title="@string/fragment_additions" />
         <item
             android:id="@+id/subtractions"
-            android:title="@string/subtractions" />
+            android:title="@string/fragment_subtractions" />
         <item
             android:id="@+id/multiplications"
-            android:title="@string/multiplications" />
+            android:title="@string/fragment_multiplications" />
         <item
             android:id="@+id/divisions"
-            android:title="@string/divisions" />
+            android:title="@string/fragment_divisions" />
+    </group>
+
+    <group android:id="@+id/menu_group_more">
+
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/menu_settings" />
+
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/ic_about_black_24dp"
+            android:title="@string/menu_credits" />
+
     </group>
 
 </menu>

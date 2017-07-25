@@ -1,12 +1,15 @@
 package com.meewii.mentalarithmetic
 
+import android.app.Activity
 import android.app.Fragment
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.meewii.mentalarithmetic.activities.CreditsActivity
 import com.meewii.mentalarithmetic.fragments.AdditionsFragment
 import com.meewii.mentalarithmetic.fragments.DivisionsFragment
 import com.meewii.mentalarithmetic.fragments.MultiplicationsFragment
@@ -41,7 +44,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
-        var fragment: Fragment = AdditionsFragment()
+        var fragment: Fragment? = null
+        var activity: Activity? = null
 
         when (item.itemId) {
             R.id.additions -> {
@@ -56,12 +60,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.divisions -> {
                 fragment = DivisionsFragment()
             }
+
+            R.id.about -> {
+                activity = CreditsActivity()
+            }
+
+            R.id.settings -> {
+                // TODO
+            }
         }
 
-        selectFragment(fragment)
+        if(activity != null) {
+            selectActivity(activity)
+        } else {
+            if(fragment == null) fragment = AdditionsFragment()
+            selectFragment(fragment)
+        }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun selectActivity(activity: Activity) {
+        val intent = Intent(this, activity::class.java)
+        startActivity(intent)
     }
 
     fun selectFragment(fragment: Fragment) {
