@@ -5,6 +5,7 @@
     <!-- Activities -->
     <string name="activity_main">@string/app_name</string>
     <string name="activity_credits">Credits</string>
+    <string name="activity_settings">Settings</string>
 
     <!-- Fragments -->
     <string name="fragment_additions">@string/additions</string>
@@ -22,6 +23,13 @@
     <string name="credits_icon_title">Icon</string>
     <string name="credits_icon_text">The Launcher icon was made by Pixel Buddha from
         http://www.flaticon.com/authors/pixel-buddha</string>
+
+    <!-- Settings page -->
+    <string name="pref_addition_max_default">12</string>
+    <string name="pref_addition_max_title">Max value</string>
+    <string name="pref_addition_min_default">1</string>
+    <string name="pref_addition_min_title">Min value</string>
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

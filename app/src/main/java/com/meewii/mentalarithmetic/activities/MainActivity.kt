@@ -64,9 +64,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.about -> {
                 activity = CreditsActivity()
             }
-
             R.id.settings -> {
-                // TODO
+                activity = SettingsActivity()
             }
         }
 
