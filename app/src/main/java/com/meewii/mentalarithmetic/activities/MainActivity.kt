@@ -1,4 +1,4 @@
-package com.meewii.mentalarithmetic
+package com.meewii.mentalarithmetic.activities
 
 import android.app.Activity
 import android.app.Fragment
@@ -9,7 +9,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import com.meewii.mentalarithmetic.activities.CreditsActivity
+import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.fragments.AdditionsFragment
 import com.meewii.mentalarithmetic.fragments.DivisionsFragment
 import com.meewii.mentalarithmetic.fragments.MultiplicationsFragment
