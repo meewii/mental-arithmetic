@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
+import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.models.Operation
 import com.meewii.mentalarithmetic.models.Operator
 import com.meewii.mentalarithmetic.models.Status
@@ -16,6 +17,7 @@ Controller of all Operation fragments
 class OperationListController(
         var mContext: Context,
         val mOperator: Operator,
+        val mDifficulty: Difficulty,
         var mOperationList: MutableList<Operation>?,
         val mRecyclerView: RecyclerView,
         val mMainAdapter: MainAdapter,
@@ -77,7 +79,7 @@ class OperationListController(
      */
     fun setCalculator() {
         // set a new Operation
-        val operands: IntArray = OperandGenerator.getOperands(mOperator)
+        val operands: IntArray = OperandGenerator.getOperands(mOperator, mDifficulty)
         Log.i(TAG, "[setCalculator] operands: $operands - operator: $mOperator")
         mCurrentOperation = Operation(mOperator, operands[0], operands[1])
 

@@ -60,10 +60,10 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             addPreferencesFromResource(R.xml.preferences)
             setHasOptionsMenu(true)
 
-            bindPreferenceSummaryToValue(findPreference("addition_max"))
-            bindPreferenceSummaryToValue(findPreference("addition_min"))
-            bindPreferenceSummaryToValue(findPreference("subtraction_max"))
-            bindPreferenceSummaryToValue(findPreference("subtraction_min"))
+            bindPreferenceSummaryToValue(findPreference(PREF_LEVEL_ADDITIONS))
+            bindPreferenceSummaryToValue(findPreference(PREF_LEVEL_SUBTRACTIONS))
+            bindPreferenceSummaryToValue(findPreference(PREF_LEVEL_MULTIPLICATIONS))
+            bindPreferenceSummaryToValue(findPreference(PREF_LEVEL_DIVISIONS))
         }
 
         override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -77,6 +77,12 @@ class SettingsActivity : AppCompatPreferenceActivity() {
     }
 
     companion object {
+
+        // Settings keys
+        val PREF_LEVEL_ADDITIONS: String = "additions_level"
+        val PREF_LEVEL_SUBTRACTIONS: String = "subtractions_level"
+        val PREF_LEVEL_MULTIPLICATIONS: String = "multiplications_level"
+        val PREF_LEVEL_DIVISIONS: String = "divisions_level"
 
         /**
          * A preference value change listener that updates the preference's summary

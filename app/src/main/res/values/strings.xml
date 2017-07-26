@@ -25,11 +25,26 @@
         http://www.flaticon.com/authors/pixel-buddha</string>
 
     <!-- Settings page -->
-    <string name="pref_addition_max_default">12</string>
-    <string name="pref_addition_max_title">Max value</string>
-    <string name="pref_addition_min_default">1</string>
-    <string name="pref_addition_min_title">Min value</string>
-
+    <string name="settings_difficulty_category_title">Difficulty level</string>
+    <string name="pref_addition_level_title">Addition level</string>
+    <string name="pref_subtraction_level_title">Subtraction level</string>
+    <string name="pref_multiplication_level_title">Multiplication level</string>
+    <string name="pref_division_level_title">Division level</string>
+    <string name="pref_operations_level_default">EASY</string>
+    <string-array name="pref_operations_level_titles">
+        <item>Very easy</item>
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+        <item>Very hard</item>
+    </string-array>
+    <string-array name="pref_operations_level_values">
+        <item>VERY_EASY</item>
+        <item>EASY</item>
+        <item>MEDIUM</item>
+        <item>HARD</item>
+        <item>VERY_HARD</item>
+    </string-array>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

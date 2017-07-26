@@ -2,6 +2,7 @@ package com.meewii.mentalarithmetic.fragments
 
 import android.app.Fragment
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import android.widget.LinearLayout
 import com.meewii.mentalarithmetic.MainAdapter
 import com.meewii.mentalarithmetic.OperationListController
 import com.meewii.mentalarithmetic.R
+import com.meewii.mentalarithmetic.activities.SettingsActivity
+import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.models.Operation
 import com.meewii.mentalarithmetic.models.Operator
 import kotlinx.android.synthetic.main.fragment_operation.*
@@ -36,10 +39,15 @@ class SubtractionsFragment : Fragment() {
         mRecyclerView?.layoutManager = layoutManager
         mRecyclerView?.adapter = mainAdapter
 
+        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val difficultyStr = preferences.getString(SettingsActivity.PREF_LEVEL_SUBTRACTIONS, Difficulty.EASY.toString())
+        val difficulty = Difficulty.valueOf(difficultyStr)
+
         // create controller
         val operationListController: OperationListController = OperationListController (
                 context,
                 Operator.SUBTRACTION,
+                difficulty,
                 mOperationList,
                 mRecyclerView,
                 mainAdapter,
