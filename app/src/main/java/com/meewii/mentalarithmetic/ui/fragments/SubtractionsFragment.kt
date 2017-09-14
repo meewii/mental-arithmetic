@@ -1,4 +1,4 @@
-package com.meewii.mentalarithmetic.fragments
+package com.meewii.mentalarithmetic.ui.fragments
 
 import android.app.Fragment
 import android.os.Bundle
@@ -12,13 +12,13 @@ import android.widget.LinearLayout
 import com.meewii.mentalarithmetic.MainAdapter
 import com.meewii.mentalarithmetic.OperationListController
 import com.meewii.mentalarithmetic.R
-import com.meewii.mentalarithmetic.activities.SettingsActivity
+import com.meewii.mentalarithmetic.ui.activities.SettingsActivity
 import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.models.Operation
 import com.meewii.mentalarithmetic.models.Operator
 import kotlinx.android.synthetic.main.fragment_operation.*
 
-class DivisionsFragment : Fragment() {
+class SubtractionsFragment : Fragment() {
 
     private var mOperationList: MutableList<Operation>? = null
 
@@ -40,13 +40,13 @@ class DivisionsFragment : Fragment() {
         mRecyclerView?.adapter = mainAdapter
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val difficultyStr = preferences.getString(SettingsActivity.PREF_LEVEL_DIVISIONS, Difficulty.EASY.toString())
+        val difficultyStr = preferences.getString(SettingsActivity.PREF_LEVEL_SUBTRACTIONS, Difficulty.EASY.toString())
         val difficulty = Difficulty.valueOf(difficultyStr)
 
         // create controller
         val operationListController: OperationListController = OperationListController (
                 context,
-                Operator.DIVISION,
+                Operator.SUBTRACTION,
                 difficulty,
                 mOperationList,
                 mRecyclerView,

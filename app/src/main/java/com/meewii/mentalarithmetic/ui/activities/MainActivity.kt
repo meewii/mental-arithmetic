@@ -1,4 +1,4 @@
-package com.meewii.mentalarithmetic.activities
+package com.meewii.mentalarithmetic.ui.activities
 
 import android.app.Activity
 import android.app.Fragment
@@ -10,10 +10,10 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.meewii.mentalarithmetic.R
-import com.meewii.mentalarithmetic.fragments.AdditionsFragment
-import com.meewii.mentalarithmetic.fragments.DivisionsFragment
-import com.meewii.mentalarithmetic.fragments.MultiplicationsFragment
-import com.meewii.mentalarithmetic.fragments.SubtractionsFragment
+import com.meewii.mentalarithmetic.ui.fragments.AdditionsFragment
+import com.meewii.mentalarithmetic.ui.fragments.DivisionsFragment
+import com.meewii.mentalarithmetic.ui.fragments.MultiplicationsFragment
+import com.meewii.mentalarithmetic.ui.fragments.SubtractionsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 

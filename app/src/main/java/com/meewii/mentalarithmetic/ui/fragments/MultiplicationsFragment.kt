@@ -1,25 +1,24 @@
-package com.meewii.mentalarithmetic.fragments
+package com.meewii.mentalarithmetic.ui.fragments
 
 import android.app.Fragment
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.meewii.mentalarithmetic.MainAdapter
-import com.meewii.mentalarithmetic.R
-import com.meewii.mentalarithmetic.models.Operation
-import kotlinx.android.synthetic.main.fragment_operation.*
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.widget.LinearLayout
+import com.meewii.mentalarithmetic.MainAdapter
 import com.meewii.mentalarithmetic.OperationListController
-import com.meewii.mentalarithmetic.models.Operator
-import android.preference.PreferenceManager
-import com.meewii.mentalarithmetic.activities.SettingsActivity
+import com.meewii.mentalarithmetic.R
+import com.meewii.mentalarithmetic.ui.activities.SettingsActivity
 import com.meewii.mentalarithmetic.models.Difficulty
+import com.meewii.mentalarithmetic.models.Operation
+import com.meewii.mentalarithmetic.models.Operator
+import kotlinx.android.synthetic.main.fragment_operation.*
 
-
-class AdditionsFragment : Fragment() {
+class MultiplicationsFragment : Fragment() {
 
     private var mOperationList: MutableList<Operation>? = null
 
@@ -36,18 +35,18 @@ class AdditionsFragment : Fragment() {
 
         // set up list
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-        val mainAdapter = MainAdapter(context, mOperationList!!)
+        val mainAdapter: MainAdapter = MainAdapter(context, mOperationList!!)
         mRecyclerView?.layoutManager = layoutManager
         mRecyclerView?.adapter = mainAdapter
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val difficultyStr = preferences.getString(SettingsActivity.PREF_LEVEL_ADDITIONS, Difficulty.EASY.toString())
+        val difficultyStr = preferences.getString(SettingsActivity.PREF_LEVEL_MULTIPLICATIONS, Difficulty.EASY.toString())
         val difficulty = Difficulty.valueOf(difficultyStr)
 
         // create controller
         val operationListController: OperationListController = OperationListController (
                 context,
-                Operator.ADDITION,
+                Operator.MULTIPLICATION,
                 difficulty,
                 mOperationList,
                 mRecyclerView,
