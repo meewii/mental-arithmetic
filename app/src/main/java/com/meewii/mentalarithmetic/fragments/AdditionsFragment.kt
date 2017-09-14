@@ -36,7 +36,7 @@ class AdditionsFragment : Fragment() {
 
         // set up list
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-        val mainAdapter: MainAdapter = MainAdapter(context, mOperationList!!)
+        val mainAdapter = MainAdapter(context, mOperationList!!)
         mRecyclerView?.layoutManager = layoutManager
         mRecyclerView?.adapter = mainAdapter
 

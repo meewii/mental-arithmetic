@@ -41,17 +41,14 @@ class SettingsActivity : AppCompatPreferenceActivity() {
     /**
      * {@inheritDoc}
      */
-    override fun onIsMultiPane(): Boolean {
-        return isXLargeTablet(this)
-    }
+    override fun onIsMultiPane(): Boolean = isXLargeTablet(this)
 
     /**
      * This method stops fragment injection in malicious applications.
      * Make sure to deny any unknown fragments here.
      */
-    override fun isValidFragment(fragmentName: String): Boolean {
-        return SettingsFragment::class.java.name == fragmentName
-    }
+    override fun isValidFragment(fragmentName: String): Boolean =
+            SettingsFragment::class.java.name == fragmentName
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     class SettingsFragment : PreferenceFragment() {
@@ -116,9 +113,9 @@ class SettingsActivity : AppCompatPreferenceActivity() {
          * Helper method to determine if the device has an extra-large screen. For
          * example, 10" tablets are extra-large.
          */
-        private fun isXLargeTablet(context: Context): Boolean {
-            return context.resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_XLARGE
-        }
+        private fun isXLargeTablet(context: Context): Boolean =
+                context.resources.configuration.screenLayout and
+                        Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_XLARGE
 
         /**
          * Binds a preference's summary to its value. More specifically, when the

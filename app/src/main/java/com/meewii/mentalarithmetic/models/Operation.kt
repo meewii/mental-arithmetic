@@ -1,53 +1,44 @@
 package com.meewii.mentalarithmetic.models
 
+import com.meewii.mentalarithmetic.models.Operator.*
+
 data class Operation (
-        val operator: Operator,
-        val operandA: Int,
-        val operandB: Int,
+        private val operator: Operator,
+        private val operandA: Int,
+        private val operandB: Int,
         var status: Status = Status.UNCHECKED
 ) {
 
     var userSolution: Int? = null
-    val solution: Int = initSolution()
 
     /**
      * Calculates its own solution according of its operands and its operator
      */
-    private fun initSolution(): Int {
-        when(this.operator) {
-            Operator.ADDITION -> return this.operandA + this.operandB
-            Operator.SUBTRACTION -> return this.operandA - this.operandB
-            Operator.MULTIPLICATION -> return this.operandA * this.operandB
-            Operator.DIVISION -> return this.operandA / this.operandB
+    val solution: Int
+        get() = when(this.operator) {
+            ADDITION -> this.operandA + this.operandB
+            SUBTRACTION -> this.operandA - this.operandB
+            MULTIPLICATION -> this.operandA * this.operandB
+            DIVISION -> this.operandA / this.operandB
         }
-    }
 
     /**
      * Returns a string of the full formula + its solution
      * E.g. "12 + 5 = 17"
      */
-    fun getFullOperation(): String {
-        val operatorSign: String = operator.sign
-        return "$operandA $operatorSign $operandB = $solution"
-    }
+    fun getFullOperation(): String = "$operandA ${operator.sign} $operandB = $solution"
 
     /**
-     * Returns a string of the full formula + the user's solution
-     * E.g. "12 + 5 = 125"
+     * Returns a string of the full formula + the user's solution (even if wrong answer)
+     * E.g. "12 + 5 = 4512"
      */
-    fun getFullUserOperation(): String {
-        val operatorSign: String = operator.sign
-        return "$operandA $operatorSign $operandB = $userSolution"
-    }
+    fun getFullUserOperation(): String = "$operandA ${operator.sign} $operandB = $userSolution"
 
     /**
      * Returns a string of the formula
      * E.g. "12 + 5"
      */
-    fun getFormula(): String {
-        val operatorSign: String = operator.sign
-        return "$operandA $operatorSign $operandB"
-    }
+    fun getFormula(): String = "$operandA ${operator.sign} $operandB"
 
 }
 
@@ -71,4 +62,3 @@ enum class Difficulty {
     HARD,
     VERY_HARD
 }
-

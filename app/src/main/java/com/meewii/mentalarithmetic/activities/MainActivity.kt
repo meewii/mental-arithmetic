@@ -44,30 +44,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
-        var fragment: Fragment? = null
-        var activity: Activity? = null
+        var fragment: Fragment? =
+                when (item.itemId) {
+                    R.id.additions -> AdditionsFragment()
+                    R.id.subtractions -> SubtractionsFragment()
+                    R.id.multiplications -> MultiplicationsFragment()
+                    R.id.divisions -> DivisionsFragment()
+                    else -> null
+                }
 
-        when (item.itemId) {
-            R.id.additions -> {
-                fragment = AdditionsFragment()
-            }
-            R.id.subtractions -> {
-                fragment = SubtractionsFragment()
-            }
-            R.id.multiplications -> {
-                fragment = MultiplicationsFragment()
-            }
-            R.id.divisions -> {
-                fragment = DivisionsFragment()
-            }
-
-            R.id.about -> {
-                activity = CreditsActivity()
-            }
-            R.id.settings -> {
-                activity = SettingsActivity()
-            }
-        }
+        val activity: Activity? =
+                when (item.itemId) {
+                    R.id.about -> CreditsActivity()
+                    R.id.settings -> SettingsActivity()
+                    else -> null
+                }
 
         if(activity != null) {
             selectActivity(activity)
@@ -85,7 +76,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         startActivity(intent)
     }
 
-    fun selectFragment(fragment: Fragment) {
+    private fun selectFragment(fragment: Fragment) {
         val fragmentManager = fragmentManager
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, fragment)

@@ -15,39 +15,38 @@ import com.meewii.mentalarithmetic.utils.OperandGenerator
 Controller of all Operation fragments
 */
 class OperationListController(
-        var mContext: Context,
-        val mOperator: Operator,
-        val mDifficulty: Difficulty,
-        var mOperationList: MutableList<Operation>?,
-        val mRecyclerView: RecyclerView,
-        val mMainAdapter: MainAdapter,
-        val mSolutionInput: EditText,
-        val mCurrentFormulaView: TextView) {
+        private var mContext: Context,
+        private val mOperator: Operator,
+        private val mDifficulty: Difficulty,
+        private var mOperationList: MutableList<Operation>?,
+        private val mRecyclerView: RecyclerView,
+        private val mMainAdapter: MainAdapter,
+        private val mSolutionInput: EditText,
+        private val mCurrentFormulaView: TextView) {
 
     private val TAG: String = "OperationListController"
 
     private var mCurrentOperation: Operation? = null
 
     fun onSubmitSolution() {
-        val inputStr: String = mSolutionInput.text.toString().trim()
-        Log.v(TAG, "1- inputStr: $inputStr")
+        val userInputStr: String = mSolutionInput.text.toString().trim()
+        Log.v(TAG, "1- userInputStr: $userInputStr")
 
         // display a warning if the solution input is empty on submit
-        if (inputStr.isEmpty()) {
+        if (userInputStr.isEmpty()) {
             mSolutionInput.error = mContext.getString(R.string.error_empty_input)
             return
         }
 
-        // get submitted input
-        val inputNb: Int = Integer.valueOf(inputStr)
-        mCurrentOperation?.userSolution = inputNb
+        // Parse to integer
+        mCurrentOperation?.userSolution = Integer.valueOf(userInputStr)
 
-        // check if it's correct
-        if (inputNb == mCurrentOperation?.solution) {
-            mCurrentOperation?.status = Status.SUCCESS
-        } else {
-            mCurrentOperation?.status = Status.FAIL
-        }
+        // check if it's the correct solution
+        mCurrentOperation?.status =
+                when (mCurrentOperation?.userSolution) { // same as if(mCurrentOperation?.userSolution == mCurrentOperation?.solution)
+                    mCurrentOperation?.solution -> Status.SUCCESS
+                    else -> Status.FAIL
+                }
 
         // add submitted answer to the list
         val fullUserOperation: String? = mCurrentOperation?.getFullUserOperation()
@@ -67,7 +66,7 @@ class OperationListController(
      * Prepares an operation (2 operands and solution) and display it in views
      * Sets the input to an empty string
      */
-    fun resetCalculator() {
+    private fun resetCalculator() {
         // reset input
         mSolutionInput.setText("")
 
