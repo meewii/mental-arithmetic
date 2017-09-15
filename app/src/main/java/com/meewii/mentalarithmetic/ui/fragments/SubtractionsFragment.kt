@@ -34,25 +34,25 @@ class SubtractionsFragment : Fragment() {
         mOperationList = mutableListOf()
 
         // set up list
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-        val mainAdapter: MainAdapter = MainAdapter(context, mOperationList!!)
-        mRecyclerView?.layoutManager = layoutManager
-        mRecyclerView?.adapter = mainAdapter
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity.applicationContext, LinearLayout.VERTICAL, false)
+        val mainAdapter = MainAdapter(activity.applicationContext, mOperationList!!)
+        recyclerView?.layoutManager = layoutManager
+        recyclerView?.adapter = mainAdapter
 
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val preferences = PreferenceManager.getDefaultSharedPreferences(activity.applicationContext)
         val difficultyStr = preferences.getString(SettingsActivity.PREF_LEVEL_SUBTRACTIONS, Difficulty.EASY.toString())
         val difficulty = Difficulty.valueOf(difficultyStr)
 
         // create controller
-        val operationListController: OperationListController = OperationListController (
-                context,
+        val operationListController = OperationListController (
+                activity.applicationContext,
                 Operator.SUBTRACTION,
                 difficulty,
                 mOperationList,
-                mRecyclerView,
+                recyclerView,
                 mainAdapter,
                 solutionInput,
-                currentFormula
+                currentFormulaView
         )
 
         // init the calculator

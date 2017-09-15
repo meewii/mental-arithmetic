@@ -11,7 +11,7 @@
     tools:layout_editor_absoluteY="80dp">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/mRecyclerView"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:divider="@color/grey_400"
@@ -32,7 +32,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/currentFormula"
+            android:id="@+id/currentFormulaView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"

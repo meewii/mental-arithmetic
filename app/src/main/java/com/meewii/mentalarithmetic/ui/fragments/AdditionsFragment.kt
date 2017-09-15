@@ -7,26 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import com.meewii.mentalarithmetic.MainAdapter
 import com.meewii.mentalarithmetic.R
-import com.meewii.mentalarithmetic.models.Operation
 import kotlinx.android.synthetic.main.fragment_operation.*
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.LinearLayout
-import com.meewii.mentalarithmetic.OperationListController
-import com.meewii.mentalarithmetic.models.Operator
-import android.preference.PreferenceManager
 import com.meewii.mentalarithmetic.core.App
-import com.meewii.mentalarithmetic.ui.activities.SettingsActivity
-import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.presenters.AdditionsPresenter
 import javax.inject.Inject
 
 
-class AdditionsFragment : Fragment() {
-
-    private var mOperationList: MutableList<Operation>? = null
+class AdditionsFragment : Fragment(), OperationFragment {
 
     @Inject
     lateinit var presenter: AdditionsPresenter
+
+    private lateinit var mainAdapter: MainAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         @Suppress("UnnecessaryVariable")
@@ -39,38 +33,58 @@ class AdditionsFragment : Fragment() {
 
         (activity.application as App).appComponent()!!.inject(this)
 
-        // create an empty list of operation
-        mOperationList = mutableListOf()
+        // Init presenter
+        presenter
+                .init("Hello I'm injected with Dagger")
+                .attachView(this)
+                .generateOperation()
 
         // set up list
-        val layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
-        val mainAdapter = MainAdapter(context, mOperationList!!)
-        mRecyclerView?.layoutManager = layoutManager
-        mRecyclerView?.adapter = mainAdapter
-
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val difficultyStr = preferences.getString(SettingsActivity.PREF_LEVEL_ADDITIONS, Difficulty.EASY.toString())
-        val difficulty = Difficulty.valueOf(difficultyStr)
-
-        // create controller
-        val operationListController = OperationListController (
-                context,
-                Operator.ADDITION,
-                difficulty,
-                mOperationList,
-                mRecyclerView,
-                mainAdapter,
-                solutionInput,
-                currentFormula
-        )
-
-        // init the calculator
-        operationListController.setCalculator()
-
-        // Test presenter
-        presenter.init("Hello I'm injected with Dagger")
+        val layoutManager = LinearLayoutManager(activity.applicationContext, LinearLayout.VERTICAL, false)
+        mainAdapter = MainAdapter(activity.applicationContext, presenter.operationList)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = mainAdapter
 
         // set listener on button
-        submitButton.setOnClickListener { operationListController.onSubmitSolution() }
+        submitButton.setOnClickListener {
+            presenter.onSubmitSolution(solutionInput.text)
+        }
+    }
+
+
+    /**
+     * Sets the input to an empty string
+     * and generates a new formula
+     */
+    override fun resetCalculator() {
+        solutionInput.setText("")
+        presenter.generateOperation()
+    }
+
+    /**
+     * Display current formula in the view
+     */
+    override fun displayFormula(formula: String) {
+        currentFormulaView.text = formula
+    }
+
+    /**
+     * Display an error on the input field
+     */
+    override fun displayError(errMessageId: Int) {
+        solutionInput.error = getString(errMessageId)
+    }
+
+    /**
+     * Update the RecyclerView with new data
+     */
+    override fun updateList() {
+        mainAdapter.notifyDataSetChanged()
+
+        val pos: Int = presenter.operationList.size
+        recyclerView.scrollToPosition(pos - 1)
+
+        // reset current operation
+        resetCalculator()
     }
 }
