@@ -1,20 +1,31 @@
 package com.meewii.mentalarithmetic.presenters
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.text.Editable
 import android.util.Log
 import com.meewii.mentalarithmetic.R
+import com.meewii.mentalarithmetic.core.App
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.models.Operation
 import com.meewii.mentalarithmetic.models.Operator
 import com.meewii.mentalarithmetic.models.Status
+import com.meewii.mentalarithmetic.ui.activities.SettingsActivity
 import com.meewii.mentalarithmetic.ui.fragments.OperationFragment
 import com.meewii.mentalarithmetic.utils.OperandGenerator
+import javax.inject.Inject
 
 class AdditionsPresenter(context: Context) : OperationPresenter {
 
+    init {
+        (context as App).appComponent()!!.inject(this)
+    }
+
     private val TAG: String = "AdditionsPresenter"
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var view: OperationFragment
     private val operator = Operator.ADDITION
@@ -38,11 +49,8 @@ class AdditionsPresenter(context: Context) : OperationPresenter {
      * Prepares an operation (2 operands and solution) and display it in views
      */
     override fun generateOperation(): AdditionsPresenter {
-
-//        val preferences = PreferenceManager.getDefaultSharedPreferences(activity.applicationContext)
-//        val difficultyStr = preferences.getString(SettingsActivity.PREF_LEVEL_ADDITIONS, Difficulty.EASY.toString())
-//        val difficulty = Difficulty.valueOf(difficultyStr)
-        val difficulty = Difficulty.EASY // TODO
+        val difficultyStr = sharedPreferences.getString(SettingsActivity.PREF_LEVEL_ADDITIONS, Difficulty.EASY.toString())
+        val difficulty = Difficulty.valueOf(difficultyStr)
 
         val operands: IntArray = OperandGenerator.getOperands(operator, difficulty)
         Log.i(Const.APP_TAG, "[$TAG#generateOperation] operands: ${operands[0]} | ${operands[1]} - operator: $operator")
