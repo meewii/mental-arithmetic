@@ -2,33 +2,18 @@ package com.meewii.mentalarithmetic.ui.fragments
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.meewii.mentalarithmetic.MainAdapter
-import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.dagger.components.ActivityComponent
 import com.meewii.mentalarithmetic.presenters.SubtractionsPresenter
 import kotlinx.android.synthetic.main.fragment_operation.*
 import javax.inject.Inject
 
-class SubtractionsFragment : BaseFragment(), OperationFragment {
-
-    override fun inject(component: ActivityComponent) {
-        component.inject(this)
-    }
+class SubtractionsFragment : BaseFragment() {
 
     @Inject
     lateinit var presenter: SubtractionsPresenter
-
-    private lateinit var mainAdapter: MainAdapter
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        @Suppress("UnnecessaryVariable")
-        val view = inflater.inflate(R.layout.fragment_operation, container, false)
-        return view
-    }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,9 +25,8 @@ class SubtractionsFragment : BaseFragment(), OperationFragment {
                 .generateOperation()
 
         // set up list
-        val layoutManager = LinearLayoutManager(activity.applicationContext, LinearLayout.VERTICAL, false)
         mainAdapter = MainAdapter(activity.applicationContext, presenter.operationList)
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = LinearLayoutManager(activity.applicationContext, LinearLayout.VERTICAL, false)
         recyclerView.adapter = mainAdapter
 
         // set listener on button
@@ -51,33 +35,15 @@ class SubtractionsFragment : BaseFragment(), OperationFragment {
         }
     }
 
+    override fun inject(component: ActivityComponent) {
+        component.inject(this)
+    }
 
-    /**
-     * Sets the input to an empty string
-     * and generates a new formula
-     */
     override fun resetCalculator() {
         solutionInput.setText("")
         presenter.generateOperation()
     }
 
-    /**
-     * Display current formula in the view
-     */
-    override fun displayFormula(formula: String) {
-        currentFormulaView.text = formula
-    }
-
-    /**
-     * Display an error on the input field
-     */
-    override fun displayError(errMessageId: Int) {
-        solutionInput.error = getString(errMessageId)
-    }
-
-    /**
-     * Update the RecyclerView with new data
-     */
     override fun updateList() {
         mainAdapter.notifyDataSetChanged()
 

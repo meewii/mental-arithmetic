@@ -10,7 +10,7 @@ import com.meewii.mentalarithmetic.models.Operation
 import com.meewii.mentalarithmetic.models.Operator
 import com.meewii.mentalarithmetic.models.Status
 import com.meewii.mentalarithmetic.ui.activities.SettingsActivity
-import com.meewii.mentalarithmetic.ui.fragments.OperationFragment
+import com.meewii.mentalarithmetic.ui.fragments.BaseFragment
 import com.meewii.mentalarithmetic.utils.OperandGenerator
 import javax.inject.Inject
 
@@ -18,7 +18,7 @@ class SubtractionsPresenter @Inject constructor(private val sharedPreferences: S
 
     private val TAG: String = "SubtractionsPresenter"
 
-    private lateinit var view: OperationFragment
+    private lateinit var view: BaseFragment
     private val operator = Operator.SUBTRACTION
 
     // Data
@@ -31,7 +31,7 @@ class SubtractionsPresenter @Inject constructor(private val sharedPreferences: S
         return this
     }
 
-    override fun attachView(fragment: OperationFragment): SubtractionsPresenter {
+    override fun attachView(fragment: BaseFragment): SubtractionsPresenter {
         view = fragment
         return this
     }
