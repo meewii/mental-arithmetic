@@ -54,14 +54,10 @@ abstract class BaseFragment : Fragment() {
      * Sets the input to an empty string
      * and generates a new formula
      */
-    open fun resetCalculator() {
-        solutionInput.setText("")
-    }
+    abstract fun resetCalculator()
 
     /**
      * Update the RecyclerView with new data
      */
-    open fun updateList() {
-        mainAdapter.notifyDataSetChanged()
-    }
+    abstract fun updateList()
 }
