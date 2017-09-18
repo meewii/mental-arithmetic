@@ -40,7 +40,7 @@ class MultiplicationsFragment : BaseFragment() {
     }
 
     override fun updateList() {
-        mainAdapter.notifyDataSetChanged()
+        operationAdapter.notifyDataSetChanged()
 
         val pos: Int = presenter.operationList.size
         recyclerView.scrollToPosition(pos - 1)

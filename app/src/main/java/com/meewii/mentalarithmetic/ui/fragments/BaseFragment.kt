@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.meewii.mentalarithmetic.MainAdapter
+import com.meewii.mentalarithmetic.ui.OperationAdapter
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.dagger.components.ActivityComponent
 import com.meewii.mentalarithmetic.models.Operation
@@ -35,16 +35,15 @@ abstract class BaseFragment : Fragment() {
 
     @Inject
     protected lateinit var layoutManager: LinearLayoutManager
-
-    protected lateinit var mainAdapter: MainAdapter
+    @Inject
+    protected lateinit var operationAdapter: OperationAdapter
 
     /**
      * Display current formula in the view
      */
     protected fun setUpAdapter(operationList: MutableList<Operation>) {
-        mainAdapter = MainAdapter(activity.applicationContext, operationList)
+        recyclerView.adapter = operationAdapter.addOperations(operationList)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = mainAdapter
     }
 
     /**
