@@ -1,10 +1,7 @@
 package com.meewii.mentalarithmetic.ui.fragments
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.LinearLayout
-import com.meewii.mentalarithmetic.MainAdapter
 import com.meewii.mentalarithmetic.dagger.components.ActivityComponent
 import com.meewii.mentalarithmetic.presenters.DivisionsPresenter
 import kotlinx.android.synthetic.main.fragment_operation.*
@@ -25,9 +22,7 @@ class DivisionsFragment : BaseFragment() {
                 .generateOperation()
 
         // set up list
-        mainAdapter = MainAdapter(activity.applicationContext, presenter.operationList)
-        recyclerView.layoutManager = LinearLayoutManager(activity.applicationContext, LinearLayout.VERTICAL, false)
-        recyclerView.adapter = mainAdapter
+        setUpAdapter(presenter.operationList)
 
         // set listener on button
         submitButton.setOnClickListener {
