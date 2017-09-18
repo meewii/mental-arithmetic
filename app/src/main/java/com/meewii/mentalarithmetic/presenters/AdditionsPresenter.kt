@@ -1,11 +1,9 @@
 package com.meewii.mentalarithmetic.presenters
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.text.Editable
 import android.util.Log
 import com.meewii.mentalarithmetic.R
-import com.meewii.mentalarithmetic.core.App
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.models.Operation
@@ -16,16 +14,9 @@ import com.meewii.mentalarithmetic.ui.fragments.OperationFragment
 import com.meewii.mentalarithmetic.utils.OperandGenerator
 import javax.inject.Inject
 
-class AdditionsPresenter(context: Context) : OperationPresenter {
-
-    init {
-        (context as App).appComponent()!!.inject(this)
-    }
+class AdditionsPresenter @Inject constructor(private val sharedPreferences: SharedPreferences) : OperationPresenter {
 
     private val TAG: String = "AdditionsPresenter"
-
-    @Inject
-    lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var view: OperationFragment
     private val operator = Operator.ADDITION
