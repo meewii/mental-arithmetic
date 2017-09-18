@@ -14,24 +14,24 @@ import com.meewii.mentalarithmetic.ui.fragments.OperationFragment
 import com.meewii.mentalarithmetic.utils.OperandGenerator
 import javax.inject.Inject
 
-class AdditionsPresenter @Inject constructor(private val sharedPreferences: SharedPreferences) : OperationPresenter {
+class MultiplicationsPresenter @Inject constructor(private val sharedPreferences: SharedPreferences) : OperationPresenter {
 
-    private val TAG: String = "AdditionsPresenter"
+    private val TAG: String = "MultiplicationsPresenter"
 
     private lateinit var view: OperationFragment
-    private val operator = Operator.ADDITION
+    private val operator = Operator.MULTIPLICATION
 
     // Data
     private lateinit var currentOperation: Operation
     val operationList: MutableList<Operation> = mutableListOf()
 
 
-    override fun init(saySomething: String): AdditionsPresenter {
+    override fun init(saySomething: String): MultiplicationsPresenter {
         Log.d(Const.APP_TAG, "$TAG initiated with '$saySomething'")
         return this
     }
 
-    override fun attachView(fragment: OperationFragment): AdditionsPresenter {
+    override fun attachView(fragment: OperationFragment): MultiplicationsPresenter {
         view = fragment
         return this
     }
@@ -39,11 +39,9 @@ class AdditionsPresenter @Inject constructor(private val sharedPreferences: Shar
     /**
      * Prepares an operation (2 operands and solution) and display it in views
      */
-    override fun generateOperation(): AdditionsPresenter {
-        val difficultyStr = sharedPreferences.getString(SettingsActivity.PREF_LEVEL_ADDITIONS, Difficulty.EASY.toString())
+    override fun generateOperation(): MultiplicationsPresenter {
+        val difficultyStr = sharedPreferences.getString(SettingsActivity.PREF_LEVEL_MULTIPLICATIONS, Difficulty.EASY.toString())
         val difficulty = Difficulty.valueOf(difficultyStr)
-
-        Log.d(Const.APP_TAG, "[$TAG#generateOperation] difficulty '$difficultyStr'")
 
         val operands: IntArray = OperandGenerator.getOperands(operator, difficulty)
         Log.i(Const.APP_TAG, "[$TAG#generateOperation] operands: ${operands[0]} | ${operands[1]} - operator: $operator")

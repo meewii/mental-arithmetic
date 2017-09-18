@@ -2,27 +2,27 @@ package com.meewii.mentalarithmetic.ui.fragments
 
 import android.app.Fragment
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.meewii.mentalarithmetic.MainAdapter
-import com.meewii.mentalarithmetic.OperationListController
 import com.meewii.mentalarithmetic.R
-import com.meewii.mentalarithmetic.ui.activities.SettingsActivity
-import com.meewii.mentalarithmetic.models.Difficulty
-import com.meewii.mentalarithmetic.models.Operation
-import com.meewii.mentalarithmetic.models.Operator
+import com.meewii.mentalarithmetic.core.App
+import com.meewii.mentalarithmetic.presenters.MultiplicationsPresenter
 import kotlinx.android.synthetic.main.fragment_operation.*
+import javax.inject.Inject
 
-class MultiplicationsFragment : Fragment() {
+class MultiplicationsFragment : Fragment(), OperationFragment {
 
-    private var mOperationList: MutableList<Operation>? = null
+    @Inject
+    lateinit var presenter: MultiplicationsPresenter
+
+    private lateinit var mainAdapter: MainAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        @Suppress("UnnecessaryVariable")
         val view = inflater.inflate(R.layout.fragment_operation, container, false)
         return view
     }
@@ -30,35 +30,60 @@ class MultiplicationsFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // create an empty list of operation
-        mOperationList = mutableListOf()
+        (activity.application as App).appComponent()!!.inject(this)
+
+        // Init presenter
+        presenter
+                .init("Hello I'm injected with Dagger")
+                .attachView(this)
+                .generateOperation()
 
         // set up list
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity.applicationContext, LinearLayout.VERTICAL, false)
-        val mainAdapter = MainAdapter(activity.applicationContext, mOperationList!!)
-        recyclerView?.layoutManager = layoutManager
-        recyclerView?.adapter = mainAdapter
-
-        val preferences = PreferenceManager.getDefaultSharedPreferences(activity.applicationContext)
-        val difficultyStr = preferences.getString(SettingsActivity.PREF_LEVEL_MULTIPLICATIONS, Difficulty.EASY.toString())
-        val difficulty = Difficulty.valueOf(difficultyStr)
-
-        // create controller
-        val operationListController = OperationListController (
-                activity.applicationContext,
-                Operator.MULTIPLICATION,
-                difficulty,
-                mOperationList,
-                recyclerView,
-                mainAdapter,
-                solutionInput,
-                currentFormulaView
-        )
-
-        // init the calculator
-        operationListController.setCalculator()
+        val layoutManager = LinearLayoutManager(activity.applicationContext, LinearLayout.VERTICAL, false)
+        mainAdapter = MainAdapter(activity.applicationContext, presenter.operationList)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = mainAdapter
 
         // set listener on button
-        submitButton.setOnClickListener { operationListController.onSubmitSolution() }
+        submitButton.setOnClickListener {
+            presenter.onSubmitSolution(solutionInput.text)
+        }
+    }
+
+
+    /**
+     * Sets the input to an empty string
+     * and generates a new formula
+     */
+    override fun resetCalculator() {
+        solutionInput.setText("")
+        presenter.generateOperation()
+    }
+
+    /**
+     * Display current formula in the view
+     */
+    override fun displayFormula(formula: String) {
+        currentFormulaView.text = formula
+    }
+
+    /**
+     * Display an error on the input field
+     */
+    override fun displayError(errMessageId: Int) {
+        solutionInput.error = getString(errMessageId)
+    }
+
+    /**
+     * Update the RecyclerView with new data
+     */
+    override fun updateList() {
+        mainAdapter.notifyDataSetChanged()
+
+        val pos: Int = presenter.operationList.size
+        recyclerView.scrollToPosition(pos - 1)
+
+        // reset current operation
+        resetCalculator()
     }
 }
