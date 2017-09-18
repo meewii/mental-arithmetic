@@ -1,6 +1,5 @@
 package com.meewii.mentalarithmetic.ui.fragments
 
-import android.app.Fragment
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -9,12 +8,16 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.meewii.mentalarithmetic.MainAdapter
 import com.meewii.mentalarithmetic.R
-import com.meewii.mentalarithmetic.core.App
+import com.meewii.mentalarithmetic.dagger.components.ActivityComponent
 import com.meewii.mentalarithmetic.presenters.MultiplicationsPresenter
 import kotlinx.android.synthetic.main.fragment_operation.*
 import javax.inject.Inject
 
-class MultiplicationsFragment : Fragment(), OperationFragment {
+class MultiplicationsFragment : BaseFragment(), OperationFragment {
+
+    override fun inject(component: ActivityComponent) {
+        component.inject(this)
+    }
 
     @Inject
     lateinit var presenter: MultiplicationsPresenter
@@ -29,8 +32,6 @@ class MultiplicationsFragment : Fragment(), OperationFragment {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        (activity.application as App).appComponent()!!.inject(this)
 
         // Init presenter
         presenter
