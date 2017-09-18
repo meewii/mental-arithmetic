@@ -7,13 +7,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import com.meewii.mentalarithmetic.MainAdapter
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.dagger.components.ActivityComponent
 import com.meewii.mentalarithmetic.models.Operation
 import com.meewii.mentalarithmetic.ui.activities.BaseActivity
 import kotlinx.android.synthetic.main.fragment_operation.*
+import javax.inject.Inject
 
 abstract class BaseFragment : Fragment() {
 
@@ -33,7 +33,8 @@ abstract class BaseFragment : Fragment() {
     }
 
 
-
+    @Inject
+    protected lateinit var layoutManager: LinearLayoutManager
 
     protected lateinit var mainAdapter: MainAdapter
 
@@ -42,7 +43,7 @@ abstract class BaseFragment : Fragment() {
      */
     protected fun setUpAdapter(operationList: MutableList<Operation>) {
         mainAdapter = MainAdapter(activity.applicationContext, operationList)
-        recyclerView.layoutManager = LinearLayoutManager(activity.applicationContext, LinearLayout.VERTICAL, false)
+        recyclerView.layoutManager = layoutManager
         recyclerView.adapter = mainAdapter
     }
 
