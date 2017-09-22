@@ -5,6 +5,8 @@ import android.text.Editable
 import android.util.Log
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
+import com.meewii.mentalarithmetic.data.database.ScoreDao
+import com.meewii.mentalarithmetic.data.database.ScoreEntry
 import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.models.Operation
 import com.meewii.mentalarithmetic.models.Operator
@@ -14,7 +16,8 @@ import com.meewii.mentalarithmetic.ui.fragments.BaseFragment
 import com.meewii.mentalarithmetic.utils.OperandGenerator
 import javax.inject.Inject
 
-class AdditionsPresenter @Inject constructor(private val sharedPreferences: SharedPreferences) : OperationPresenter {
+class AdditionsPresenter @Inject constructor(private val sharedPreferences: SharedPreferences,
+                                             private val scoreDao: ScoreDao) : OperationPresenter {
 
     private val TAG: String = "AdditionsPresenter"
 
@@ -28,7 +31,12 @@ class AdditionsPresenter @Inject constructor(private val sharedPreferences: Shar
 
     override fun init(saySomething: String): AdditionsPresenter {
         Log.d(Const.APP_TAG, "$TAG initiated with '$saySomething'")
-        return this
+
+        val scores : List<ScoreEntry>  = listOf(
+            ScoreEntry(difficulty = "VERY_HARD", points = 5447),
+            ScoreEntry(difficulty = "HARD", points = 4))
+        scoreDao.insert(scores)
+      return this
     }
 
     override fun attachView(fragment: BaseFragment): AdditionsPresenter {
