@@ -45,6 +45,11 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:' + rootProject.supportLibVersion;
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
+    // Architecture components: Lifecycle, LiveData and ViewModel
+    compile 'android.arch.lifecycle:runtime:' + rootProject.archRoomVersion
+    compile 'android.arch.lifecycle:extensions:' + rootProject.archRoomVersion
+    kapt 'android.arch.lifecycle:compiler:' + rootProject.archRoomVersion
+
     // Architecture components: Room
     compile 'android.arch.persistence.room:runtime:' + rootProject.archRoomVersion
     kapt 'android.arch.persistence.room:compiler:' + rootProject.archRoomVersion
