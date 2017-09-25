@@ -1,5 +1,6 @@
 package com.meewii.mentalarithmetic.ui.fragments
 
+import android.app.Activity
 import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.dagger.components.ActivityComponent
 import com.meewii.mentalarithmetic.models.Operation
@@ -14,6 +16,10 @@ import com.meewii.mentalarithmetic.ui.OperationAdapter
 import com.meewii.mentalarithmetic.ui.activities.BaseActivity
 import kotlinx.android.synthetic.main.fragment_operation.*
 import javax.inject.Inject
+
+
+
+
 
 abstract class BaseFragment : Fragment() {
 
@@ -44,6 +50,12 @@ abstract class BaseFragment : Fragment() {
     protected fun setUpAdapter(operationList: MutableList<Operation>) {
         recyclerView.adapter = operationAdapter.addOperations(operationList)
         recyclerView.layoutManager = layoutManager
+    }
+
+    fun showSoftKeyboard() {
+        val inputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        solutionInput.requestFocus()
+        inputMethodManager.showSoftInput(solutionInput, 0)
     }
 
     /**

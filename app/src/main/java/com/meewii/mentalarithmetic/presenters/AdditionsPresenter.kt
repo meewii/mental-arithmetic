@@ -54,6 +54,8 @@ class AdditionsPresenter @Inject constructor(sharedPreferences: SharedPreference
         // start new game in view
         generateOperation()
         view.newOperation()
+
+        view.showSoftKeyboard()
         return this
     }
 
