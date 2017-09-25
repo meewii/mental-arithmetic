@@ -5,9 +5,9 @@ import com.meewii.mentalarithmetic.ui.fragments.BaseFragment
 
 interface OperationPresenter {
     // init methods
-    fun init(saySomething: String): OperationPresenter
     fun attachView(fragment: BaseFragment): OperationPresenter
+    fun newGame(): OperationPresenter
     fun generateOperation(): OperationPresenter
-
     fun onSubmitSolution(submittedSolution: Editable)
+    fun saveScore()
 }

@@ -7,10 +7,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.meewii.mentalarithmetic.ui.OperationAdapter
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.dagger.components.ActivityComponent
 import com.meewii.mentalarithmetic.models.Operation
+import com.meewii.mentalarithmetic.ui.OperationAdapter
 import com.meewii.mentalarithmetic.ui.activities.BaseActivity
 import kotlinx.android.synthetic.main.fragment_operation.*
 import javax.inject.Inject
@@ -25,7 +25,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if(context is BaseActivity) {
+        if (context is BaseActivity) {
             inject(context.activityComponent)
         } else {
             throw Exception("Context is not BaseActivity")
@@ -64,7 +64,17 @@ abstract class BaseFragment : Fragment() {
      * Sets the input to an empty string
      * and generates a new formula
      */
-    abstract fun resetCalculator()
+    open fun newOperation() {
+        solutionInput.setText("")
+        inputContainer.visibility = View.VISIBLE
+    }
+
+    /**
+     * Display information to end the game
+     */
+    open fun disableGame() {
+        inputContainer.visibility = View.INVISIBLE
+    }
 
     /**
      * Update the RecyclerView with new data

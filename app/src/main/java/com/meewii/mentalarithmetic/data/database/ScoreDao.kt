@@ -17,9 +17,6 @@ interface ScoreDao {
   @Query("SELECT * FROM score")
   fun getAll(): List<ScoreEntry>
 
-  @Query("SELECT * FROM score WHERE userId=:userId")
-  fun getAll(userId: String): List<ScoreEntry>
-
 
   @Insert
   fun insert(score: ScoreEntry)

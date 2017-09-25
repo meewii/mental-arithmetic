@@ -17,7 +17,6 @@ class SubtractionsFragment : BaseFragment() {
 
         // Init presenter
         presenter
-                .init("Hello I'm injected with Dagger")
                 .attachView(this)
                 .generateOperation()
 
@@ -34,7 +33,7 @@ class SubtractionsFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun resetCalculator() {
+    override fun newOperation() {
         solutionInput.setText("")
         presenter.generateOperation()
     }
@@ -46,6 +45,6 @@ class SubtractionsFragment : BaseFragment() {
         recyclerView.scrollToPosition(pos - 1)
 
         // reset current operation
-        resetCalculator()
+        newOperation()
     }
 }

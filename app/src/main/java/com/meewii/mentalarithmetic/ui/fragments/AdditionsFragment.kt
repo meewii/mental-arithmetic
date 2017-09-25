@@ -17,9 +17,8 @@ class AdditionsFragment : BaseFragment() {
 
         // Init presenter
         presenter
-                .init("Hello I'm injected with Dagger")
                 .attachView(this)
-                .generateOperation()
+                .newGame()
 
         // set up list
         setUpAdapter(presenter.operationList)
@@ -34,8 +33,8 @@ class AdditionsFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun resetCalculator() {
-        solutionInput.setText("")
+    override fun newOperation() {
+        super.newOperation()
         presenter.generateOperation()
     }
 
@@ -44,8 +43,5 @@ class AdditionsFragment : BaseFragment() {
 
         val pos: Int = presenter.operationList.size
         recyclerView.scrollToPosition(pos - 1)
-
-        // reset current operation
-        resetCalculator()
     }
 }

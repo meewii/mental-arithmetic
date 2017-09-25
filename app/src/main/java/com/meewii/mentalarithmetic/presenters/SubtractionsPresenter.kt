@@ -26,10 +26,6 @@ class SubtractionsPresenter @Inject constructor(private val sharedPreferences: S
     val operationList: MutableList<Operation> = mutableListOf()
 
 
-    override fun init(saySomething: String): SubtractionsPresenter {
-        Log.d(Const.APP_TAG, "$TAG initiated with '$saySomething'")
-        return this
-    }
 
     override fun attachView(fragment: BaseFragment): SubtractionsPresenter {
         view = fragment
@@ -79,5 +75,15 @@ class SubtractionsPresenter @Inject constructor(private val sharedPreferences: S
 
         view.updateList()
     }
+
+    override fun newGame(): SubtractionsPresenter {
+        // TODO
+        return this
+    }
+
+    override fun saveScore() {
+        // TODO
+    }
+
 
 }
