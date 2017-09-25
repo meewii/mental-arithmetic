@@ -16,6 +16,25 @@
     <!-- Menus -->
     <string name="menu_credits">Credits</string>
     <string name="menu_settings">Settings</string>
+    <string-array name="new_game_menu">
+        <item>new_game</item>
+        <item>scores</item>
+    </string-array>
+    <string-array name="difficulties_menu">
+        <item>Very easy</item>
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+        <item>Very hard</item>
+    </string-array>
+    <string-array name="operation_type_menu">
+        <item>@string/additions</item>
+        <item>@string/subtractions</item>
+        <item>@string/multiplications</item>
+        <item>@string/divisions</item>
+    </string-array>
+
+
 
     <!-- Credits page -->
     <string name="credits_author_title">About me</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.meewii.mentalarithmetic">
+          package="com.meewii.mentalarithmetic">
 
     <application
         android:name=".core.App"
@@ -11,32 +11,37 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.meewii.mentalarithmetic.ui.activities.MainActivity"
+            android:name=".ui.activities.NewGameActivity"
             android:label="@string/activity_main"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name="com.meewii.mentalarithmetic.ui.activities.CreditsActivity"
+            android:name=".ui.activities.MainActivity"
+            android:label="@string/activity_main"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".ui.activities.CreditsActivity"
             android:label="@string/activity_credits"
-            android:parentActivityName="com.meewii.mentalarithmetic.ui.activities.MainActivity"
+            android:parentActivityName=".ui.activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.meewii.mentalarithmetic.ui.activities.MainActivity" />
+                android:value="com.meewii.mentalarithmetic.ui.activities.MainActivity"/>
         </activity>
         <activity
-            android:name="com.meewii.mentalarithmetic.ui.activities.SettingsActivity"
+            android:name=".ui.activities.SettingsActivity"
             android:label="@string/activity_settings"
-            android:parentActivityName="com.meewii.mentalarithmetic.ui.activities.MainActivity"
+            android:parentActivityName=".ui.activities.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.meewii.mentalarithmetic.ui.activities.MainActivity" />
+                android:value="com.meewii.mentalarithmetic.ui.activities.MainActivity"/>
         </activity>
     </application>
 
