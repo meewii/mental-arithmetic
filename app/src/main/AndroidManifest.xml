@@ -21,6 +21,24 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.activities.PickOperationTypeNavActivity"
+            android:label="@string/activity_pick_operation_type"
+            android:parentActivityName=".ui.activities.NewGameActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.NewGameActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.activities.PickDifficultyNavActivity"
+            android:label="@string/activity_pick_difficulty"
+            android:parentActivityName=".ui.activities.PickOperationTypeNavActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.PickOperationTypeNavActivity"/>
+        </activity>
+        <activity
             android:name=".ui.activities.MainActivity"
             android:label="@string/activity_main"
             android:theme="@style/AppTheme.NoActionBar">

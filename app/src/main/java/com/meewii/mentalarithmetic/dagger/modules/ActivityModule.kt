@@ -7,7 +7,7 @@ import dagger.Module
 import dagger.Provides
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.LinearLayout
-import com.meewii.mentalarithmetic.ui.OperationAdapter
+import com.meewii.mentalarithmetic.ui.adapters.OperationAdapter
 
 @Module
 class ActivityModule(private val activity: BaseActivity) {

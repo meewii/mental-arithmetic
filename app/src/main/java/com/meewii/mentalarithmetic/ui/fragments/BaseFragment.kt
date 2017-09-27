@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.meewii.mentalarithmetic.ui.OperationAdapter
+import com.meewii.mentalarithmetic.ui.adapters.OperationAdapter
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.dagger.components.ActivityComponent
 import com.meewii.mentalarithmetic.models.Operation
