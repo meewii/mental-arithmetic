@@ -1,10 +1,10 @@
-package com.meewii.mentalarithmetic.ui.activities
+package com.meewii.mentalarithmetic.ui.nav
 
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import com.meewii.mentalarithmetic.R
-import com.meewii.mentalarithmetic.ui.adapters.NavAdapter
+import com.meewii.mentalarithmetic.ui.BaseActivity
 import kotlinx.android.synthetic.main.activity_nav.*
 import javax.inject.Inject
 

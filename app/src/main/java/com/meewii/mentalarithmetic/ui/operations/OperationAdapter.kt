@@ -1,4 +1,4 @@
-package com.meewii.mentalarithmetic.ui.adapters
+package com.meewii.mentalarithmetic.ui.operations
 
 import android.content.Context
 import android.os.Build

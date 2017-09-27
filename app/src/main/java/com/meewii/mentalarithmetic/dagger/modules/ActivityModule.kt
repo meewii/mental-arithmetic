@@ -2,12 +2,12 @@ package com.meewii.mentalarithmetic.dagger.modules
 
 import android.content.Context
 import com.meewii.mentalarithmetic.dagger.qualifiers.ForActivity
-import com.meewii.mentalarithmetic.ui.activities.BaseActivity
+import com.meewii.mentalarithmetic.ui.BaseActivity
 import dagger.Module
 import dagger.Provides
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.LinearLayout
-import com.meewii.mentalarithmetic.ui.adapters.OperationAdapter
+import com.meewii.mentalarithmetic.ui.operations.OperationAdapter
 
 @Module
 class ActivityModule(private val activity: BaseActivity) {

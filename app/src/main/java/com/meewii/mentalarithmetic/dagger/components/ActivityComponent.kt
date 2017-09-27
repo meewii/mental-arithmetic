@@ -2,17 +2,13 @@ package com.meewii.mentalarithmetic.dagger.components
 
 import com.meewii.mentalarithmetic.dagger.modules.ActivityModule
 import com.meewii.mentalarithmetic.dagger.scopes.ActivityScope
-import com.meewii.mentalarithmetic.ui.activities.BaseNavActivity
-import com.meewii.mentalarithmetic.ui.activities.MainActivity
-import com.meewii.mentalarithmetic.ui.fragments.OperationFragment
+import com.meewii.mentalarithmetic.ui.operations.OperationActivity
+import com.meewii.mentalarithmetic.ui.nav.BaseNavActivity
 import dagger.Subcomponent
 
 @Subcomponent(modules = arrayOf(ActivityModule::class))
 @ActivityScope
 interface ActivityComponent {
-    fun inject(mainActivity: MainActivity)
-
-    fun inject(additionsFragment: OperationFragment)
-
+    fun inject(operationActivity: OperationActivity)
     fun inject(baseNavActivity: BaseNavActivity)
 }

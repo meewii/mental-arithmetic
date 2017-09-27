@@ -1,4 +1,4 @@
-package com.meewii.mentalarithmetic.ui.activities
+package com.meewii.mentalarithmetic.ui.nav
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
-import com.meewii.mentalarithmetic.ui.adapters.NavAdapter
+import com.meewii.mentalarithmetic.ui.activities.CreditsActivity
 
 class HomeActivity : BaseNavActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.meewii.mentalarithmetic.presenters
+package com.meewii.mentalarithmetic.ui.operations
 
 import android.support.design.widget.Snackbar
 import android.text.Editable
@@ -11,18 +11,17 @@ import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.models.Operation
 import com.meewii.mentalarithmetic.models.Operator
 import com.meewii.mentalarithmetic.models.Status
-import com.meewii.mentalarithmetic.ui.fragments.BaseFragment
 import com.meewii.mentalarithmetic.utils.OperandGenerator
-import kotlinx.android.synthetic.main.fragment_operation.*
+import kotlinx.android.synthetic.main.content_operation.*
 import javax.inject.Inject
 
 class OperationPresenter @Inject
 constructor(private val scoreDao: ScoreDao) {
 
-    private val TAG: String = "AdditionsPresenter"
+    private val TAG: String = "OperationPresenter"
 
     private val FAIL_LIMIT: Int = 5
-    private lateinit var view: BaseFragment
+    private lateinit var view: OperationActivity
     private lateinit var score: ScoreEntry
     private lateinit var currentOperation: Operation
     private lateinit var difficulty: Difficulty
@@ -36,8 +35,8 @@ constructor(private val scoreDao: ScoreDao) {
         return this
     }
 
-    fun attachView(fragment: BaseFragment): OperationPresenter {
-        view = fragment
+    fun attachView(activity: OperationActivity): OperationPresenter {
+        view = activity
         return this
     }
 

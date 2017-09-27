@@ -5,7 +5,7 @@ import com.meewii.mentalarithmetic.dagger.components.AppComponent
 import com.meewii.mentalarithmetic.dagger.components.DaggerAppComponent
 import com.meewii.mentalarithmetic.dagger.modules.ActivityModule
 import com.meewii.mentalarithmetic.dagger.modules.AppModule
-import com.meewii.mentalarithmetic.ui.activities.BaseActivity
+import com.meewii.mentalarithmetic.ui.BaseActivity
 
 
 class App : Application() {

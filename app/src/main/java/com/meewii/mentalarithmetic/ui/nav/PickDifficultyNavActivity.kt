@@ -1,11 +1,11 @@
-package com.meewii.mentalarithmetic.ui.activities
+package com.meewii.mentalarithmetic.ui.nav
 
 import android.content.Intent
 import android.os.Bundle
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.models.Difficulty
-import com.meewii.mentalarithmetic.ui.adapters.NavAdapter
+import com.meewii.mentalarithmetic.ui.operations.OperationActivity
 
 class PickDifficultyNavActivity : BaseNavActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,7 @@ class PickDifficultyNavActivity : BaseNavActivity() {
                     }
                 }
 
-                val intent = Intent(this@PickDifficultyNavActivity, MainActivity::class.java)
+                val intent = Intent(this@PickDifficultyNavActivity, OperationActivity::class.java)
                 intent.putExtra(Const.OPERATOR_TYPE_EXTRA, operator)
                 intent.putExtra(Const.DIFFICULTY_EXTRA, difficulty.name)
                 startActivity(intent)

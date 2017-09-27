@@ -1,4 +1,4 @@
-package com.meewii.mentalarithmetic.ui.activities
+package com.meewii.mentalarithmetic.ui
 
 import android.support.v7.app.AppCompatActivity
 import com.meewii.mentalarithmetic.core.App

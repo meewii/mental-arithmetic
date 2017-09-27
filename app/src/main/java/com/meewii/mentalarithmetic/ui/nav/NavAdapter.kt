@@ -1,4 +1,4 @@
-package com.meewii.mentalarithmetic.ui.adapters
+package com.meewii.mentalarithmetic.ui.nav
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

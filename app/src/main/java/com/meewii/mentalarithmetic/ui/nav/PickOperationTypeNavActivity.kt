@@ -1,11 +1,10 @@
-package com.meewii.mentalarithmetic.ui.activities
+package com.meewii.mentalarithmetic.ui.nav
 
 import android.content.Intent
 import android.os.Bundle
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.models.Operator
-import com.meewii.mentalarithmetic.ui.adapters.NavAdapter
 
 class PickOperationTypeNavActivity : BaseNavActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
