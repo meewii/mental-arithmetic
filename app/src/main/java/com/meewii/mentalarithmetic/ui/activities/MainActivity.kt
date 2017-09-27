@@ -1,11 +1,10 @@
 package com.meewii.mentalarithmetic.ui.activities
 
-import android.app.Fragment
 import android.os.Bundle
 import android.util.Log
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
-import com.meewii.mentalarithmetic.ui.fragments.AdditionsFragment
+import com.meewii.mentalarithmetic.ui.fragments.OperationFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -21,13 +20,13 @@ class MainActivity : BaseActivity() {
         val difficulty = intent.extras.getString(Const.DIFFICULTY_EXTRA)
         Log.i("MainActivity", "Operator: $operator - Difficulty: $difficulty")
 
-        selectFragment(AdditionsFragment())
-    }
+        val fragment = OperationFragment()
+        fragment.arguments = intent.extras
 
-    private fun selectFragment(fragment: Fragment) {
-        val fragmentManager = fragmentManager
+        // load fragment
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, fragment)
                 .commit()
     }
+
 }

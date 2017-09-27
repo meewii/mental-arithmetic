@@ -1,19 +1,31 @@
 package com.meewii.mentalarithmetic.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.dagger.components.ActivityComponent
 import com.meewii.mentalarithmetic.presenters.AdditionsPresenter
 import kotlinx.android.synthetic.main.fragment_operation.*
 import javax.inject.Inject
 
-class AdditionsFragment : BaseFragment() {
+
+class OperationFragment : BaseFragment() {
 
     @Inject
     lateinit var presenter: AdditionsPresenter
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val bundle = this.arguments
+        if (bundle != null) {
+            val diff = bundle.getString(Const.DIFFICULTY_EXTRA)
+            val oper = bundle.getString(Const.OPERATOR_TYPE_EXTRA)
+            Log.i("OperationFragment", "Operator: $oper - Difficulty: $diff")
+
+            // pass those values to presenter
+        }
 
         // Init presenter
         presenter
