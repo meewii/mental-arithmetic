@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.activities.NewGameActivity">
+    tools:context=".ui.activities.HomeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +31,6 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
             android:padding="@dimen/spacing_normal"
             />
 

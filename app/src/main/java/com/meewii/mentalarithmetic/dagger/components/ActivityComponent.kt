@@ -5,9 +5,6 @@ import com.meewii.mentalarithmetic.dagger.scopes.ActivityScope
 import com.meewii.mentalarithmetic.ui.activities.BaseNavActivity
 import com.meewii.mentalarithmetic.ui.activities.MainActivity
 import com.meewii.mentalarithmetic.ui.fragments.OperationFragment
-import com.meewii.mentalarithmetic.ui.fragments.DivisionsFragment
-import com.meewii.mentalarithmetic.ui.fragments.MultiplicationsFragment
-import com.meewii.mentalarithmetic.ui.fragments.SubtractionsFragment
 import dagger.Subcomponent
 
 @Subcomponent(modules = arrayOf(ActivityModule::class))
@@ -16,9 +13,6 @@ interface ActivityComponent {
     fun inject(mainActivity: MainActivity)
 
     fun inject(additionsFragment: OperationFragment)
-    fun inject(multiplicationsFragment: MultiplicationsFragment)
-    fun inject(subtractionsFragment: SubtractionsFragment)
-    fun inject(divisionsFragment: DivisionsFragment)
 
     fun inject(baseNavActivity: BaseNavActivity)
 }

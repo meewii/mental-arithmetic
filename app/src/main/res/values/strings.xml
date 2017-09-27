@@ -3,9 +3,10 @@
     <string name="app_description">Keep your brain in shape!</string>
 
     <!-- Activities -->
-    <string name="activity_main">@string/app_name</string>
+    <string name="activity_home">@string/app_name</string>
     <string name="activity_pick_operation_type">Pick an operation type</string>
     <string name="activity_pick_difficulty">Pick a difficulty</string>
+    <string name="activity_main">Play :)</string>
     <string name="activity_credits">Credits</string>
     <string name="activity_settings">Settings</string>
     <!-- Fragments -->
@@ -20,6 +21,7 @@
     <string-array name="new_game_menu">
         <item>New Game</item>
         <item>Scores</item>
+        <item>Credits</item>
     </string-array>
     <string-array name="difficulties_menu">
         <item>Very easy</item>

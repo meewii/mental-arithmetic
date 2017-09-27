@@ -1,5 +1,6 @@
 package com.meewii.mentalarithmetic.ui.fragments
 
+import android.app.Activity
 import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.meewii.mentalarithmetic.ui.adapters.OperationAdapter
+import android.view.inputmethod.InputMethodManager
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.dagger.components.ActivityComponent
 import com.meewii.mentalarithmetic.models.Operation
@@ -25,7 +27,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if(context is BaseActivity) {
+        if (context is BaseActivity) {
             inject(context.activityComponent)
         } else {
             throw Exception("Context is not BaseActivity")
@@ -46,6 +48,12 @@ abstract class BaseFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
     }
 
+    fun showSoftKeyboard() {
+        val inputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        solutionInput.requestFocus()
+        inputMethodManager.showSoftInput(solutionInput, 0)
+    }
+
     /**
      * Display current formula in the view
      */
@@ -64,7 +72,17 @@ abstract class BaseFragment : Fragment() {
      * Sets the input to an empty string
      * and generates a new formula
      */
-    abstract fun resetCalculator()
+    open fun newOperation() {
+        solutionInput.setText("")
+        inputContainer.visibility = View.VISIBLE
+    }
+
+    /**
+     * Display information to end the game
+     */
+    open fun disableGame() {
+        inputContainer.visibility = View.INVISIBLE
+    }
 
     /**
      * Update the RecyclerView with new data

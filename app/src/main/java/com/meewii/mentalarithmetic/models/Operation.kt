@@ -2,7 +2,7 @@ package com.meewii.mentalarithmetic.models
 
 import com.meewii.mentalarithmetic.models.Operator.*
 
-data class Operation (
+data class Operation(
         private val operator: Operator,
         private val operandA: Int,
         private val operandB: Int,
@@ -14,13 +14,7 @@ data class Operation (
     /**
      * Calculates its own solution according of its operands and its operator
      */
-    val solution: Int
-        get() = when(this.operator) {
-            ADDITION -> this.operandA + this.operandB
-            SUBTRACTION -> this.operandA - this.operandB
-            MULTIPLICATION -> this.operandA * this.operandB
-            DIVISION -> this.operandA / this.operandB
-        }
+    val solution: Int = generateSolution()
 
     /**
      * Returns a string of the full formula + its solution
@@ -39,6 +33,16 @@ data class Operation (
      * E.g. "12 + 5"
      */
     fun getFormula(): String = "$operandA ${operator.sign} $operandB"
+
+    /**
+     * Returns the solution
+     */
+    private fun generateSolution(): Int = when (this.operator) {
+        ADDITION -> this.operandA + this.operandB
+        SUBTRACTION -> this.operandA - this.operandB
+        MULTIPLICATION -> this.operandA * this.operandB
+        DIVISION -> this.operandA / this.operandB
+    }
 
 }
 

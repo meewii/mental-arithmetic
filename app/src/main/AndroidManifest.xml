@@ -10,9 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
-            android:name=".ui.activities.NewGameActivity"
-            android:label="@string/activity_main"
+            android:name=".ui.activities.HomeActivity"
+            android:label="@string/activity_home"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -20,15 +21,17 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.activities.PickOperationTypeNavActivity"
             android:label="@string/activity_pick_operation_type"
-            android:parentActivityName=".ui.activities.NewGameActivity"
+            android:parentActivityName=".ui.activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activities.NewGameActivity"/>
+                android:value=".ui.activities.HomeActivity"/>
         </activity>
+
         <activity
             android:name=".ui.activities.PickDifficultyNavActivity"
             android:label="@string/activity_pick_difficulty"
@@ -38,29 +41,37 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activities.PickOperationTypeNavActivity"/>
         </activity>
+
         <activity
             android:name=".ui.activities.MainActivity"
             android:label="@string/activity_main"
+            android:parentActivityName=".ui.activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.HomeActivity"/>
         </activity>
+
         <activity
             android:name=".ui.activities.CreditsActivity"
             android:label="@string/activity_credits"
-            android:parentActivityName=".ui.activities.MainActivity"
+            android:parentActivityName=".ui.activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.meewii.mentalarithmetic.ui.activities.MainActivity"/>
+                android:value=".ui.activities.HomeActivity"/>
         </activity>
+
         <activity
             android:name=".ui.activities.SettingsActivity"
             android:label="@string/activity_settings"
-            android:parentActivityName=".ui.activities.MainActivity"
+            android:parentActivityName=".ui.activities.HomeActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.meewii.mentalarithmetic.ui.activities.MainActivity"/>
+                android:value=".ui.activities.HomeActivity"/>
         </activity>
+
     </application>
 
 </manifest>

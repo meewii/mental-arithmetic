@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.View
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.dagger.components.ActivityComponent
-import com.meewii.mentalarithmetic.presenters.AdditionsPresenter
+import com.meewii.mentalarithmetic.models.Difficulty
+import com.meewii.mentalarithmetic.models.Operator
+import com.meewii.mentalarithmetic.presenters.OperationPresenter
 import kotlinx.android.synthetic.main.fragment_operation.*
 import javax.inject.Inject
 
@@ -13,7 +15,10 @@ import javax.inject.Inject
 class OperationFragment : BaseFragment() {
 
     @Inject
-    lateinit var presenter: AdditionsPresenter
+    lateinit var presenter: OperationPresenter
+
+    lateinit var difficulty: Difficulty
+    lateinit var operator: Operator
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -23,15 +28,19 @@ class OperationFragment : BaseFragment() {
             val diff = bundle.getString(Const.DIFFICULTY_EXTRA)
             val oper = bundle.getString(Const.OPERATOR_TYPE_EXTRA)
             Log.i("OperationFragment", "Operator: $oper - Difficulty: $diff")
+            difficulty = Difficulty.valueOf(diff)
+            operator = Operator.valueOf(oper)
+            Log.i("OperationFragment", "Operator: $operator - Difficulty: $difficulty")
 
-            // pass those values to presenter
+        } else {
+            throw NullPointerException("No arguments were find.")
         }
 
         // Init presenter
         presenter
-                .init("Hello I'm injected with Dagger")
+                .init(difficulty, operator)
                 .attachView(this)
-                .generateOperation()
+                .newGame()
 
         // set up list
         setUpAdapter(presenter.operationList)
@@ -46,8 +55,8 @@ class OperationFragment : BaseFragment() {
         component.inject(this)
     }
 
-    override fun resetCalculator() {
-        solutionInput.setText("")
+    override fun newOperation() {
+        super.newOperation()
         presenter.generateOperation()
     }
 
@@ -56,8 +65,5 @@ class OperationFragment : BaseFragment() {
 
         val pos: Int = presenter.operationList.size
         recyclerView.scrollToPosition(pos - 1)
-
-        // reset current operation
-        resetCalculator()
     }
 }
