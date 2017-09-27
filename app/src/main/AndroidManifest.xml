@@ -72,6 +72,16 @@
                 android:value=".ui.nav.HomeActivity"/>
         </activity>
 
+        <activity
+            android:name=".ui.score.ScoreActivity"
+            android:label="@string/activity_score"
+            android:parentActivityName=".ui.nav.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.nav.HomeActivity"/>
+        </activity>
+
     </application>
 
 </manifest>

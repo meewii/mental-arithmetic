@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.ui.activities.CreditsActivity
+import com.meewii.mentalarithmetic.ui.score.ScoreActivity
 
 class HomeActivity : BaseNavActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,9 +23,8 @@ class HomeActivity : BaseNavActivity() {
                         startActivity(intent)
                     }
                     item.contentEquals(navItems[1]) -> {
-                        Log.d(Const.APP_TAG, "Selected ${navItems[1]}")
-//                        val intent = Intent(this, ScoreActivity::class.java)
-//                        startActivity(intent)
+                        val intent = Intent(this@HomeActivity, ScoreActivity::class.java)
+                        startActivity(intent)
                     }
                     item.contentEquals(navItems[2]) -> {
                         val intent = Intent(this@HomeActivity, CreditsActivity::class.java)
