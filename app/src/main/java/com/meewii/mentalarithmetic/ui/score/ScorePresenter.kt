@@ -14,6 +14,6 @@ constructor(private val scoreDao: ScoreDao) {
         return this
     }
 
-    fun getScores(): List<ScoreEntry> = scoreDao.getAll()
+    fun getScores(): List<ScoreEntry> = scoreDao.getAllOrderByPointsDesc()
 
 }

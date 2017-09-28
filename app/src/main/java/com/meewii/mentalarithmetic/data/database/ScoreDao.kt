@@ -8,22 +8,24 @@ import android.arch.persistence.room.Query
 @Dao
 interface ScoreDao {
 
-  @Query("SELECT * FROM score ORDER BY id DESC LIMIT 1")
-  fun getLast(): ScoreEntry
+    @Query("SELECT * FROM scores ORDER BY id DESC LIMIT 1")
+    fun getLast(): ScoreEntry
 
-  @Query("SELECT * FROM score ORDER BY points DESC LIMIT 1")
-  fun getHighest(): ScoreEntry
+    @Query("SELECT * FROM scores ORDER BY points DESC LIMIT 1")
+    fun getHighest(): ScoreEntry
 
-  @Query("SELECT * FROM score")
-  fun getAll(): List<ScoreEntry>
+    @Query("SELECT * FROM scores")
+    fun getAll(): List<ScoreEntry>
 
+    @Query("SELECT * FROM scores ORDER BY points DESC")
+    fun getAllOrderByPointsDesc(): List<ScoreEntry>
 
-  @Insert
-  fun insert(score: ScoreEntry)
+    @Insert
+    fun insert(score: ScoreEntry)
 
-  @Insert
-  fun insert(scores: List<ScoreEntry>)
+    @Insert
+    fun insert(scores: List<ScoreEntry>)
 
-  @Delete
-  fun delete(score: ScoreEntry)
+    @Delete
+    fun delete(score: ScoreEntry)
 }

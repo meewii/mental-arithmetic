@@ -27,10 +27,18 @@ class ScoreAdapter(private val scoreList: List<ScoreEntry>, private val listener
     override fun getItemCount(): Int = scoreList.size
 
     class ScoreViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        private val points = view.points!!
+        private val pointsField = view.points_field!!
+        private val idField = view.id_field!!
+        private val difficultyField = view.difficulty_field!!
+        private val operatorField = view.operator_field!!
+        private val userField = view.user_field!!
 
         fun bind(score: ScoreEntry, listener: OnItemClickListener) {
-            this.points.text = score.points.toString()
+            this.pointsField.text = score.points.toString()
+            this.idField.text = score.id.toString()
+            this.difficultyField.text = score.difficulty.displayName
+            this.operatorField.text = score.operator.displayName
+            this.userField.text = score.user_id.toString()
             view.setOnClickListener({
                 listener.onItemClick(score)
             })

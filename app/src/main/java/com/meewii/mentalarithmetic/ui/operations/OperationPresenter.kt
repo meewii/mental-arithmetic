@@ -42,7 +42,7 @@ constructor(private val scoreDao: ScoreDao) {
 
     fun newGame(): OperationPresenter {
         // init score
-        score = ScoreEntry(difficulty.toString())
+        score = ScoreEntry(operator = operator, difficulty = difficulty, created_at = System.currentTimeMillis(), user_id = 1)
         // start new list
         operationList.clear()
         view.updateList()
@@ -113,6 +113,9 @@ constructor(private val scoreDao: ScoreDao) {
     }
 
     private fun saveScore() {
+        // save the duration
+        // TODO: timer system
+        score.updated_at = System.currentTimeMillis()
         scoreDao.insert(score)
     }
 }

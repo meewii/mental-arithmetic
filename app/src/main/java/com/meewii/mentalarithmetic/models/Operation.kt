@@ -46,11 +46,11 @@ data class Operation(
 
 }
 
-enum class Operator(val sign: String) {
-    ADDITION("+"),
-    SUBTRACTION("-"),
-    MULTIPLICATION("*"),
-    DIVISION("/")
+enum class Operator(val sign: String, val displayName: String) {
+    ADDITION("+", "Addition"),
+    SUBTRACTION("-", "Subtraction"),
+    MULTIPLICATION("*", "Multiplication"),
+    DIVISION("/", "Division")
 }
 
 enum class Status {
@@ -59,10 +59,10 @@ enum class Status {
     FAIL
 }
 
-enum class Difficulty {
-    VERY_EASY,
-    EASY,
-    MEDIUM,
-    HARD,
-    VERY_HARD
+enum class Difficulty(val displayName: String) {
+    VERY_EASY("Very easy"),
+    EASY("Easy"),
+    MEDIUM("Medium"),
+    HARD("Hard"),
+    VERY_HARD("Very hard")
 }
