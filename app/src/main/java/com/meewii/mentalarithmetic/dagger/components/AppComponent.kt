@@ -1,14 +1,17 @@
 package com.meewii.mentalarithmetic.dagger.components
 
 import com.meewii.mentalarithmetic.core.App
-import com.meewii.mentalarithmetic.dagger.modules.ActivityModule
 import com.meewii.mentalarithmetic.dagger.modules.AppModule
 import dagger.Component
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(AppModule::class))
-interface AppComponent {
-    fun inject(application: App)
-    fun plusActivity(activityModule: ActivityModule): ActivityComponent
+@Component(modules = arrayOf(AndroidSupportInjectionModule::class, AppModule::class))
+interface AppComponent : AndroidInjector<App> {
+
+    @Component.Builder
+    abstract class Builder : AndroidInjector.Builder<App>()
+
 }

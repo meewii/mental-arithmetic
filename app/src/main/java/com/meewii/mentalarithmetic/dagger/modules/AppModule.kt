@@ -1,41 +1,47 @@
 package com.meewii.mentalarithmetic.dagger.modules
 
 import android.app.Application
-import android.arch.persistence.room.Room
-import android.content.Context
-import android.content.SharedPreferences
-import android.preference.PreferenceManager
-import com.meewii.mentalarithmetic.dagger.qualifiers.ForApplication
-import com.meewii.mentalarithmetic.data.database.AppDatabase
-import com.meewii.mentalarithmetic.data.database.ScoreDao
+import android.arch.lifecycle.ViewModelProvider
+import com.meewii.mentalarithmetic.core.App
+import com.meewii.mentalarithmetic.dagger.components.ViewModelComponent
+import com.meewii.mentalarithmetic.dagger.scopes.ActivityScope
+import com.meewii.mentalarithmetic.ui.game.GameActivity
+import com.meewii.mentalarithmetic.ui.game.ViewModelFactory
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.android.AndroidInjectionModule
+import dagger.android.ContributesAndroidInjector
 import javax.inject.Singleton
 
 
-@Module
-class AppModule(private val application: Application) {
+@Module(includes = arrayOf(AndroidInjectionModule::class),
+        subcomponents = arrayOf(ViewModelComponent::class))
+abstract class AppModule {
 
-    @Provides
-    @Singleton
-    @ForApplication
-    fun provideContext(): Context = application
+    @Module
+    companion object {
+        @Singleton
+        @Provides
+        @JvmStatic
+        fun provideViewModelFactory(viewModelComponent: ViewModelComponent.Builder): ViewModelProvider.Factory = ViewModelFactory(viewModelComponent.build())
+    }
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideSharedPreferences(@ForApplication context: Context): SharedPreferences =
-            PreferenceManager.getDefaultSharedPreferences(context)
+    abstract fun application(app: App): Application
+//
+//    @ForApplication
+//    fun provideContext(app: App): Context = app
+//
+//
+//    @ActivityScope
+//    @ContributesAndroidInjector()
+//    internal abstract fun gameActivity(): GameActivity
 
-    @Provides
-    @Singleton
-    fun provideDatabase(@ForApplication context: Context): AppDatabase =
-          Room
-          .databaseBuilder(context, AppDatabase::class.java, "MentalArithmetic.db")
-          .allowMainThreadQueries()
-          .build()
+    @ActivityScope
+    @ContributesAndroidInjector(modules = arrayOf())/* modules to install into the subcomponent */
+    internal abstract fun contributeGameActivityInjector(): GameActivity
 
-    @Provides
-    @Singleton
-    fun provideScoreDao(database: AppDatabase): ScoreDao = database.scoreDao()
 
 }

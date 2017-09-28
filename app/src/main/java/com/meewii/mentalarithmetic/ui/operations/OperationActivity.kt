@@ -35,8 +35,6 @@ class OperationActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        activityComponent.inject(this)
-
         val operator = intent.extras.getString(Const.OPERATOR_TYPE_EXTRA)
         val difficulty = intent.extras.getString(Const.DIFFICULTY_EXTRA)
         this.operator = Operator.valueOf(operator)

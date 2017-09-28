@@ -13,9 +13,8 @@ import com.meewii.mentalarithmetic.models.Operator
 import com.meewii.mentalarithmetic.models.Status
 import com.meewii.mentalarithmetic.utils.OperandGenerator
 import kotlinx.android.synthetic.main.content_operation.*
-import javax.inject.Inject
 
-class OperationPresenter @Inject
+class OperationPresenter
 constructor(private val scoreDao: ScoreDao) {
 
     private val TAG: String = "OperationPresenter"

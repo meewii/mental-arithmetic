@@ -1,6 +1,5 @@
 package com.meewii.mentalarithmetic.ui.score
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -86,14 +85,14 @@ class ScoreActivity : BaseActivity() {
         @Inject
         lateinit var presenter: ScorePresenter
 
-        override fun onAttach(context: Context?) {
-            super.onAttach(context)
-            if (context is BaseActivity) {
-                context.activityComponent.inject(this@ScoreFragment)
-            } else {
-                throw Exception("Context is not BaseActivity")
-            }
-        }
+//        override fun onAttach(context: Context?) {
+//            super.onAttach(context)
+//            if (context is BaseActivity) {
+//                context.activityComponent.inject(this@ScoreFragment)
+//            } else {
+//                throw Exception("Context is not BaseActivity")
+//            }
+//        }
 
         override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? =

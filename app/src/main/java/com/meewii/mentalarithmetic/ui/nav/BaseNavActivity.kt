@@ -25,9 +25,6 @@ open class BaseNavActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // di
-        activityComponent.inject(this)
-
         recyclerView.adapter = NavAdapter(navItems, listener)
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.layoutManager = layoutManager

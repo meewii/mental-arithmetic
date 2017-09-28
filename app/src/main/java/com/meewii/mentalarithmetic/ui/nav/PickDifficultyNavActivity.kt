@@ -36,7 +36,5 @@ class PickDifficultyNavActivity : BaseNavActivity() {
         }
 
         super.onCreate(savedInstanceState)
-
-        activityComponent.inject(this)
     }
 }
