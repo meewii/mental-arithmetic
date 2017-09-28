@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
+import com.meewii.mentalarithmetic.models.Difficulty
 
 @Dao
 interface ScoreDao {
@@ -19,6 +20,9 @@ interface ScoreDao {
 
     @Query("SELECT * FROM scores ORDER BY points DESC")
     fun getAllOrderByPointsDesc(): List<ScoreEntry>
+
+    @Query("SELECT * FROM scores WHERE difficulty = :difficulty ORDER BY points DESC")
+    fun getAllWithDifficulty(difficulty: Difficulty): List<ScoreEntry>
 
     @Insert
     fun insert(score: ScoreEntry)

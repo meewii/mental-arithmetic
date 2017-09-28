@@ -13,4 +13,5 @@ interface ActivityComponent {
     fun inject(operationActivity: OperationActivity)
     fun inject(baseNavActivity: BaseNavActivity)
     fun inject(scoreActivity: ScoreActivity) {}
+    fun inject(scoreFragment: ScoreActivity.ScoreFragment) {}
 }
