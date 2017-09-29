@@ -59,9 +59,9 @@ class GameController @Inject constructor(sharedPreferences: SharedPreferences) {
 //    }
 //
 //
-//    fun onSubmitSolution(submittedSolution: Editable) {
+//    fun submitSolution(submittedSolution: Editable) {
 //        val userInputStr: String = submittedSolution.toString().trim()
-//        Log.d(Const.APP_TAG, "[$TAG#onSubmitSolution] userInputStr: $userInputStr")
+//        Log.d(Const.APP_TAG, "[#onSubmitSolution] userInputStr: $userInputStr")
 //
 //        // display a warning if the solution input is empty on submit
 //        if (userInputStr.isEmpty()) {
