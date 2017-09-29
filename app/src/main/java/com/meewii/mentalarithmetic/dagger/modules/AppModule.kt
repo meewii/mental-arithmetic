@@ -30,18 +30,9 @@ abstract class AppModule {
     @Binds
     @Singleton
     abstract fun application(app: App): Application
-//
-//    @ForApplication
-//    fun provideContext(app: App): Context = app
-//
-//
-//    @ActivityScope
-//    @ContributesAndroidInjector()
-//    internal abstract fun gameActivity(): GameActivity
 
     @ActivityScope
     @ContributesAndroidInjector(modules = arrayOf())/* modules to install into the subcomponent */
     internal abstract fun contributeGameActivityInjector(): GameActivity
-
 
 }
