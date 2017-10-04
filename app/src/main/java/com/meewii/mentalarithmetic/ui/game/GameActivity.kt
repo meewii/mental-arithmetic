@@ -95,6 +95,20 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
             }
         })
 
+        // Observe the state of the EditText
+        gameViewModel.liveEditTextState.observe(this, Observer<GameViewModel.State> {
+            state ->
+            when(state) {
+                GameViewModel.State.ERROR_EMPTY -> {
+                    solutionInput.error = getString(R.string.error_input_required)
+                }
+                GameViewModel.State.ERROR_NAN -> {
+                    solutionInput.error = getString(R.string.error_input_nan)
+                }
+                else -> {}
+            }
+        })
+
     }
 
     /**

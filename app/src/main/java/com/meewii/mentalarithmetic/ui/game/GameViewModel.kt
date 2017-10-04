@@ -39,16 +39,29 @@ class GameViewModel @Inject constructor(
         return currentOperation
     }
 
+
+
+    // the State of EditText
+    var liveEditTextState: MutableLiveData<State> = MutableLiveData()
+    init {
+        liveEditTextState.value = State.PRISTINE
+    }
+
+
     /**
      * Check submitted solution and update current operation with status SUCCESS or FAILED
      * depending of the solution
      */
     fun submitSolution(submittedSolution: Editable) {
         val userInputStr: String = submittedSolution.toString().trim()
-        Log.d(Const.APP_TAG, "[GameViewModel#submitSolution] userInputStr: $userInputStr")
 
-        // TODO: add a state livedata to change state of edittext with observer
+        // Check if the submitted solution is not an empty string
+        if(userInputStr.isEmpty()) {
+            liveEditTextState.value = State.ERROR_EMPTY
+            return
+        }
 
+        // Stop process if current operation is null
         if(currentOperation.value == null) {
             Log.e(Const.APP_TAG, "[GameViewModel#submitSolution] currentOperation.value is null")
             return
@@ -56,8 +69,14 @@ class GameViewModel @Inject constructor(
 
         // Copy current operation
         val currentOperationCopy: Operation = currentOperation.value!!
+
         // Parse submitted solution to integer
-        currentOperationCopy.userSolution = Integer.valueOf(userInputStr)
+        try {
+            currentOperationCopy.userSolution = Integer.valueOf(userInputStr)
+        } catch (e: NumberFormatException) {
+            liveEditTextState.value = State.ERROR_NAN
+            return
+        }
 
         // check if it's the correct solution
         if (currentOperationCopy.userSolution == currentOperationCopy.solution) {
@@ -77,6 +96,10 @@ class GameViewModel @Inject constructor(
     fun updateList() {
         gameRepository.addOperationToList(currentOperation.value!!)
         liveOperationList = loadOperationList()
+    }
+
+    enum class State {
+        PRISTINE, ERROR_EMPTY, ERROR_NAN
     }
 
 }

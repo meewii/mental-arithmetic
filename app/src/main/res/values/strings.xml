@@ -52,4 +52,6 @@
     <string name="multiplications">Multiplications</string>
     <string name="divisions">Divisions</string>
     <string name="activity_score">Liederboard</string>
+    <string name="error_input_required">Required!</string>
+    <string name="error_input_nan">Not a number!</string>
 </resources>
