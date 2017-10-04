@@ -1,6 +1,7 @@
 package com.meewii.mentalarithmetic.ui.game
 
 import android.app.Application
+import android.content.SharedPreferences
 import android.util.Log
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.data.database.ScoreDao
@@ -13,13 +14,22 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GameRepository @Inject constructor(val application: Application, private val scoreDao: ScoreDao) {
+class GameRepository @Inject constructor(
+        val application: Application,
+        sharedPreferences: SharedPreferences,
+        private val scoreDao: ScoreDao) {
 
     private val operationList: ArrayList<Operation> = arrayListOf()
 
-    // TODO: get real values for Operator and Difficulty
-    private val operator = Operator.ADDITION
-    private val difficulty = Difficulty.EASY
+    val operator: Operator
+    val difficulty: Difficulty
+    init {
+        val op = sharedPreferences.getString(Const.OPERATOR_TYPE_EXTRA, Operator.ADDITION.toString())
+        val di = sharedPreferences.getString(Const.DIFFICULTY_EXTRA, Difficulty.EASY.toString())
+        Log.d(Const.APP_TAG, "operator: $op - difficulty: $di")
+        operator = Operator.valueOf(op)
+        difficulty = Difficulty.valueOf(di)
+    }
 
     fun generateOperation(): Operation {
         val operands: IntArray = OperandGenerator.getOperands(operator, difficulty)

@@ -12,20 +12,18 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
+import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.models.Operation
+import com.meewii.mentalarithmetic.models.Operator
 import com.meewii.mentalarithmetic.models.Status
 import com.meewii.mentalarithmetic.ui.BaseActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.content_game.*
-import javax.inject.Inject
 
 class GameActivity : BaseActivity(R.layout.activity_game) {
 
     private val gameViewModel by lazy { getViewModel(GameViewModel::class.java) as GameViewModel }
-
-    @Inject
-    lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var operationAdapter: PastOperationsAdapter
 
