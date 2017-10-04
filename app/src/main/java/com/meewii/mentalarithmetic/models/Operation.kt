@@ -44,6 +44,15 @@ data class Operation(
         DIVISION -> this.operandA / this.operandB
     }
 
+    override fun toString(): String =
+            "Operation: ${getFullOperation()} ${getStatusString()}"
+
+    private fun getStatusString(): String =
+        when(status) {
+            Status.UNCHECKED -> "- $status"
+            else -> "- user solution: $userSolution - $status"
+        }
+
 }
 
 enum class Operator(val sign: String, val displayName: String) {
