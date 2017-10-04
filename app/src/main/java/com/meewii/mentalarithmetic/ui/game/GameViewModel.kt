@@ -12,24 +12,37 @@ import javax.inject.Inject
 class GameViewModel @Inject constructor(
         private val gameRepository: GameRepository) : ViewModel() {
 
-    private val TAG: String = "GameViewModel"
+    // the list of past operations
+    var liveOperationList: MutableLiveData<ArrayList<Operation>> = MutableLiveData()
+    init {
+        liveOperationList = loadOperationList()
+    }
+
+    // Loader
+    private fun loadOperationList(): MutableLiveData<ArrayList<Operation>> {
+        liveOperationList.value = gameRepository.getOperationList()
+        Log.d(Const.APP_TAG, "[GameViewModel#loadOperationList] liveOperationList.value: ${liveOperationList.value}")
+        return liveOperationList
+    }
+
+
 
     // The operation that the user has to currently solve
-    val currentOperation = MutableLiveData<Operation>()
-    // the list of past operations
-    val operationList = MutableLiveData<ArrayList<Operation>>()
+    var currentOperation: MutableLiveData<Operation> = MutableLiveData()
+    init {
+        currentOperation = loadOperation()
+    }
 
+    // Loader
     fun loadOperation(): MutableLiveData<Operation> {
         currentOperation.value = gameRepository.generateOperation()
         return currentOperation
     }
 
-    fun loadOperationList(): MutableLiveData<ArrayList<Operation>> {
-        operationList.value = gameRepository.generateOperationList()
-        return operationList
-    }
-
-
+    /**
+     * Check submitted solution and update current operation with status SUCCESS or FAILED
+     * depending of the solution
+     */
     fun submitSolution(submittedSolution: Editable) {
         val userInputStr: String = submittedSolution.toString().trim()
         Log.d(Const.APP_TAG, "[GameViewModel#submitSolution] userInputStr: $userInputStr")
@@ -41,29 +54,29 @@ class GameViewModel @Inject constructor(
             return
         }
 
-        // Parse to integer
-        currentOperation.value?.userSolution = Integer.valueOf(userInputStr)
+        // Copy current operation
+        val currentOperationCopy: Operation = currentOperation.value!!
+        // Parse submitted solution to integer
+        currentOperationCopy.userSolution = Integer.valueOf(userInputStr)
 
         // check if it's the correct solution
-        if (currentOperation.value?.userSolution == currentOperation.value?.solution) {
-            currentOperation.value?.status = Status.SUCCESS
+        if (currentOperationCopy.userSolution == currentOperationCopy.solution) {
+            currentOperationCopy.status = Status.SUCCESS
 //            score.succeededOp += 1
         } else {
-            currentOperation.value?.status = Status.FAIL
+            currentOperationCopy.status = Status.FAIL
 //            score.failedOp += 1
         }
 
-//        // add submitted answer to the list
-//        Log.d(Const.APP_TAG, "[GameViewModel#submitSolution] " +
-//                "currentOperation: ${currentOperation.value?.getFullUserOperation()} " +
-//                "and status: ${currentOperation.value?.status}")
+        currentOperation.value = currentOperationCopy
+    }
 
-        val myList: ArrayList<Operation>? = operationList.value
-        Log.d(Const.APP_TAG, "[GameViewModel#submitSolution] 1 operationList.value: ${operationList.value?.size}")
-        myList?.add(currentOperation.value!!)
-        Log.d(Const.APP_TAG, "[GameViewModel#submitSolution] 2 operationList.value: ${operationList.value?.size}")
-        operationList.value = myList
-        Log.d(Const.APP_TAG, "[GameViewModel#submitSolution] 3 operationList.value: ${operationList.value?.size}")
+    /**
+     * Add current operation to the list of operation
+     */
+    fun updateList() {
+        gameRepository.addOperationToList(currentOperation.value!!)
+        liveOperationList = loadOperationList()
     }
 
 }

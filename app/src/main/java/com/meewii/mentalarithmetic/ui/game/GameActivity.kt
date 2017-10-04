@@ -8,9 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
-import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.models.Operation
-import com.meewii.mentalarithmetic.models.Operator
 import com.meewii.mentalarithmetic.models.Status
 import com.meewii.mentalarithmetic.ui.BaseActivity
 import dagger.android.AndroidInjection
@@ -34,49 +32,16 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Dummy
-        val editor = sharedPreferences.edit()
-        editor.putString(Const.DIFFICULTY_EXTRA, Difficulty.HARD.toString())
-        editor.putString(Const.OPERATOR_TYPE_EXTRA, Operator.SUBTRACTION.toString())
-        editor.apply()
-
-        // Observe current Operation
-        gameViewModel.loadOperation().observe(this, Observer<Operation> { operation ->
-            when (operation?.status) {
-                Status.UNCHECKED -> {
-                    Log.d(Const.APP_TAG, "[GameActivity#loadOperation().observe] UNCHECKED: $operation")
-                    currentFormulaView.text = operation.getFormula()
-                }
-                Status.SUCCESS -> {
-                    // TODO: 1- add operation to list
-                    // 2- generate new operation
-                    // 3- update score
-//                    Log.d(Const.APP_TAG, "[GameActivity#loadOperation().observe] SUCCESS: $operation")
-                }
-                Status.FAIL->{
-                    // TODO: 1- add operation to list
-                    // 2- generate new operation
-                    // 3- update fail limit
-//                    Log.d(Const.APP_TAG, "[GameActivity#loadOperation().observe] FAIL: $operation")
-                }
-            }
-        })
-
-        // Observe the list of Operations
-        gameViewModel.loadOperationList().observe(this, Observer<ArrayList<Operation>> { operationList ->
-            Log.w(Const.APP_TAG, "[GameActivity#loadOperationList().observe] : $operationList")
-            if(operationList != null) {
-                operationAdapter.updateData(operationList)
-            }
-        })
-
         // Set up list view with the empty operation list
-        setUpAdapter(gameViewModel.operationList)
+        setUpAdapter(gameViewModel.liveOperationList)
 
+        observeLiveData()
     }
 
     override fun onStart() {
         super.onStart()
+
+        // Click listener on the button that submits the user's solution
         submitButton.setOnClickListener {
             gameViewModel.submitSolution(solutionInput.text)
         }
@@ -90,6 +55,55 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
         operationAdapter = PastOperationsAdapter(applicationContext, operationList.value)
         recyclerView.adapter = operationAdapter
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
+    }
+
+    private fun observeLiveData() {
+
+        // Observe current Operation
+        gameViewModel.currentOperation.observe(this, Observer<Operation> { operation ->
+            when (operation?.status) {
+                Status.UNCHECKED -> {
+                    Log.d(Const.APP_TAG, "[GameActivity#observeLiveData()] UNCHECKED: $operation")
+                    currentFormulaView.text = operation.getFormula()
+                }
+                Status.SUCCESS -> {
+                    Log.i(Const.APP_TAG, "[GameActivity#observeLiveData()] SUCCESS: $operation")
+                    // add operation to list
+                    gameViewModel.updateList()
+
+                    refreshView()
+                    // TODO: update score
+                }
+                Status.FAIL->{
+                    Log.e(Const.APP_TAG, "[GameActivity#observeLiveData()] FAIL: $operation")
+                    // add operation to list
+                    gameViewModel.updateList()
+
+                    refreshView()
+                    // TODO: update fail limit
+                }
+            }
+        })
+
+        // Observe the list of Operations
+        gameViewModel.liveOperationList.observe(this, Observer<ArrayList<Operation>> { operationList ->
+            Log.d(Const.APP_TAG, "[GameActivity#observeLiveData()] liveOperationList: $operationList")
+            if(operationList != null) {
+                operationAdapter.notifyDataSetChanged()
+                val pos: Int = operationList.size
+                recyclerView.scrollToPosition(pos - 1)
+            }
+        })
+
+    }
+
+    /**
+     * Update the list with new data and display a new formula
+     */
+    private fun refreshView() {
+        // generate new operation
+        solutionInput.setText("")
+        gameViewModel.loadOperation()
     }
 
 }

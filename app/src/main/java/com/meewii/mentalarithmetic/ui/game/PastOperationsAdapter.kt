@@ -57,9 +57,4 @@ class PastOperationsAdapter(private val context: Context, private val operations
         val pastFormula = view.pastFormula!!
     }
 
-    fun updateData(operationList: ArrayList<Operation>) {
-        operations?.addAll(operationList)
-        notifyDataSetChanged()
-    }
-
 }
