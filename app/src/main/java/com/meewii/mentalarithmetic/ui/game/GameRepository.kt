@@ -23,7 +23,6 @@ class GameRepository @Inject constructor(val application: Application, private v
 
     fun generateOperation(): Operation {
         val operands: IntArray = OperandGenerator.getOperands(operator, difficulty)
-        Log.i(Const.APP_TAG, "[GameValidator#generateOperation] operands: ${operands[0]} | ${operands[1]}")
         return Operation(Operator.ADDITION, operands[0], operands[1])
     }
 
@@ -36,19 +35,14 @@ class GameRepository @Inject constructor(val application: Application, private v
 
 
     fun newOperationList(): ArrayList<Operation> {
-        Log.d(Const.APP_TAG, "[GameRepository#newOperationList] operationList.size: ${operationList.size}")
         operationList.clear()
         return operationList
     }
 
-    fun getOperationList(): ArrayList<Operation> {
-        Log.d(Const.APP_TAG, "[GameRepository#getOperationList] operationList.size: ${operationList.size}")
-        return operationList
-    }
+    fun getOperationList(): ArrayList<Operation> = operationList
 
     fun addOperationToList(operation: Operation) {
         operationList.add(operation)
-        Log.d(Const.APP_TAG, "[GameRepository#addOperationToList] operationList.size: ${operationList.size}")
     }
 
     fun saveScore(score: ScoreEntry) {
