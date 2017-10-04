@@ -85,7 +85,7 @@ class GameViewModel @Inject constructor(
 
         // Copy current operation and score
         val currentOperation: Operation = liveCurrentOperation.value!!
-        val currentScore: ScoreEntry = liveScore.value!!
+        var currentScore: ScoreEntry = liveScore.value!!
 
         // Parse submitted solution to integer
         try {
@@ -95,26 +95,17 @@ class GameViewModel @Inject constructor(
             return
         }
 
-        // check if it's the correct solution
-        if (currentOperation.userSolution == currentOperation.solution) {
-            currentOperation.status = Status.SUCCESS
+        currentOperation.status = validateSubmittedSolution(currentOperation)
 
-            currentScore.succeededOp += 1
-        } else {
-            currentOperation.status = Status.FAIL
-            currentScore.failedOp += 1
-        }
+        currentScore = updateScore(currentOperation, currentScore)
 
-        // if the gamer failed n times, the game ends
-        if (currentScore.failedOp >= FAIL_LIMIT) {
+        if(isGameOver(currentScore)) {
             // save the duration
             currentScore.updated_at = System.currentTimeMillis()
             gameRepository.saveScore(currentScore)
 
             liveGameState.value = GameState.OVER
-
         } else {
-            // continue game
             liveGameState.value = GameState.ONGOING
         }
 
@@ -123,7 +114,35 @@ class GameViewModel @Inject constructor(
         liveCurrentOperation.value = currentOperation
     }
 
+    /**
+     * Checks if the submitted solution is the correct one
+     */
+    private fun validateSubmittedSolution(currentOperation: Operation): Status {
+        return if (currentOperation.userSolution == currentOperation.solution) {
+            Status.SUCCESS
+        } else {
+            Status.FAIL
+        }
+    }
 
+    /**
+     * Increment score's succeeded and failed operation according to Status
+     */
+    private fun updateScore(operation: Operation, currentScore: ScoreEntry): ScoreEntry {
+        if (operation.status == Status.SUCCESS) {
+            currentScore.succeededOp += 1
+        } else {
+            currentScore.failedOp += 1
+        }
+        return currentScore
+    }
+
+    private fun isGameOver(currentScore: ScoreEntry): Boolean =
+            currentScore.failedOp >= FAIL_LIMIT
+
+    /**
+     * Reset all live data
+     */
     fun newGame() {
         liveGameState.value = GameState.NEW
         liveOperationList.value = gameRepository.newOperationList()
