@@ -77,7 +77,6 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
                     gameViewModel.updateList()
 
                     refreshView()
-                    // TODO: update score
                 }
                 Status.FAIL->{
                     Log.e(Const.APP_TAG, "[GameActivity#observeLiveData()] FAIL: $operation")
@@ -85,14 +84,12 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
                     gameViewModel.updateList()
 
                     refreshView()
-                    // TODO: update fail limit
                 }
             }
         })
 
         // Observe the list of Operations
         gameViewModel.liveOperationList.observe(this, Observer<ArrayList<Operation>> { operationList ->
-            Log.d(Const.APP_TAG, "[GameActivity#observeLiveData()] liveOperationList: $operationList")
             refreshList()
         })
 
@@ -115,6 +112,7 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
             state ->
             when(state) {
                 GameViewModel.GameState.OVER -> {
+                    hideSoftKeyboard()
                     inputContainer.visibility = View.INVISIBLE
                     val gameOverBar = Snackbar
                             .make(container, "Game over! Points: ${gameViewModel.liveScore.value?.points}", Snackbar.LENGTH_INDEFINITE)
@@ -125,6 +123,7 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
                 }
                 GameViewModel.GameState.NEW -> {
                     inputContainer.visibility = View.VISIBLE
+                    showSoftKeyboard()
                 }
                 else -> {}
             }
@@ -149,6 +148,10 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
         gameViewModel.loadOperation()
     }
 
+    private fun hideSoftKeyboard() {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+    }
 
     private fun showSoftKeyboard() {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
