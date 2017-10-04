@@ -1,11 +1,15 @@
 package com.meewii.mentalarithmetic.ui.game
 
+import android.app.Activity
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.models.Operation
@@ -35,6 +39,7 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
         // Set up list view with the empty operation list
         setUpAdapter(gameViewModel.liveOperationList)
 
+        showSoftKeyboard()
         observeLiveData()
     }
 
@@ -60,7 +65,7 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
     private fun observeLiveData() {
 
         // Observe current Operation
-        gameViewModel.currentOperation.observe(this, Observer<Operation> { operation ->
+        gameViewModel.liveCurrentOperation.observe(this, Observer<Operation> { operation ->
             when (operation?.status) {
                 Status.UNCHECKED -> {
                     Log.d(Const.APP_TAG, "[GameActivity#observeLiveData()] UNCHECKED: $operation")
@@ -88,22 +93,35 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
         // Observe the list of Operations
         gameViewModel.liveOperationList.observe(this, Observer<ArrayList<Operation>> { operationList ->
             Log.d(Const.APP_TAG, "[GameActivity#observeLiveData()] liveOperationList: $operationList")
-            if(operationList != null) {
-                operationAdapter.notifyDataSetChanged()
-                val pos: Int = operationList.size
-                recyclerView.scrollToPosition(pos - 1)
-            }
+            refreshList()
         })
 
         // Observe the state of the EditText
-        gameViewModel.liveEditTextState.observe(this, Observer<GameViewModel.State> {
+        gameViewModel.liveEditTextState.observe(this, Observer<GameViewModel.EditTextState> {
             state ->
             when(state) {
-                GameViewModel.State.ERROR_EMPTY -> {
+                GameViewModel.EditTextState.ERROR_EMPTY -> {
                     solutionInput.error = getString(R.string.error_input_required)
                 }
-                GameViewModel.State.ERROR_NAN -> {
+                GameViewModel.EditTextState.ERROR_NAN -> {
                     solutionInput.error = getString(R.string.error_input_nan)
+                }
+                else -> {}
+            }
+        })
+
+        // Observe the state of the Game
+        gameViewModel.liveGameState.observe(this, Observer<GameViewModel.GameState> {
+            state ->
+            when(state) {
+                GameViewModel.GameState.OVER -> {
+                    inputContainer.visibility = View.INVISIBLE
+                    val gameOverBar = Snackbar
+                            .make(container, "Game over! Points: ${gameViewModel.liveScore.value?.points}", Snackbar.LENGTH_INDEFINITE)
+//                            .setAction("New game?") {
+//                                newGame()
+//                            }
+                    gameOverBar.show()
                 }
                 else -> {}
             }
@@ -112,12 +130,27 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
     }
 
     /**
-     * Update the list with new data and display a new formula
+     * Update the list with new data
+     */
+    private fun refreshList() {
+        operationAdapter.notifyDataSetChanged()
+        val pos: Int = operationAdapter.getItemCount()
+        recyclerView.scrollToPosition(pos - 1)
+    }
+
+    /**
+     * Generate new operation and empty the input field
      */
     private fun refreshView() {
-        // generate new operation
         solutionInput.setText("")
         gameViewModel.loadOperation()
+    }
+
+
+    private fun showSoftKeyboard() {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        solutionInput.requestFocus()
+        inputMethodManager.showSoftInput(solutionInput, 0)
     }
 
 }
