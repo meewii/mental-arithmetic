@@ -123,6 +123,15 @@ class GameViewModel @Inject constructor(
         liveCurrentOperation.value = currentOperation
     }
 
+
+    fun newGame() {
+        liveGameState.value = GameState.NEW
+        liveOperationList.value = gameRepository.newOperationList()
+        liveScore.value = gameRepository.generateScore()
+        liveCurrentOperation.value = gameRepository.generateOperation()
+        liveEditTextState.value = EditTextState.PRISTINE
+    }
+
     /**
      * Add current operation to the list of operation
      */

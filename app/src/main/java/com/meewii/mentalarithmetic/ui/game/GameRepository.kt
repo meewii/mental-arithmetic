@@ -27,7 +27,7 @@ class GameRepository @Inject constructor(val application: Application, private v
         return Operation(Operator.ADDITION, operands[0], operands[1])
     }
 
-    fun generateScore(): ScoreEntry =// TODO: get real values for Operator and Difficulty
+    fun generateScore(): ScoreEntry =
             ScoreEntry(
                     operator = operator,
                     difficulty = difficulty,
@@ -35,6 +35,11 @@ class GameRepository @Inject constructor(val application: Application, private v
                     user_id = 1)
 
 
+    fun newOperationList(): ArrayList<Operation> {
+        Log.d(Const.APP_TAG, "[GameRepository#newOperationList] operationList.size: ${operationList.size}")
+        operationList.clear()
+        return operationList
+    }
 
     fun getOperationList(): ArrayList<Operation> {
         Log.d(Const.APP_TAG, "[GameRepository#getOperationList] operationList.size: ${operationList.size}")

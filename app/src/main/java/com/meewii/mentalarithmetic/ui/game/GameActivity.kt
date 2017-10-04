@@ -118,10 +118,13 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
                     inputContainer.visibility = View.INVISIBLE
                     val gameOverBar = Snackbar
                             .make(container, "Game over! Points: ${gameViewModel.liveScore.value?.points}", Snackbar.LENGTH_INDEFINITE)
-//                            .setAction("New game?") {
-//                                newGame()
-//                            }
+                            .setAction("New game?") {
+                                gameViewModel.newGame()
+                            }
                     gameOverBar.show()
+                }
+                GameViewModel.GameState.NEW -> {
+                    inputContainer.visibility = View.VISIBLE
                 }
                 else -> {}
             }
@@ -134,7 +137,7 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
      */
     private fun refreshList() {
         operationAdapter.notifyDataSetChanged()
-        val pos: Int = operationAdapter.getItemCount()
+        val pos: Int = operationAdapter.itemCount
         recyclerView.scrollToPosition(pos - 1)
     }
 
