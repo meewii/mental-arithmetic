@@ -59,4 +59,7 @@ class GameRepository @Inject constructor(
         scoreDao.insert(score)
     }
 
+    fun getScores(difficulty: Difficulty): List<ScoreEntry>? =
+            scoreDao.getAllWithDifficulty(difficulty)
+
 }

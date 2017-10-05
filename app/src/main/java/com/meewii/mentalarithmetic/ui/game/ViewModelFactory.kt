@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.support.v4.util.ArrayMap
 import com.meewii.mentalarithmetic.dagger.components.ViewModelComponent
+import com.meewii.mentalarithmetic.ui.score.ScoreViewModel
 import kotlin.reflect.KFunction
 
 @Suppress("UNCHECKED_CAST")
@@ -12,7 +13,7 @@ class ViewModelFactory constructor(viewModelComponent: ViewModelComponent) : Vie
 
     init {
         creators.put(GameViewModel::class.java, viewModelComponent::gameViewModel)
-        // Put other view model declarations here
+        creators.put(ScoreViewModel::class.java, viewModelComponent::scoreViewModel)
     }
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

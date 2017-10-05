@@ -1,5 +1,6 @@
 package com.meewii.mentalarithmetic.ui.score
 
+import android.arch.lifecycle.LifecycleRegistry
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import com.meewii.mentalarithmetic.R
@@ -8,6 +9,8 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_score.*
 
 class ScoreActivity : BaseActivity() {
+
+    override fun getLifecycle(): LifecycleRegistry = LifecycleRegistry(this@ScoreActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)

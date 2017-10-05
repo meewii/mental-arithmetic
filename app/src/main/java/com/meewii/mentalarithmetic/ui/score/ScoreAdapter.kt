@@ -8,7 +8,7 @@ import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.data.database.ScoreEntry
 import kotlinx.android.synthetic.main.list_item_score.view.*
 
-class ScoreAdapter(private val scoreList: List<ScoreEntry>, private val listener: OnItemClickListener) :
+class ScoreAdapter(private val scoreList: List<ScoreEntry>?, private val listener: OnItemClickListener) :
         RecyclerView.Adapter<ScoreAdapter.ScoreViewHolder>() {
 
     interface OnItemClickListener {
@@ -21,10 +21,14 @@ class ScoreAdapter(private val scoreList: List<ScoreEntry>, private val listener
     }
 
     override fun onBindViewHolder(holder: ScoreViewHolder, position: Int) {
-        holder.bind(scoreList[position], listener)
+        if(scoreList != null)
+            holder.bind(scoreList[position], listener)
     }
 
-    override fun getItemCount(): Int = scoreList.size
+    override fun getItemCount(): Int = when(scoreList) {
+        null -> 0
+        else -> scoreList.size
+    }
 
     class ScoreViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         private val pointsField = view.points_field!!
