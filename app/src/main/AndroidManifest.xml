@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.nav.HomeActivity"
+            android:name=".ui.nav.HomeNavActivity"
             android:label="@string/activity_home"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -25,11 +25,11 @@
         <activity
             android:name=".ui.nav.PickOperatorNavActivity"
             android:label="@string/activity_pick_operation_type"
-            android:parentActivityName=".ui.nav.HomeActivity"
+            android:parentActivityName=".ui.nav.HomeNavActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.nav.HomeActivity"/>
+                android:value=".ui.nav.HomeNavActivity"/>
         </activity>
 
         <activity
@@ -45,31 +45,31 @@
         <activity
             android:name=".ui.game.GameActivity"
             android:label="@string/activity_game"
-            android:parentActivityName=".ui.nav.HomeActivity"
+            android:parentActivityName=".ui.nav.HomeNavActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.nav.HomeActivity"/>
+                android:value=".ui.nav.HomeNavActivity"/>
         </activity>
 
         <activity
             android:name=".ui.activities.CreditsActivity"
             android:label="@string/activity_credits"
-            android:parentActivityName=".ui.nav.HomeActivity"
+            android:parentActivityName=".ui.nav.HomeNavActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.nav.HomeActivity"/>
+                android:value=".ui.nav.HomeNavActivity"/>
         </activity>
 
         <activity
             android:name=".ui.score.ScoreActivity"
             android:label="@string/activity_score"
-            android:parentActivityName=".ui.nav.HomeActivity"
+            android:parentActivityName=".ui.nav.HomeNavActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.nav.HomeActivity"/>
+                android:value=".ui.nav.HomeNavActivity"/>
         </activity>
 
     </application>

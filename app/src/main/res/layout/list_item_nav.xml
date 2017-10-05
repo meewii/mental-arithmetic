@@ -3,19 +3,31 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_margin="10dp"
     android:padding="10dp"
-    android:background="@color/blue_grey_200"
+    android:background="@drawable/nav_button_bg"
+    android:elevation="2dp"
     >
 
     <TextView
         android:id="@+id/navItem"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textColor="@color/grey_900"
+        android:textColor="@color/grey_700"
         android:textSize="20sp"
+        android:paddingEnd="34dp"
+        android:paddingStart="5dp"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/ic_keyboard_arrow_right_24dp"
         />
 
 </RelativeLayout>

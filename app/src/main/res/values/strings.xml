@@ -6,8 +6,7 @@
     <string name="activity_home">@string/app_name</string>
     <string name="activity_pick_operation_type">Pick an operation type</string>
     <string name="activity_pick_difficulty">Pick a difficulty</string>
-    <string name="activity_main">Play :)</string>
-    <string name="activity_game">Play Yay :)</string>
+    <string name="activity_game">Play :)</string>
     <string name="activity_credits">Credits</string>
     <!-- Fragments -->
     <string name="fragment_additions">@string/additions</string>
