@@ -17,6 +17,7 @@ import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.data.database.ScoreEntry
 import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.ui.BaseActivity
+import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class ScoreActivity : BaseActivity() {
@@ -37,6 +38,7 @@ class ScoreActivity : BaseActivity() {
     private var mViewPager: ViewPager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_score)
 

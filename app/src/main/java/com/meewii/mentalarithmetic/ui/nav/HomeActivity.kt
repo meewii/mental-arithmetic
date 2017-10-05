@@ -8,9 +8,11 @@ import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.ui.activities.CreditsActivity
 import com.meewii.mentalarithmetic.ui.score.ScoreActivity
+import dagger.android.AndroidInjection
 
 class HomeActivity : BaseNavActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         navItems = resources.getStringArray(R.array.new_game_menu)
 
         listener = object : NavAdapter.OnItemClickListener {

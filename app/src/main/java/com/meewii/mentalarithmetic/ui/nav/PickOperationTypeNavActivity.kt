@@ -5,9 +5,11 @@ import android.os.Bundle
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.models.Operator
+import dagger.android.AndroidInjection
 
 class PickOperationTypeNavActivity : BaseNavActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         navItems = resources.getStringArray(R.array.operation_type_menu)
 
         listener = object : NavAdapter.OnItemClickListener {

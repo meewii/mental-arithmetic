@@ -5,10 +5,12 @@ import android.os.Bundle
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.models.Difficulty
-import com.meewii.mentalarithmetic.ui.operations.OperationActivity
+import com.meewii.mentalarithmetic.ui.game.GameActivity
+import dagger.android.AndroidInjection
 
 class PickDifficultyNavActivity : BaseNavActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
 
         val operator = intent.extras.getString(Const.OPERATOR_TYPE_EXTRA)
 
@@ -28,7 +30,7 @@ class PickDifficultyNavActivity : BaseNavActivity() {
                     }
                 }
 
-                val intent = Intent(this@PickDifficultyNavActivity, OperationActivity::class.java)
+                val intent = Intent(this@PickDifficultyNavActivity, GameActivity::class.java)
                 intent.putExtra(Const.OPERATOR_TYPE_EXTRA, operator)
                 intent.putExtra(Const.DIFFICULTY_EXTRA, difficulty.name)
                 startActivity(intent)

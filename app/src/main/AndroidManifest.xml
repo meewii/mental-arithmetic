@@ -15,7 +15,11 @@
             android:name=".ui.nav.HomeActivity"
             android:label="@string/activity_home"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
 
         <activity
@@ -39,14 +43,24 @@
         </activity>
 
         <activity
-            android:name=".ui.operations.OperationActivity"
-            android:label="@string/activity_main"
+            android:name=".ui.game.GameActivity"
+            android:label="@string/activity_game"
             android:parentActivityName=".ui.nav.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.nav.HomeActivity"/>
         </activity>
+
+        <!--<activity-->
+            <!--android:name=".ui.operations.OperationActivity"-->
+            <!--android:label="@string/activity_main"-->
+            <!--android:parentActivityName=".ui.nav.HomeActivity"-->
+            <!--android:theme="@style/AppTheme.NoActionBar">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value=".ui.nav.HomeActivity"/>-->
+        <!--</activity>-->
 
         <activity
             android:name=".ui.activities.CreditsActivity"
@@ -68,16 +82,6 @@
                 android:value=".ui.nav.HomeActivity"/>
         </activity>
 
-        <activity
-            android:name=".ui.game.GameActivity"
-            android:label="@string/activity_game"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
