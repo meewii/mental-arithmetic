@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name=".ui.nav.PickOperationTypeNavActivity"
+            android:name=".ui.nav.PickOperatorNavActivity"
             android:label="@string/activity_pick_operation_type"
             android:parentActivityName=".ui.nav.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -35,11 +35,11 @@
         <activity
             android:name=".ui.nav.PickDifficultyNavActivity"
             android:label="@string/activity_pick_difficulty"
-            android:parentActivityName=".ui.nav.PickOperationTypeNavActivity"
+            android:parentActivityName=".ui.nav.PickOperatorNavActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.nav.PickOperationTypeNavActivity"/>
+                android:value=".ui.nav.PickOperatorNavActivity"/>
         </activity>
 
         <activity

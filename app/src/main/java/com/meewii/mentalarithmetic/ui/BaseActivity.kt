@@ -23,8 +23,4 @@ abstract class BaseActivity(@LayoutRes private val layoutRes: Int = -1): AppComp
 
     protected fun <T : ViewModel> getViewModel(clazz: Class<T>): ViewModel = ViewModelProviders.of(this, viewModelFactory).get(clazz)
 
-//    protected fun <T> observeLiveData(data: LiveData<T>, action: (T?) -> Unit) {
-//        data.observe(this, Observer<T>(action))
-//    }
-
 }

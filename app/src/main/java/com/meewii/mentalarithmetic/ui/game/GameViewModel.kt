@@ -2,16 +2,32 @@ package com.meewii.mentalarithmetic.ui.game
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.content.SharedPreferences
 import android.text.Editable
 import android.util.Log
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.data.database.ScoreEntry
+import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.models.Operation
+import com.meewii.mentalarithmetic.models.Operator
 import com.meewii.mentalarithmetic.models.Status
 import javax.inject.Inject
 
 class GameViewModel @Inject constructor(
-        private val gameRepository: GameRepository) : ViewModel() {
+        private val gameRepository: GameRepository,
+        sharedPreferences: SharedPreferences ) : ViewModel() {
+
+
+    private val operator: Operator
+    private val difficulty: Difficulty
+    init {
+        val op = sharedPreferences.getString(Const.OPERATOR_TYPE_EXTRA, Operator.ADDITION.toString())
+        val di = sharedPreferences.getString(Const.DIFFICULTY_EXTRA, Difficulty.EASY.toString())
+        operator = Operator.valueOf(op)
+        difficulty = Difficulty.valueOf(di)
+    }
+
+
 
     // the list of past operations
     var liveOperationList: MutableLiveData<ArrayList<Operation>> = MutableLiveData()
@@ -34,7 +50,8 @@ class GameViewModel @Inject constructor(
     }
     // Loader
     fun loadOperation(): MutableLiveData<Operation> {
-        liveCurrentOperation.value = gameRepository.generateOperation()
+        liveCurrentOperation.value = gameRepository.generateOperation(operator, difficulty)
+        Log.v(Const.APP_TAG, "[GameViewModel#loadOperation] ${liveCurrentOperation.value}")
         return liveCurrentOperation
     }
 
@@ -54,11 +71,14 @@ class GameViewModel @Inject constructor(
     }
 
 
-    private val FAIL_LIMIT: Int = 5
+    companion object {
+        // the game will stop after this number of fails
+        const val FAIL_LIMIT: Int = 5
+    }
     // the Score of the User
     var liveScore: MutableLiveData<ScoreEntry> = MutableLiveData()
     init {
-        liveScore.value = gameRepository.generateScore()
+        liveScore.value = gameRepository.generateScore(operator, difficulty)
     }
 
 
@@ -117,13 +137,12 @@ class GameViewModel @Inject constructor(
     /**
      * Checks if the submitted solution is the correct one
      */
-    private fun validateSubmittedSolution(currentOperation: Operation): Status {
-        return if (currentOperation.userSolution == currentOperation.solution) {
-            Status.SUCCESS
-        } else {
-            Status.FAIL
-        }
-    }
+    private fun validateSubmittedSolution(currentOperation: Operation): Status =
+            if (currentOperation.userSolution == currentOperation.solution) {
+                Status.SUCCESS
+            } else {
+                Status.FAIL
+            }
 
     /**
      * Increment score's succeeded and failed operation according to Status
@@ -146,8 +165,8 @@ class GameViewModel @Inject constructor(
     fun newGame() {
         liveGameState.value = GameState.NEW
         liveOperationList.value = gameRepository.newOperationList()
-        liveScore.value = gameRepository.generateScore()
-        liveCurrentOperation.value = gameRepository.generateOperation()
+        liveScore.value = gameRepository.generateScore(operator, difficulty)
+        liveCurrentOperation.value = gameRepository.generateOperation(operator, difficulty)
         liveEditTextState.value = EditTextState.PRISTINE
     }
 

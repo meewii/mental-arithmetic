@@ -20,8 +20,9 @@ import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.content_game.*
 
 class GameActivity : BaseActivity(R.layout.activity_game) {
-    
-    override fun getLifecycle(): LifecycleRegistry = LifecycleRegistry(this@GameActivity)
+
+    private val registry = LifecycleRegistry(this)
+    override fun getLifecycle(): LifecycleRegistry = registry
 
     private val gameViewModel by lazy { getViewModel(GameViewModel::class.java) as GameViewModel }
 
@@ -49,7 +50,6 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
             gameViewModel.submitSolution(solutionInput.text)
         }
     }
-
 
     /**
      * Prepare the RecyclerView to receive the list of Operations

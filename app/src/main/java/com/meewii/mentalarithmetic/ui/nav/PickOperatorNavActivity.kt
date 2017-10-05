@@ -2,16 +2,21 @@ package com.meewii.mentalarithmetic.ui.nav
 
 import android.arch.lifecycle.LifecycleRegistry
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.models.Operator
 import dagger.android.AndroidInjection
+import javax.inject.Inject
 
-class PickOperationTypeNavActivity : BaseNavActivity() {
+class PickOperatorNavActivity : BaseNavActivity() {
 
-    // Make this Activity a LifecycleOwner
-    override fun getLifecycle(): LifecycleRegistry = LifecycleRegistry(this@PickOperationTypeNavActivity)
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
+
+    private val registry = LifecycleRegistry(this)
+    override fun getLifecycle(): LifecycleRegistry = registry
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //DI
@@ -34,8 +39,14 @@ class PickOperationTypeNavActivity : BaseNavActivity() {
                     }
                 }
 
-                val intent = Intent(this@PickOperationTypeNavActivity, PickDifficultyNavActivity::class.java)
-                intent.putExtra(Const.OPERATOR_TYPE_EXTRA, operator.name)
+                // Save user's choice in Preferences
+                sharedPreferences
+                        .edit()
+                        .putString(Const.OPERATOR_TYPE_EXTRA, operator.toString())
+                        .apply()
+
+                // Go to next activity
+                val intent = Intent(this@PickOperatorNavActivity, PickDifficultyNavActivity::class.java)
                 startActivity(intent)
             }
         }

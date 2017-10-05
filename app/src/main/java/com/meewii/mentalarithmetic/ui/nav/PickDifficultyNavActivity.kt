@@ -2,24 +2,26 @@ package com.meewii.mentalarithmetic.ui.nav
 
 import android.arch.lifecycle.LifecycleRegistry
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.ui.game.GameActivity
 import dagger.android.AndroidInjection
+import javax.inject.Inject
 
 class PickDifficultyNavActivity : BaseNavActivity() {
 
-    // Make this Activity a LifecycleOwner
-    override fun getLifecycle(): LifecycleRegistry = LifecycleRegistry(this@PickDifficultyNavActivity)
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
+
+    private val registry = LifecycleRegistry(this)
+    override fun getLifecycle(): LifecycleRegistry = registry
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //DI
         AndroidInjection.inject(this)
-
-        // Get item previously chosen in PickOperationTypeNavActivity
-        val operator = intent.extras.getString(Const.OPERATOR_TYPE_EXTRA)
 
         // Get string array from xml resource file
         navItems = resources.getStringArray(R.array.difficulties_menu)
@@ -39,9 +41,14 @@ class PickDifficultyNavActivity : BaseNavActivity() {
                     }
                 }
 
+                // Save user's choice in Preferences
+                sharedPreferences
+                        .edit()
+                        .putString(Const.DIFFICULTY_EXTRA, difficulty.toString())
+                        .apply()
+
+                // Go to next activity
                 val intent = Intent(this@PickDifficultyNavActivity, GameActivity::class.java)
-                intent.putExtra(Const.OPERATOR_TYPE_EXTRA, operator)
-                intent.putExtra(Const.DIFFICULTY_EXTRA, difficulty.name)
                 startActivity(intent)
             }
         }

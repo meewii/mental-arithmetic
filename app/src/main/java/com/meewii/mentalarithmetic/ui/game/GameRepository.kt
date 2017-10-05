@@ -1,9 +1,6 @@
 package com.meewii.mentalarithmetic.ui.game
 
 import android.app.Application
-import android.content.SharedPreferences
-import android.util.Log
-import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.data.database.ScoreDao
 import com.meewii.mentalarithmetic.data.database.ScoreEntry
 import com.meewii.mentalarithmetic.models.Difficulty
@@ -16,27 +13,16 @@ import javax.inject.Singleton
 @Singleton
 class GameRepository @Inject constructor(
         val application: Application,
-        sharedPreferences: SharedPreferences,
         private val scoreDao: ScoreDao) {
 
     private val operationList: ArrayList<Operation> = arrayListOf()
 
-    val operator: Operator
-    val difficulty: Difficulty
-    init {
-        val op = sharedPreferences.getString(Const.OPERATOR_TYPE_EXTRA, Operator.ADDITION.toString())
-        val di = sharedPreferences.getString(Const.DIFFICULTY_EXTRA, Difficulty.EASY.toString())
-        Log.d(Const.APP_TAG, "operator: $op - difficulty: $di")
-        operator = Operator.valueOf(op)
-        difficulty = Difficulty.valueOf(di)
-    }
-
-    fun generateOperation(): Operation {
+    fun generateOperation(operator: Operator, difficulty: Difficulty): Operation {
         val operands: IntArray = OperandGenerator.getOperands(operator, difficulty)
-        return Operation(Operator.ADDITION, operands[0], operands[1])
+        return Operation(operator, operands[0], operands[1])
     }
 
-    fun generateScore(): ScoreEntry =
+    fun generateScore(operator: Operator, difficulty: Difficulty): ScoreEntry =
             ScoreEntry(
                     operator = operator,
                     difficulty = difficulty,
@@ -55,9 +41,7 @@ class GameRepository @Inject constructor(
         operationList.add(operation)
     }
 
-    fun saveScore(score: ScoreEntry) {
-        scoreDao.insert(score)
-    }
+    fun saveScore(score: ScoreEntry) = scoreDao.insert(score)
 
     fun getScores(difficulty: Difficulty): List<ScoreEntry>? =
             scoreDao.getAllWithDifficulty(difficulty)
