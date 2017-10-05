@@ -52,16 +52,6 @@
                 android:value=".ui.nav.HomeActivity"/>
         </activity>
 
-        <!--<activity-->
-            <!--android:name=".ui.operations.OperationActivity"-->
-            <!--android:label="@string/activity_main"-->
-            <!--android:parentActivityName=".ui.nav.HomeActivity"-->
-            <!--android:theme="@style/AppTheme.NoActionBar">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value=".ui.nav.HomeActivity"/>-->
-        <!--</activity>-->
-
         <activity
             android:name=".ui.activities.CreditsActivity"
             android:label="@string/activity_credits"
