@@ -3,7 +3,6 @@ package com.meewii.mentalarithmetic.ui.game
 import android.app.Activity
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
@@ -12,9 +11,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
-import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.models.Operation
-import com.meewii.mentalarithmetic.models.Operator
 import com.meewii.mentalarithmetic.models.Status
 import com.meewii.mentalarithmetic.ui.BaseActivity
 import dagger.android.AndroidInjection
@@ -88,7 +85,7 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
 
         // Observe the list of Operations
         gameViewModel.liveOperationList.observe(this, Observer<ArrayList<Operation>> { operationList ->
-            refreshList()
+            if(operationList != null) refreshList()
         })
 
         // Observe the state of the EditText
