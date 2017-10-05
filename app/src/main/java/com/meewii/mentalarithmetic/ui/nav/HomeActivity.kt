@@ -1,5 +1,6 @@
 package com.meewii.mentalarithmetic.ui.nav
 
+import android.arch.lifecycle.LifecycleRegistry
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,10 +12,18 @@ import com.meewii.mentalarithmetic.ui.score.ScoreActivity
 import dagger.android.AndroidInjection
 
 class HomeActivity : BaseNavActivity() {
+
+    // Make this Activity a LifecycleOwner
+    override fun getLifecycle(): LifecycleRegistry = LifecycleRegistry(this@HomeActivity)
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        //DI
         AndroidInjection.inject(this)
+
+        // Get string array from xml resource file
         navItems = resources.getStringArray(R.array.new_game_menu)
 
+        // Create click listener specific to this string array
         listener = object : NavAdapter.OnItemClickListener {
             override fun onItemClick(item: String) {
 
@@ -37,8 +46,10 @@ class HomeActivity : BaseNavActivity() {
             }
         }
 
+        // BaseNavActivity.onCreate()
         super.onCreate(savedInstanceState)
 
+        // Do not show back-arraow for this page
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 }

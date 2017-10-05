@@ -1,6 +1,7 @@
 package com.meewii.mentalarithmetic.ui.game
 
 import android.app.Activity
+import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.os.Bundle
@@ -19,6 +20,8 @@ import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.content_game.*
 
 class GameActivity : BaseActivity(R.layout.activity_game) {
+    
+    override fun getLifecycle(): LifecycleRegistry = LifecycleRegistry(this@GameActivity)
 
     private val gameViewModel by lazy { getViewModel(GameViewModel::class.java) as GameViewModel }
 

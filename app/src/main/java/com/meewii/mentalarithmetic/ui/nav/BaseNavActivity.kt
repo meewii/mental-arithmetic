@@ -9,23 +9,21 @@ import com.meewii.mentalarithmetic.ui.BaseActivity
 import kotlinx.android.synthetic.main.activity_nav.*
 
 
-open class BaseNavActivity : BaseActivity() {
+abstract class BaseNavActivity : BaseActivity(R.layout.activity_nav) {
 
     lateinit protected var navItems: Array<String>
     lateinit protected var listener: NavAdapter.OnItemClickListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_nav)
 
         // toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
         recyclerView.adapter = NavAdapter(navItems, listener)
         recyclerView.itemAnimator = DefaultItemAnimator()
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.VERTICAL, false)
     }
 
 }

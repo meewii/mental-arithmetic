@@ -1,5 +1,6 @@
 package com.meewii.mentalarithmetic.ui.nav
 
+import android.arch.lifecycle.LifecycleRegistry
 import android.content.Intent
 import android.os.Bundle
 import com.meewii.mentalarithmetic.R
@@ -9,13 +10,21 @@ import com.meewii.mentalarithmetic.ui.game.GameActivity
 import dagger.android.AndroidInjection
 
 class PickDifficultyNavActivity : BaseNavActivity() {
+
+    // Make this Activity a LifecycleOwner
+    override fun getLifecycle(): LifecycleRegistry = LifecycleRegistry(this@PickDifficultyNavActivity)
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        //DI
         AndroidInjection.inject(this)
 
+        // Get item previously chosen in PickOperationTypeNavActivity
         val operator = intent.extras.getString(Const.OPERATOR_TYPE_EXTRA)
 
+        // Get string array from xml resource file
         navItems = resources.getStringArray(R.array.difficulties_menu)
 
+        // Create click listener specific to this string array
         listener = object : NavAdapter.OnItemClickListener {
             override fun onItemClick(item: String) {
 
