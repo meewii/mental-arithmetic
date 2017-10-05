@@ -8,9 +8,9 @@ import javax.inject.Inject
 class ScorePresenter @Inject
 constructor(private val scoreDao: ScoreDao) {
 
-    private lateinit var view: ScoreActivity.ScoreFragment
+    private lateinit var view: ScoreFragment
 
-    fun attachView(fragment: ScoreActivity.ScoreFragment): ScorePresenter {
+    fun attachView(fragment: ScoreFragment): ScorePresenter {
         view = fragment
         return this
     }

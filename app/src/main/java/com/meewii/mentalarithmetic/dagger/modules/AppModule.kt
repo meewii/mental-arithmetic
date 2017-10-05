@@ -11,6 +11,7 @@ import com.meewii.mentalarithmetic.ui.nav.HomeActivity
 import com.meewii.mentalarithmetic.ui.nav.PickDifficultyNavActivity
 import com.meewii.mentalarithmetic.ui.nav.PickOperationTypeNavActivity
 import com.meewii.mentalarithmetic.ui.score.ScoreActivity
+import com.meewii.mentalarithmetic.ui.score.ScoreFragment
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -58,6 +59,6 @@ abstract class AppModule {
 
     @ActivityScope
     @ContributesAndroidInjector(modules = arrayOf())
-    internal abstract fun contributeScoreFragmentInjector(): ScoreActivity.ScoreFragment
+    internal abstract fun contributeScoreFragmentInjector(): ScoreFragment
 
 }
