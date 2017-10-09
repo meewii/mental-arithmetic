@@ -16,8 +16,8 @@ abstract class BaseGameViewModel constructor(
         sharedPreferences: SharedPreferences): ViewModel() {
 
 
-    protected val operator: Operator
-    protected val difficulty: Difficulty
+    val operator: Operator
+    val difficulty: Difficulty
     init {
         val op = sharedPreferences.getString(Const.OPERATOR_TYPE_EXTRA, Operator.ADDITION.toString())
         val di = sharedPreferences.getString(Const.DIFFICULTY_EXTRA, Difficulty.EASY.toString())

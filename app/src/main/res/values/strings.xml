@@ -4,10 +4,13 @@
 
     <!-- Activities -->
     <string name="activity_home">@string/app_name</string>
+    <string name="activity_score">Liederboard</string>
     <string name="activity_pick_operation_type">Pick an operation type</string>
     <string name="activity_pick_difficulty">Pick a difficulty</string>
-    <string name="activity_game">Play :)</string>
+    <string name="activity_scored_game">Play :)</string>
+    <string name="activity_training_game">Training</string>
     <string name="activity_credits">Credits</string>
+
     <!-- Fragments -->
     <string name="fragment_additions">@string/additions</string>
     <string name="fragment_subtractions">@string/subtractions</string>
@@ -51,10 +54,11 @@
     <string name="subtractions">Subtractions</string>
     <string name="multiplications">Multiplications</string>
     <string name="divisions">Divisions</string>
-    <string name="activity_score">Liederboard</string>
     <string name="error_input_required">Required!</string>
     <string name="error_input_nan">Not a number!</string>
     <string name="cancel">Cancel</string>
     <string name="prompt_quit_game">Are you sure you want to quit the current game?</string>
     <string name="yes">Yes</string>
+    <string name="remaining_lives">remaining lives</string>
+    <string name="points">pts</string>
 </resources>

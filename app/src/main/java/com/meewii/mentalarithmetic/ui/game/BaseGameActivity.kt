@@ -28,7 +28,6 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
         showSoftKeyboard()
     }
 
-
     /**
      * Observe current Operation
      */
@@ -90,6 +89,10 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
      * Prepare the RecyclerView to receive the list of Operations and the button click listener
      */
     protected fun setUpView(baseGameViewModel: BaseGameViewModel) {
+        // Toolbar views
+        titleView.text = "${baseGameViewModel.operator.displayName} - ${baseGameViewModel.difficulty.displayName}"
+        timeView.text = "000"
+
         // Click listener on the button that submits the user's solution
         submitButton.setOnClickListener {
             baseGameViewModel.submitSolution(solutionInput.text)

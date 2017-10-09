@@ -10,8 +10,10 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.view.View
 import com.meewii.mentalarithmetic.R
+import com.meewii.mentalarithmetic.data.database.ScoreEntry
 import com.meewii.mentalarithmetic.ui.nav.HomeNavActivity
 import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.content_game.*
 
 
@@ -26,18 +28,28 @@ class ScoredGameActivity : BaseGameActivity() {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        setUpView(gameViewModel)
+        setUpView()
 
         observeLiveCurrentOperation(gameViewModel)
         observeLiveOperationList(gameViewModel)
         observeLiveEditTextState(gameViewModel)
+        observeLiveGameState()
         observeLiveScore()
     }
 
+    private fun setUpView() {
+        // Toolbar views
+        scoreLayout.visibility = View.VISIBLE
+        scoreView.text = "0 ${getString(R.string.points)}"
+        livesView.text = "5 ${getString(R.string.remaining_lives)}"
+
+        setUpView(gameViewModel)
+    }
+
     /**
-     * Observe the score of the game, specific to ScoredGameViewModel
+     * Observe if the game is ongoing or over, specific to ScoredGameViewModel
      */
-    private fun observeLiveScore() {
+    private fun observeLiveGameState() {
         gameViewModel.liveGameState.observe(this, Observer<ScoredGameViewModel.GameState> { state ->
             when (state) {
                 ScoredGameViewModel.GameState.OVER -> {
@@ -56,6 +68,22 @@ class ScoredGameActivity : BaseGameActivity() {
                 }
                 else -> {
                 }
+            }
+        })
+    }
+
+    /**
+     * Observe the score of the game, specific to ScoredGameViewModel
+     */
+    private fun observeLiveScore() {
+        gameViewModel.liveScore.observe(this, Observer<ScoreEntry> { score ->
+            if(score == null) {
+                scoreView.text = "0 ${getString(R.string.points)}"
+                livesView.text = "5 ${getString(R.string.remaining_lives)}"
+            } else {
+                scoreView.text = score.points.toString()
+                val remainingLives: Int = ScoredGameViewModel.FAIL_LIMIT - score.failedOp
+                livesView.text = "$remainingLives ${getString(R.string.remaining_lives)}"
             }
         })
     }

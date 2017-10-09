@@ -44,7 +44,7 @@
 
         <activity
             android:name=".ui.game.TrainingGameActivity"
-            android:label="@string/activity_game"
+            android:label="@string/activity_training_game"
             android:parentActivityName=".ui.nav.PickDifficultyNavActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -54,7 +54,7 @@
 
         <activity
             android:name=".ui.game.ScoredGameActivity"
-            android:label="@string/activity_game"
+            android:label="@string/activity_scored_game"
             android:parentActivityName=".ui.nav.HomeNavActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
