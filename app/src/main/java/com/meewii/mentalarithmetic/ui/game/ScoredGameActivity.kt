@@ -29,10 +29,12 @@ class ScoredGameActivity : BaseGameActivity() {
         super.onCreate(savedInstanceState)
 
         setUpView()
+        startTimer(gameViewModel)
 
         observeLiveCurrentOperation(gameViewModel)
         observeLiveOperationList(gameViewModel)
         observeLiveEditTextState(gameViewModel)
+        observeLiveGameDuration(gameViewModel)
         observeLiveGameState()
         observeLiveScore()
     }

@@ -18,10 +18,12 @@ class TrainingGameActivity: BaseGameActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setUpView(gameViewModel)
+        startTimer(gameViewModel)
 
         observeLiveCurrentOperation(gameViewModel)
         observeLiveOperationList(gameViewModel)
         observeLiveEditTextState(gameViewModel)
+        observeLiveGameDuration(gameViewModel)
     }
 
 }

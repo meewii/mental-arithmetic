@@ -13,11 +13,15 @@ import com.meewii.mentalarithmetic.ui.BaseActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.content_game.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.concurrent.schedule
 
 
 abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
 
     private lateinit var operationAdapter: PastOperationsAdapter
+    private val timer: Timer = Timer("GameDuration")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -91,7 +95,7 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
     protected fun setUpView(baseGameViewModel: BaseGameViewModel) {
         // Toolbar views
         titleView.text = "${baseGameViewModel.operator.displayName} - ${baseGameViewModel.difficulty.displayName}"
-        timeView.text = "000"
+        timeView.text = getGameDurationString()
 
         // Click listener on the button that submits the user's solution
         submitButton.setOnClickListener {
@@ -103,6 +107,37 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
         recyclerView.adapter = operationAdapter
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
     }
+
+
+    /**
+     * Start the timer that'll count the game duration
+     */
+    protected fun startTimer(baseGameViewModel: BaseGameViewModel) {
+        timer.schedule(delay = 1000, period = 1000) {
+            baseGameViewModel.loadGameDuration()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        timer.cancel()
+    }
+
+    protected fun observeLiveGameDuration(baseGameViewModel: BaseGameViewModel) {
+        baseGameViewModel.liveGameDuration.observe(this, Observer<Long> { duration ->
+            if(duration == null) {
+                Log.w(Const.APP_TAG, "[observeLiveGameDuration] gameDuration is null")
+                timeView.text = getGameDurationString()
+            } else {
+                Log.w(Const.APP_TAG, "[observeLiveGameDuration] $duration")
+                timeView.text = getGameDurationString(duration)
+            }
+        })
+    }
+
+    private fun getGameDurationString(duration: Long = 0): String =
+            SimpleDateFormat("HH:mm:ss", Locale.GERMANY)
+                    .format(duration)
 
     /**
      * Update the list with new data

@@ -15,6 +15,18 @@ abstract class BaseGameViewModel constructor(
         private val gameRepository: GameRepository,
         sharedPreferences: SharedPreferences): ViewModel() {
 
+    // Simple counter in milliseconds of the game duration
+    var liveGameDuration: MutableLiveData<Long> = MutableLiveData()
+    fun loadGameDuration() {
+        var value: Long? = liveGameDuration.value
+        if(value == null) {
+            Log.e(Const.APP_TAG, "gameDuration is null")
+            value = 0
+        }
+        Log.v(Const.APP_TAG, value.toString())
+        liveGameDuration.postValue(value + 1000)
+    }
+
 
     val operator: Operator
     val difficulty: Difficulty
