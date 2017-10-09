@@ -43,7 +43,17 @@
         </activity>
 
         <activity
-            android:name=".ui.game.GameActivity"
+            android:name=".ui.game.TrainingGameActivity"
+            android:label="@string/activity_game"
+            android:parentActivityName=".ui.nav.PickDifficultyNavActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.nav.PickDifficultyNavActivity"/>
+        </activity>
+
+        <activity
+            android:name=".ui.game.ScoredGameActivity"
             android:label="@string/activity_game"
             android:parentActivityName=".ui.nav.HomeNavActivity"
             android:theme="@style/AppTheme.NoActionBar">

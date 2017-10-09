@@ -12,7 +12,8 @@ class ViewModelFactory constructor(viewModelComponent: ViewModelComponent) : Vie
     private var creators: ArrayMap<Class<*>, KFunction<ViewModel>> = ArrayMap()
 
     init {
-        creators.put(GameViewModel::class.java, viewModelComponent::gameViewModel)
+        creators.put(ScoredGameViewModel::class.java, viewModelComponent::scoredGameViewModel)
+        creators.put(TrainingGameViewModel::class.java, viewModelComponent::trainingGameViewModel)
         creators.put(ScoreViewModel::class.java, viewModelComponent::scoreViewModel)
     }
 

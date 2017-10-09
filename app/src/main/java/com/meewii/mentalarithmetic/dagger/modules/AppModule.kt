@@ -5,7 +5,8 @@ import android.arch.lifecycle.ViewModelProvider
 import com.meewii.mentalarithmetic.core.App
 import com.meewii.mentalarithmetic.dagger.components.ViewModelComponent
 import com.meewii.mentalarithmetic.dagger.scopes.ActivityScope
-import com.meewii.mentalarithmetic.ui.game.GameActivity
+import com.meewii.mentalarithmetic.ui.game.ScoredGameActivity
+import com.meewii.mentalarithmetic.ui.game.TrainingGameActivity
 import com.meewii.mentalarithmetic.ui.game.ViewModelFactory
 import com.meewii.mentalarithmetic.ui.nav.HomeNavActivity
 import com.meewii.mentalarithmetic.ui.nav.PickDifficultyNavActivity
@@ -55,7 +56,11 @@ abstract class AppModule {
 
     @ActivityScope
     @ContributesAndroidInjector(modules = arrayOf()) /* modules to install into the subcomponent */
-    internal abstract fun contributeGameActivityInjector(): GameActivity
+    internal abstract fun contributeScoredGameActivityInjector(): ScoredGameActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = arrayOf())
+    internal abstract fun contributeTrainingGameActivityInjector(): TrainingGameActivity
 
     @ActivityScope
     @ContributesAndroidInjector(modules = arrayOf())

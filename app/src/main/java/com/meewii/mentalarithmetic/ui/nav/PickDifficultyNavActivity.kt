@@ -7,7 +7,8 @@ import android.os.Bundle
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.models.Difficulty
-import com.meewii.mentalarithmetic.ui.game.GameActivity
+import com.meewii.mentalarithmetic.ui.game.ScoredGameActivity
+import com.meewii.mentalarithmetic.ui.game.TrainingGameActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -48,11 +49,25 @@ class PickDifficultyNavActivity : BaseNavActivity() {
                         .apply()
 
                 // Go to next activity
-                val intent = Intent(this@PickDifficultyNavActivity, GameActivity::class.java)
-                startActivity(intent)
+                if(isTraining()) {
+                    val intent = Intent(this@PickDifficultyNavActivity, TrainingGameActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(this@PickDifficultyNavActivity, ScoredGameActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
 
         super.onCreate(savedInstanceState)
+    }
+
+    private fun isTraining(): Boolean {
+        val gameType = sharedPreferences.getString(Const.GAME_TYPE_EXTRA, null)
+        return when(gameType) {
+            Const.GAME_TYPE_GAME -> false
+            Const.GAME_TYPE_TRAINING -> true
+            else -> throw NullPointerException()
+        }
     }
 }
