@@ -119,10 +119,8 @@ class GameViewModel @Inject constructor(
 
         currentScore = updateScore(currentOperation, currentScore)
 
-        if(isGameOver(currentScore)) {
-            // save the duration
-            currentScore.updated_at = System.currentTimeMillis()
-            gameRepository.saveScore(currentScore)
+        if(isFailLimitReached(currentScore)) {
+            saveCurrentScore(currentScore)
 
             liveGameState.value = GameState.OVER
         } else {
@@ -133,6 +131,26 @@ class GameViewModel @Inject constructor(
         liveScore.value = currentScore
         liveCurrentOperation.value = currentOperation
     }
+
+    /**
+     * Save the score in database
+     */
+    fun saveCurrentScore(currentScore: ScoreEntry = liveScore.value!!) {
+        currentScore.updated_at = System.currentTimeMillis()
+        gameRepository.saveScore(currentScore)
+    }
+
+    /**
+     * Save the score in database
+     */
+    fun clearGame() {
+        newGame()
+    }
+
+    /**
+     * Save the score in database
+     */
+    fun isGameOver(): Boolean = liveGameState.value == GameState.OVER
 
     /**
      * Checks if the submitted solution is the correct one
@@ -156,7 +174,7 @@ class GameViewModel @Inject constructor(
         return currentScore
     }
 
-    private fun isGameOver(currentScore: ScoreEntry): Boolean =
+    private fun isFailLimitReached(currentScore: ScoreEntry): Boolean =
             currentScore.failedOp >= FAIL_LIMIT
 
     /**

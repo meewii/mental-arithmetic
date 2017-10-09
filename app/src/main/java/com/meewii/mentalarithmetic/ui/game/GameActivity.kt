@@ -4,8 +4,12 @@ import android.app.Activity
 import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
+import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
@@ -15,9 +19,11 @@ import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.models.Operation
 import com.meewii.mentalarithmetic.models.Status
 import com.meewii.mentalarithmetic.ui.BaseActivity
+import com.meewii.mentalarithmetic.ui.nav.HomeNavActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.content_game.*
+
 
 class GameActivity : BaseActivity(R.layout.activity_game) {
 
@@ -76,7 +82,7 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
 
                     refreshView()
                 }
-                Status.FAIL->{
+                Status.FAIL -> {
                     Log.e(Const.APP_TAG, "[GameActivity#observeLiveData()] FAIL: $operation")
                     // add operation to list
                     gameViewModel.updateList()
@@ -88,27 +94,26 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
 
         // Observe the list of Operations
         gameViewModel.liveOperationList.observe(this, Observer<ArrayList<Operation>> { operationList ->
-            if(operationList != null) refreshList()
+            if (operationList != null) refreshList()
         })
 
         // Observe the state of the EditText
-        gameViewModel.liveEditTextState.observe(this, Observer<GameViewModel.EditTextState> {
-            state ->
-            when(state) {
+        gameViewModel.liveEditTextState.observe(this, Observer<GameViewModel.EditTextState> { state ->
+            when (state) {
                 GameViewModel.EditTextState.ERROR_EMPTY -> {
                     solutionInput.error = getString(R.string.error_input_required)
                 }
                 GameViewModel.EditTextState.ERROR_NAN -> {
                     solutionInput.error = getString(R.string.error_input_nan)
                 }
-                else -> {}
+                else -> {
+                }
             }
         })
 
         // Observe the state of the Game
-        gameViewModel.liveGameState.observe(this, Observer<GameViewModel.GameState> {
-            state ->
-            when(state) {
+        gameViewModel.liveGameState.observe(this, Observer<GameViewModel.GameState> { state ->
+            when (state) {
                 GameViewModel.GameState.OVER -> {
                     hideSoftKeyboard()
                     inputContainer.visibility = View.INVISIBLE
@@ -123,7 +128,8 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
                     inputContainer.visibility = View.VISIBLE
                     showSoftKeyboard()
                 }
-                else -> {}
+                else -> {
+                }
             }
         })
 
@@ -157,4 +163,35 @@ class GameActivity : BaseActivity(R.layout.activity_game) {
         inputMethodManager.showSoftInput(solutionInput, 0)
     }
 
+    /**
+     * On back pressed, we check if the game is over, prompt the user if they really want to quit
+     * the game and save its score if he wants to quit
+     */
+    override fun onBackPressed() {
+        if(gameViewModel.isGameOver()) {
+            gameViewModel.clearGame()
+            goToMainPage()
+            return
+        }
+
+        val dialogBuilder = AlertDialog.Builder(this@GameActivity)
+        dialogBuilder.setMessage(R.string.prompt_quit_game)
+                .setPositiveButton(R.string.yes, { dialog, id ->
+                    gameViewModel.saveCurrentScore()
+                    gameViewModel.clearGame()
+                    dialog.dismiss()
+                    goToMainPage()
+                })
+                .setNegativeButton(R.string.cancel, { dialog, id ->
+                    dialog.dismiss()
+                })
+        dialogBuilder.create().show()
+    }
+
+    private fun goToMainPage() {
+        val intent = Intent(this@GameActivity, HomeNavActivity::class.java)
+        // The keyword "or" is a bit confusing but all flags will be used
+        intent.flags = FLAG_ACTIVITY_CLEAR_TOP or FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+    }
 }

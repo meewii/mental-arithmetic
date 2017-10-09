@@ -53,4 +53,7 @@
     <string name="activity_score">Liederboard</string>
     <string name="error_input_required">Required!</string>
     <string name="error_input_nan">Not a number!</string>
+    <string name="cancel">Cancel</string>
+    <string name="prompt_quit_game">Are you sure you want to quit the current game?</string>
+    <string name="yes">Yes</string>
 </resources>
