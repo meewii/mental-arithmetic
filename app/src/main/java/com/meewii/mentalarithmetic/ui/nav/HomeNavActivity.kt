@@ -13,6 +13,8 @@ import com.meewii.mentalarithmetic.ui.activities.CreditsActivity
 import com.meewii.mentalarithmetic.ui.score.ScoreActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
+import net.hockeyapp.android.UpdateManager
+import net.hockeyapp.android.CrashManager
 
 class HomeNavActivity : BaseNavActivity() {
 
@@ -59,5 +61,36 @@ class HomeNavActivity : BaseNavActivity() {
 
         // Do not show back-arrow for this page
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
+        // HockeyApp
+        checkForUpdates()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkForCrashes()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unregisterManagers()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterManagers()
+    }
+
+    private fun checkForCrashes() {
+        CrashManager.register(this)
+    }
+
+    private fun checkForUpdates() {
+        // Remove this for store builds!
+        UpdateManager.register(this)
+    }
+
+    private fun unregisterManagers() {
+        UpdateManager.unregister()
     }
 }
