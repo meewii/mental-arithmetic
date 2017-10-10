@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.view.View
 import com.meewii.mentalarithmetic.R
@@ -65,12 +64,21 @@ class ScoredGameActivity : BaseGameActivity() {
                     // stop timer
                     stopTimer()
                     // display prompt
-                    val gameOverBar = Snackbar
-                            .make(container, "Game over! Points: ${gameViewModel.liveScore.value?.points}", Snackbar.LENGTH_INDEFINITE)
-                            .setAction("New game?") {
+                    val dialogBuilder = AlertDialog.Builder(this@ScoredGameActivity)
+                    dialogBuilder
+                            .setCancelable(false)
+                            .setTitle(R.string.prompt_new_game_title)
+                            .setMessage(R.string.prompt_new_game)
+                            .setPositiveButton(R.string.yes, { dialog, id ->
+                                gameViewModel.newGame()
+                                dialog.dismiss()
+                            })
+                            .setNegativeButton(R.string.quit, { dialog, id ->
                                 gameViewModel.clearGame()
-                            }
-                    gameOverBar.show()
+                                dialog.dismiss()
+                                goToMainPage()
+                            })
+                    dialogBuilder.create().show()
                 }
                 ScoredGameViewModel.GameState.NEW -> {
                     // show inputs

@@ -92,12 +92,21 @@ class ScoredGameViewModel @Inject constructor(
     }
 
     /**
-     * Reset everything
+     * Reset everything with NewGame values
      */
-    fun clearGame() {
+    fun newGame() {
         liveGameState.value = GameState.NEW
         liveScore.value = gameRepository.generateScore(operator, difficulty)
-        resetAllLiveData()
+        renewAllLiveData()
+    }
+
+    /**
+     * Reset everything to null
+     */
+    fun clearGame() {
+        liveGameState.value = null
+        liveScore.value = null
+        clearAllLiveData()
     }
 
     /**

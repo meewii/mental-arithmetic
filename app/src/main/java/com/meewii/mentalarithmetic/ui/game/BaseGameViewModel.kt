@@ -74,11 +74,21 @@ abstract class BaseGameViewModel constructor(
     /**
      * Reset all live data
      */
-    open fun resetAllLiveData() {
+    open fun renewAllLiveData() {
         liveOperationList.value = gameRepository.newOperationList()
         liveCurrentOperation.value = gameRepository.generateOperation(operator, difficulty)
         liveEditTextState.value = EditTextState.PRISTINE
         liveGameDuration.value = 0
+    }
+
+    /**
+     * Reset all live data
+     */
+    open fun clearAllLiveData() {
+        liveOperationList.value = gameRepository.newOperationList()
+        liveCurrentOperation.value = null
+        liveEditTextState.value = null
+        liveGameDuration.value = null
     }
 
     /**

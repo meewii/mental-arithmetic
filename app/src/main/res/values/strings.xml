@@ -10,6 +10,7 @@
     <string name="activity_scored_game">Play :)</string>
     <string name="activity_training_game">Training</string>
     <string name="activity_credits">About this app</string>
+    <string name="activity_stats">Statistics</string>
 
     <!-- Fragments -->
     <string name="fragment_additions">@string/additions</string>
@@ -61,5 +62,7 @@
     <string name="yes">Yes</string>
     <string name="remaining_lives">remaining lives</string>
     <string name="points">pts</string>
-    <string name="activity_stats">Statistics</string>
+    <string name="prompt_new_game_title">Game over!</string>
+    <string name="prompt_new_game">Do you want to start a new game?</string>
+    <string name="quit">Quit</string>
 </resources>
