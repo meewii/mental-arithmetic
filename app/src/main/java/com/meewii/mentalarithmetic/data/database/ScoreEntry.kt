@@ -15,6 +15,7 @@ data class ScoreEntry(
         var points: Int = 0,
         var created_at: Long = 0,
         var updated_at: Long = 0,
+        var duration: Long = 0,
         var user_id: Int = -1 // TODO: the Presenter doesn't provide userId for now
 ) {
 
@@ -37,6 +38,6 @@ data class ScoreEntry(
     override fun toString(): String =
             "#$id - difficulty: $difficulty - operator: $operator - points: $points " +
                     "| success: $succeededOp - fails: $failedOp " +
-                    "| created_at: $created_at - updated_at: $updated_at"
+                    "| created_at: $created_at - updated_at: $updated_at - duration: $duration"
 
 }

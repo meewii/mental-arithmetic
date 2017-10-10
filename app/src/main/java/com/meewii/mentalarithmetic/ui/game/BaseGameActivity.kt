@@ -3,6 +3,7 @@ package com.meewii.mentalarithmetic.ui.game
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.meewii.mentalarithmetic.R
@@ -13,15 +14,15 @@ import com.meewii.mentalarithmetic.ui.BaseActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.content_game.*
-import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.concurrent.schedule
+import java.util.concurrent.TimeUnit
 
 
 abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
 
     private lateinit var operationAdapter: PastOperationsAdapter
-    private val timer: Timer = Timer("GameDuration")
+    private val timerHandler: Handler = Handler()
+    private var timerRunnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -32,6 +33,12 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
         showSoftKeyboard()
     }
 
+    override fun onPause() {
+        super.onPause()
+        stopTimer()
+    }
+
+
     /**
      * Observe current Operation
      */
@@ -39,11 +46,11 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
         baseGameViewModel.liveCurrentOperation.observe(this, Observer<Operation> { operation ->
             when (operation?.status) {
                 Status.UNCHECKED -> {
-                    Log.d(Const.APP_TAG, "[GameActivity#observeLiveData()] UNCHECKED: $operation")
+                    Log.d(Const.APP_TAG, "[GameActivity#observeLiveData()] $operation")
                     currentFormulaView.text = operation.getFormula()
                 }
                 Status.SUCCESS -> {
-                    Log.i(Const.APP_TAG, "[GameActivity#observeLiveData()] SUCCESS: $operation")
+                    Log.i(Const.APP_TAG, "[GameActivity#observeLiveData()] $operation")
                     // add operation to list
                     baseGameViewModel.updateList()
                     baseGameViewModel.loadOperation()
@@ -51,7 +58,7 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
                     refreshView()
                 }
                 Status.FAIL -> {
-                    Log.e(Const.APP_TAG, "[GameActivity#observeLiveData()] FAIL: $operation")
+                    Log.e(Const.APP_TAG, "[GameActivity#observeLiveData()] $operation")
                     // add operation to list
                     baseGameViewModel.updateList()
                     baseGameViewModel.loadOperation()
@@ -90,6 +97,21 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
     }
 
     /**
+     * Observe the duration of the game (is triggered every second)
+     */
+    protected fun observeLiveGameDuration(baseGameViewModel: BaseGameViewModel) {
+        baseGameViewModel.liveGameDuration.observe(this, Observer<Long> { duration ->
+            if(duration == null) {
+                timeView.text = getGameDurationString()
+            } else {
+                timeView.text = getGameDurationString(duration)
+            }
+        })
+    }
+
+
+
+    /**
      * Prepare the RecyclerView to receive the list of Operations and the button click listener
      */
     protected fun setUpView(baseGameViewModel: BaseGameViewModel) {
@@ -113,31 +135,35 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
      * Start the timer that'll count the game duration
      */
     protected fun startTimer(baseGameViewModel: BaseGameViewModel) {
-        timer.schedule(delay = 1000, period = 1000) {
-            baseGameViewModel.loadGameDuration()
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        timer.cancel()
-    }
-
-    protected fun observeLiveGameDuration(baseGameViewModel: BaseGameViewModel) {
-        baseGameViewModel.liveGameDuration.observe(this, Observer<Long> { duration ->
-            if(duration == null) {
-                Log.w(Const.APP_TAG, "[observeLiveGameDuration] gameDuration is null")
-                timeView.text = getGameDurationString()
-            } else {
-                Log.w(Const.APP_TAG, "[observeLiveGameDuration] $duration")
-                timeView.text = getGameDurationString(duration)
+        if(timerRunnable == null) {
+            timerRunnable = object : Runnable {
+                override fun run() {
+                    baseGameViewModel.loadGameDuration()
+                    timerHandler.postDelayed(this, 1000)
+                }
             }
-        })
+        }
+        timerHandler.postDelayed(timerRunnable, 1000)
     }
 
-    private fun getGameDurationString(duration: Long = 0): String =
-            SimpleDateFormat("HH:mm:ss", Locale.GERMANY)
-                    .format(duration)
+    /**
+     * Stop the timer that counts the game duration
+     */
+    protected fun stopTimer() {
+        timerHandler.removeCallbacksAndMessages(null)
+    }
+
+    /**
+     * Utility method to convert a timestamp into a "HH:mm:ss" string
+     */
+    private fun getGameDurationString(duration: Long = 0): String {
+        return String.format(
+                "%02d:%02d:%02d",
+                TimeUnit.MILLISECONDS.toHours(duration),
+                TimeUnit.MILLISECONDS.toMinutes(duration) % TimeUnit.HOURS.toMinutes(1),
+                TimeUnit.MILLISECONDS.toSeconds(duration) % TimeUnit.MINUTES.toSeconds(1)
+        )
+    }
 
     /**
      * Update the list with new data

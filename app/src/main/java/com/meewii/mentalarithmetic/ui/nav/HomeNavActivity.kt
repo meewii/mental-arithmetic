@@ -10,7 +10,7 @@ import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.core.Const.GAME_TYPE_GAME
 import com.meewii.mentalarithmetic.core.Const.GAME_TYPE_TRAINING
 import com.meewii.mentalarithmetic.ui.activities.CreditsActivity
-import com.meewii.mentalarithmetic.ui.score.ScoreActivity
+import com.meewii.mentalarithmetic.ui.stats.StatsActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 import net.hockeyapp.android.UpdateManager
@@ -45,7 +45,7 @@ class HomeNavActivity : BaseNavActivity() {
                     startActivity(intent)
                 }
                 item.contentEquals(navItems[2]) -> {
-                    val intent = Intent(this@HomeNavActivity, ScoreActivity::class.java)
+                    val intent = Intent(this@HomeNavActivity, StatsActivity::class.java)
                     startActivity(intent)
                 }
                 item.contentEquals(navItems[3]) -> {

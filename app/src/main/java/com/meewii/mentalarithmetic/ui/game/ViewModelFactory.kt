@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.support.v4.util.ArrayMap
 import com.meewii.mentalarithmetic.dagger.components.ViewModelComponent
 import com.meewii.mentalarithmetic.ui.score.ScoreViewModel
+import com.meewii.mentalarithmetic.ui.stats.StatsViewModel
 import kotlin.reflect.KFunction
 
 @Suppress("UNCHECKED_CAST")
@@ -15,6 +16,7 @@ class ViewModelFactory constructor(viewModelComponent: ViewModelComponent) : Vie
         creators.put(ScoredGameViewModel::class.java, viewModelComponent::scoredGameViewModel)
         creators.put(TrainingGameViewModel::class.java, viewModelComponent::trainingGameViewModel)
         creators.put(ScoreViewModel::class.java, viewModelComponent::scoreViewModel)
+        creators.put(StatsViewModel::class.java, viewModelComponent::statsViewModel)
     }
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

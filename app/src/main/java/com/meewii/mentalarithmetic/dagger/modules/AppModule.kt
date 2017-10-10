@@ -13,6 +13,8 @@ import com.meewii.mentalarithmetic.ui.nav.PickDifficultyNavActivity
 import com.meewii.mentalarithmetic.ui.nav.PickOperatorNavActivity
 import com.meewii.mentalarithmetic.ui.score.ScoreActivity
 import com.meewii.mentalarithmetic.ui.score.ScoreFragment
+import com.meewii.mentalarithmetic.ui.stats.StatsActivity
+import com.meewii.mentalarithmetic.ui.stats.StatsFragment
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -39,7 +41,7 @@ abstract class AppModule {
     abstract fun application(app: App): Application
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = arrayOf())
+    @ContributesAndroidInjector(modules = arrayOf()) /* modules to install into the subcomponent */
     internal abstract fun contributeHomeActivityInjector(): HomeNavActivity
 
     @ActivityScope
@@ -55,15 +57,24 @@ abstract class AppModule {
     internal abstract fun contributeScoreActivityInjector(): ScoreActivity
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = arrayOf()) /* modules to install into the subcomponent */
+    @ContributesAndroidInjector(modules = arrayOf())
+    internal abstract fun contributeScoreFragmentInjector(): ScoreFragment
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = arrayOf())
+    internal abstract fun contributeStatsActivityInjector(): StatsActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = arrayOf())
+    internal abstract fun contributeStatsFragmentInjector(): StatsFragment
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = arrayOf())
     internal abstract fun contributeScoredGameActivityInjector(): ScoredGameActivity
 
     @ActivityScope
     @ContributesAndroidInjector(modules = arrayOf())
     internal abstract fun contributeTrainingGameActivityInjector(): TrainingGameActivity
 
-    @ActivityScope
-    @ContributesAndroidInjector(modules = arrayOf())
-    internal abstract fun contributeScoreFragmentInjector(): ScoreFragment
 
 }

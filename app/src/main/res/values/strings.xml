@@ -4,12 +4,13 @@
 
     <!-- Activities -->
     <string name="activity_home">@string/app_name</string>
-    <string name="activity_score">Liederboard</string>
+    <string name="activity_score">Score</string>
     <string name="activity_pick_operation_type">Pick an operation type</string>
     <string name="activity_pick_difficulty">Pick a difficulty</string>
     <string name="activity_scored_game">Play :)</string>
     <string name="activity_training_game">Training</string>
-    <string name="activity_credits">Credits</string>
+    <string name="activity_credits">About this app</string>
+    <string name="activity_stats">Statistics</string>
 
     <!-- Fragments -->
     <string name="fragment_additions">@string/additions</string>
@@ -23,8 +24,8 @@
     <string-array name="new_game_menu">
         <item>New Game</item>
         <item>Training</item>
-        <item>Scores</item>
-        <item>Credits</item>
+        <item>Statistics</item>
+        <item>About this app</item>
     </string-array>
     <string-array name="difficulties_menu">
         <item>Very easy</item>
@@ -61,4 +62,7 @@
     <string name="yes">Yes</string>
     <string name="remaining_lives">remaining lives</string>
     <string name="points">pts</string>
+    <string name="prompt_new_game_title">Game over!</string>
+    <string name="prompt_new_game">Do you want to start a new game?</string>
+    <string name="quit">Quit</string>
 </resources>

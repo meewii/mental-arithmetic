@@ -4,7 +4,6 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.SharedPreferences
 import android.text.Editable
-import android.util.Log
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.models.Operation
@@ -19,11 +18,7 @@ abstract class BaseGameViewModel constructor(
     var liveGameDuration: MutableLiveData<Long> = MutableLiveData()
     fun loadGameDuration() {
         var value: Long? = liveGameDuration.value
-        if(value == null) {
-            Log.e(Const.APP_TAG, "gameDuration is null")
-            value = 0
-        }
-        Log.v(Const.APP_TAG, value.toString())
+        if(value == null) value = 0
         liveGameDuration.postValue(value + 1000)
     }
 
@@ -46,7 +41,6 @@ abstract class BaseGameViewModel constructor(
     // Loader
     private fun loadOperationList(): MutableLiveData<ArrayList<Operation>> {
         liveOperationList.value = gameRepository.getOperationList()
-        Log.d(Const.APP_TAG, "[GameViewModel#loadOperationList] liveOperationList.value: ${liveOperationList.value}")
         return liveOperationList
     }
 
@@ -60,7 +54,6 @@ abstract class BaseGameViewModel constructor(
     // Loader
     fun loadOperation(): MutableLiveData<Operation> {
         liveCurrentOperation.value = gameRepository.generateOperation(operator, difficulty)
-        Log.v(Const.APP_TAG, "[GameViewModel#loadOperation] ${liveCurrentOperation.value}")
         return liveCurrentOperation
     }
 
@@ -81,10 +74,21 @@ abstract class BaseGameViewModel constructor(
     /**
      * Reset all live data
      */
-    open fun resetAllLiveData() {
+    open fun renewAllLiveData() {
         liveOperationList.value = gameRepository.newOperationList()
         liveCurrentOperation.value = gameRepository.generateOperation(operator, difficulty)
         liveEditTextState.value = EditTextState.PRISTINE
+        liveGameDuration.value = 0
+    }
+
+    /**
+     * Reset all live data
+     */
+    open fun clearAllLiveData() {
+        liveOperationList.value = gameRepository.newOperationList()
+        liveCurrentOperation.value = null
+        liveEditTextState.value = null
+        liveGameDuration.value = null
     }
 
     /**

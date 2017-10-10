@@ -4,7 +4,7 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 
-@Database(entities = arrayOf(ScoreEntry::class), version = 5, exportSchema = false)
+@Database(entities = arrayOf(ScoreEntry::class), version = 6, exportSchema = false)
 @TypeConverters(ScoreConverters::class)
 abstract class AppDatabase : RoomDatabase() {
 

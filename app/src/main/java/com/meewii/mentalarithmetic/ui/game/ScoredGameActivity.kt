@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.view.View
 import com.meewii.mentalarithmetic.R
@@ -29,7 +28,6 @@ class ScoredGameActivity : BaseGameActivity() {
         super.onCreate(savedInstanceState)
 
         setUpView()
-        startTimer(gameViewModel)
 
         observeLiveCurrentOperation(gameViewModel)
         observeLiveOperationList(gameViewModel)
@@ -37,6 +35,11 @@ class ScoredGameActivity : BaseGameActivity() {
         observeLiveGameDuration(gameViewModel)
         observeLiveGameState()
         observeLiveScore()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        startTimer(gameViewModel)
     }
 
     private fun setUpView() {
@@ -55,18 +58,34 @@ class ScoredGameActivity : BaseGameActivity() {
         gameViewModel.liveGameState.observe(this, Observer<ScoredGameViewModel.GameState> { state ->
             when (state) {
                 ScoredGameViewModel.GameState.OVER -> {
+                    // hide inputs
                     hideSoftKeyboard()
                     inputContainer.visibility = View.INVISIBLE
-                    val gameOverBar = Snackbar
-                            .make(container, "Game over! Points: ${gameViewModel.liveScore.value?.points}", Snackbar.LENGTH_INDEFINITE)
-                            .setAction("New game?") {
-                                gameViewModel.resetAllLiveData()
-                            }
-                    gameOverBar.show()
+                    // stop timer
+                    stopTimer()
+                    // display prompt
+                    val dialogBuilder = AlertDialog.Builder(this@ScoredGameActivity)
+                    dialogBuilder
+                            .setCancelable(false)
+                            .setTitle(R.string.prompt_new_game_title)
+                            .setMessage(R.string.prompt_new_game)
+                            .setPositiveButton(R.string.yes, { dialog, id ->
+                                gameViewModel.newGame()
+                                dialog.dismiss()
+                            })
+                            .setNegativeButton(R.string.quit, { dialog, id ->
+                                gameViewModel.clearGame()
+                                dialog.dismiss()
+                                goToMainPage()
+                            })
+                    dialogBuilder.create().show()
                 }
                 ScoredGameViewModel.GameState.NEW -> {
+                    // show inputs
                     inputContainer.visibility = View.VISIBLE
                     showSoftKeyboard()
+                    // restart timer
+                    startTimer(gameViewModel)
                 }
                 else -> {
                 }
