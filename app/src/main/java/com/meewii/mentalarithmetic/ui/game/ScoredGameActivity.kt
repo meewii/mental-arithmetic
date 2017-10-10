@@ -38,6 +38,11 @@ class ScoredGameActivity : BaseGameActivity() {
         observeLiveScore()
     }
 
+    override fun onResume() {
+        super.onResume()
+        startTimer(gameViewModel)
+    }
+
     private fun setUpView() {
         // Toolbar views
         scoreLayout.visibility = View.VISIBLE

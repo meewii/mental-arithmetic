@@ -3,6 +3,7 @@ package com.meewii.mentalarithmetic.ui.game
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.meewii.mentalarithmetic.R
@@ -15,13 +16,13 @@ import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.content_game.*
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.concurrent.schedule
 
 
 abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
 
     private lateinit var operationAdapter: PastOperationsAdapter
-    private var timer: Timer? = null
+    private val timerHandler: Handler = Handler()
+    private var timerRunnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -36,7 +37,6 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
         super.onPause()
         stopTimer()
     }
-
 
 
     /**
@@ -135,17 +135,22 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
      * Start the timer that'll count the game duration
      */
     protected fun startTimer(baseGameViewModel: BaseGameViewModel) {
-        timer = Timer("GameDuration")
-        timer!!.schedule(delay = 1000, period = 1000) {
-            baseGameViewModel.loadGameDuration()
+        if(timerRunnable == null) {
+            timerRunnable = object : Runnable {
+                override fun run() {
+                    baseGameViewModel.loadGameDuration()
+                    timerHandler.postDelayed(this, 1000)
+                }
+            }
         }
+        timerHandler.postDelayed(timerRunnable, 1000)
     }
 
     /**
      * Stop the timer that counts the game duration
      */
     protected fun stopTimer() {
-        timer?.cancel()
+        timerHandler.removeCallbacksAndMessages(null)
     }
 
     /**
