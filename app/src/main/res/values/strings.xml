@@ -23,7 +23,7 @@
     <string-array name="new_game_menu">
         <item>New Game</item>
         <item>Training</item>
-        <item>Scores</item>
+        <item>Stats</item>
         <item>Credits</item>
     </string-array>
     <string-array name="difficulties_menu">

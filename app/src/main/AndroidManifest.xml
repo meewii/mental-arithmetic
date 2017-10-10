@@ -84,8 +84,20 @@
                 android:value=".ui.nav.HomeNavActivity"/>
         </activity>
 
+        <!--<activity-->
+            <!--android:name=".ui.score.ScoreActivity"-->
+            <!--android:label="@string/activity_score"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:configChanges="orientation|keyboardHidden"-->
+            <!--android:parentActivityName=".ui.nav.HomeNavActivity"-->
+            <!--android:theme="@style/AppTheme.NoActionBar">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value=".ui.nav.HomeNavActivity"/>-->
+        <!--</activity>-->
+
         <activity
-            android:name=".ui.score.ScoreActivity"
+            android:name=".ui.stats.StatsActivity"
             android:label="@string/activity_score"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
