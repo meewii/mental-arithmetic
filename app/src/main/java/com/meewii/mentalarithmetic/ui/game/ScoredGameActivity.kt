@@ -60,7 +60,7 @@ class ScoredGameActivity : BaseGameActivity() {
                     val gameOverBar = Snackbar
                             .make(container, "Game over! Points: ${gameViewModel.liveScore.value?.points}", Snackbar.LENGTH_INDEFINITE)
                             .setAction("New game?") {
-                                gameViewModel.resetAllLiveData()
+                                gameViewModel.clearGame()
                             }
                     gameOverBar.show()
                 }
