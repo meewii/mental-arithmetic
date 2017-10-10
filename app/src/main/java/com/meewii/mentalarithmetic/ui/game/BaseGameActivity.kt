@@ -13,8 +13,8 @@ import com.meewii.mentalarithmetic.ui.BaseActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.content_game.*
-import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.concurrent.schedule
 
 
@@ -126,18 +126,21 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
     protected fun observeLiveGameDuration(baseGameViewModel: BaseGameViewModel) {
         baseGameViewModel.liveGameDuration.observe(this, Observer<Long> { duration ->
             if(duration == null) {
-                Log.w(Const.APP_TAG, "[observeLiveGameDuration] gameDuration is null")
                 timeView.text = getGameDurationString()
             } else {
-                Log.w(Const.APP_TAG, "[observeLiveGameDuration] $duration")
                 timeView.text = getGameDurationString(duration)
             }
         })
     }
 
-    private fun getGameDurationString(duration: Long = 0): String =
-            SimpleDateFormat("HH:mm:ss", Locale.GERMANY)
-                    .format(duration)
+    private fun getGameDurationString(duration: Long = 0): String {
+        return String.format(
+                "%02d:%02d:%02d",
+                TimeUnit.MILLISECONDS.toHours(duration),
+                TimeUnit.MILLISECONDS.toMinutes(duration) % TimeUnit.HOURS.toMinutes(1),
+                TimeUnit.MILLISECONDS.toSeconds(duration) % TimeUnit.MINUTES.toSeconds(1)
+        )
+    }
 
     /**
      * Update the list with new data

@@ -19,11 +19,7 @@ abstract class BaseGameViewModel constructor(
     var liveGameDuration: MutableLiveData<Long> = MutableLiveData()
     fun loadGameDuration() {
         var value: Long? = liveGameDuration.value
-        if(value == null) {
-            Log.e(Const.APP_TAG, "gameDuration is null")
-            value = 0
-        }
-        Log.v(Const.APP_TAG, value.toString())
+        if(value == null) value = 0
         liveGameDuration.postValue(value + 1000)
     }
 
