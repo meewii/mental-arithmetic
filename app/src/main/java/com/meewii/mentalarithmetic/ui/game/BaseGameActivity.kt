@@ -21,7 +21,7 @@ import kotlin.concurrent.schedule
 abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
 
     private lateinit var operationAdapter: PastOperationsAdapter
-    private val timer: Timer = Timer("GameDuration")
+    private var timer: Timer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -32,6 +32,13 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
         showSoftKeyboard()
     }
 
+    override fun onPause() {
+        super.onPause()
+        stopTimer()
+    }
+
+
+
     /**
      * Observe current Operation
      */
@@ -39,11 +46,11 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
         baseGameViewModel.liveCurrentOperation.observe(this, Observer<Operation> { operation ->
             when (operation?.status) {
                 Status.UNCHECKED -> {
-                    Log.d(Const.APP_TAG, "[GameActivity#observeLiveData()] UNCHECKED: $operation")
+                    Log.d(Const.APP_TAG, "[GameActivity#observeLiveData()] $operation")
                     currentFormulaView.text = operation.getFormula()
                 }
                 Status.SUCCESS -> {
-                    Log.i(Const.APP_TAG, "[GameActivity#observeLiveData()] SUCCESS: $operation")
+                    Log.i(Const.APP_TAG, "[GameActivity#observeLiveData()] $operation")
                     // add operation to list
                     baseGameViewModel.updateList()
                     baseGameViewModel.loadOperation()
@@ -51,7 +58,7 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
                     refreshView()
                 }
                 Status.FAIL -> {
-                    Log.e(Const.APP_TAG, "[GameActivity#observeLiveData()] FAIL: $operation")
+                    Log.e(Const.APP_TAG, "[GameActivity#observeLiveData()] $operation")
                     // add operation to list
                     baseGameViewModel.updateList()
                     baseGameViewModel.loadOperation()
@@ -90,6 +97,21 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
     }
 
     /**
+     * Observe the duration of the game (is triggered every second)
+     */
+    protected fun observeLiveGameDuration(baseGameViewModel: BaseGameViewModel) {
+        baseGameViewModel.liveGameDuration.observe(this, Observer<Long> { duration ->
+            if(duration == null) {
+                timeView.text = getGameDurationString()
+            } else {
+                timeView.text = getGameDurationString(duration)
+            }
+        })
+    }
+
+
+
+    /**
      * Prepare the RecyclerView to receive the list of Operations and the button click listener
      */
     protected fun setUpView(baseGameViewModel: BaseGameViewModel) {
@@ -113,26 +135,22 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
      * Start the timer that'll count the game duration
      */
     protected fun startTimer(baseGameViewModel: BaseGameViewModel) {
-        timer.schedule(delay = 1000, period = 1000) {
+        timer = Timer("GameDuration")
+        timer!!.schedule(delay = 1000, period = 1000) {
             baseGameViewModel.loadGameDuration()
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        timer.cancel()
+    /**
+     * Stop the timer that counts the game duration
+     */
+    protected fun stopTimer() {
+        timer?.cancel()
     }
 
-    protected fun observeLiveGameDuration(baseGameViewModel: BaseGameViewModel) {
-        baseGameViewModel.liveGameDuration.observe(this, Observer<Long> { duration ->
-            if(duration == null) {
-                timeView.text = getGameDurationString()
-            } else {
-                timeView.text = getGameDurationString(duration)
-            }
-        })
-    }
-
+    /**
+     * Utility method to convert a timestamp into a "HH:mm:ss" string
+     */
     private fun getGameDurationString(duration: Long = 0): String {
         return String.format(
                 "%02d:%02d:%02d",

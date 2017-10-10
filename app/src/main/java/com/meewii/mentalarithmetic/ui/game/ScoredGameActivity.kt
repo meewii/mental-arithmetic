@@ -29,7 +29,6 @@ class ScoredGameActivity : BaseGameActivity() {
         super.onCreate(savedInstanceState)
 
         setUpView()
-        startTimer(gameViewModel)
 
         observeLiveCurrentOperation(gameViewModel)
         observeLiveOperationList(gameViewModel)
@@ -55,8 +54,12 @@ class ScoredGameActivity : BaseGameActivity() {
         gameViewModel.liveGameState.observe(this, Observer<ScoredGameViewModel.GameState> { state ->
             when (state) {
                 ScoredGameViewModel.GameState.OVER -> {
+                    // hide inputs
                     hideSoftKeyboard()
                     inputContainer.visibility = View.INVISIBLE
+                    // stop timer
+                    stopTimer()
+                    // display prompt
                     val gameOverBar = Snackbar
                             .make(container, "Game over! Points: ${gameViewModel.liveScore.value?.points}", Snackbar.LENGTH_INDEFINITE)
                             .setAction("New game?") {
@@ -65,8 +68,11 @@ class ScoredGameActivity : BaseGameActivity() {
                     gameOverBar.show()
                 }
                 ScoredGameViewModel.GameState.NEW -> {
+                    // show inputs
                     inputContainer.visibility = View.VISIBLE
                     showSoftKeyboard()
+                    // restart timer
+                    startTimer(gameViewModel)
                 }
                 else -> {
                 }
