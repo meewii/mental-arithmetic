@@ -11,14 +11,12 @@ import android.util.Log
 import android.view.View
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.core.Const
-import com.meewii.mentalarithmetic.data.database.ScoreEntry
-import com.meewii.mentalarithmetic.models.Difficulty
+import com.meewii.mentalarithmetic.models.Operator
 import com.meewii.mentalarithmetic.ui.BaseFragment
-import com.meewii.mentalarithmetic.ui.score.StatsAdapter
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_score.*
 
-class StatsFragment : BaseFragment(R.layout.fragment_score) {
+class StatsFragment : BaseFragment(R.layout.fragment_stats) {
 
     override fun getLifecycle(): LifecycleRegistry = LifecycleRegistry(this@StatsFragment)
 
@@ -29,11 +27,10 @@ class StatsFragment : BaseFragment(R.layout.fragment_score) {
     companion object {
 
         val sectionsMap = mapOf(
-                Pair(0, Difficulty.VERY_EASY),
-                Pair(1, Difficulty.EASY),
-                Pair(2, Difficulty.MEDIUM),
-                Pair(3, Difficulty.HARD),
-                Pair(4, Difficulty.VERY_HARD)
+                Pair(0, Operator.ADDITION),
+                Pair(1, Operator.SUBTRACTION),
+                Pair(2, Operator.MULTIPLICATION),
+                Pair(3, Operator.DIVISION)
         )
 
         // The fragment argument representing the section id for this fragment.
@@ -58,7 +55,7 @@ class StatsFragment : BaseFragment(R.layout.fragment_score) {
         super.onViewCreated(view, savedInstanceState)
 
         val listener = object : StatsAdapter.OnItemClickListener {
-            override fun onItemClick(item: ScoreEntry) {
+            override fun onItemClick(item: Stat) {
                 Log.d(Const.APP_TAG, "[ScoreFragment#onItemClick()] Clicked on $item")
             }
         }
@@ -70,13 +67,15 @@ class StatsFragment : BaseFragment(R.layout.fragment_score) {
     private fun observeLiveData() {
         // get the Fragment's section id to recover the proper data
         sectionId = arguments.getInt(SECTION_ID_ARG)
-        // Get difficulty per section id
-        val difficulty = sectionsMap[sectionId]
+        // Get operator per section id
+        val operator = StatsFragment.sectionsMap[sectionId]
         // Get and observe data per difficulty
+
+
         scoreViewModel
-                .loadScoreList(difficulty)
+                .loadStats(operator)
                 .observe(this,
-                        Observer<List<ScoreEntry>> { scoreList ->
+                        Observer<List<Stat>> { scoreList ->
                             Log.v(Const.APP_TAG, "[ScoreFragment#observeLiveData()] " +
                                     "Observe for section#$sectionId score list: ${scoreList?.size}")
                             if (scoreList != null) refreshList()
@@ -87,7 +86,7 @@ class StatsFragment : BaseFragment(R.layout.fragment_score) {
     /**
      * Prepare the RecyclerView to receive the list of Scores
      */
-    private fun setUpAdapter(list: MutableLiveData<List<ScoreEntry>>, listener: StatsAdapter.OnItemClickListener) {
+    private fun setUpAdapter(list: MutableLiveData<List<Stat>>, listener: StatsAdapter.OnItemClickListener) {
         scoreAdapter = StatsAdapter(list.value, listener)
         recyclerView.adapter = scoreAdapter
         recyclerView.itemAnimator = DefaultItemAnimator()

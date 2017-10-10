@@ -8,6 +8,7 @@ import com.meewii.mentalarithmetic.data.database.ScoreEntry
 import com.meewii.mentalarithmetic.models.Difficulty
 import com.meewii.mentalarithmetic.models.Operation
 import com.meewii.mentalarithmetic.models.Operator
+import com.meewii.mentalarithmetic.ui.stats.Stat
 import com.meewii.mentalarithmetic.utils.OperandGenerator
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -47,9 +48,19 @@ class GameRepository @Inject constructor(
     fun saveScore(score: ScoreEntry) = scoreDao.insert(score)
 
     fun getScores(difficulty: Difficulty): List<ScoreEntry>? =
-            scoreDao.getAllWithDifficulty(difficulty)
+            scoreDao.getAll(difficulty)
 
+    fun getStats(operator: Operator, difficulty: Difficulty): Stat {
+        val list = scoreDao.getAll(operator, difficulty)
 
+        val additionStat = Stat(
+                difficulty = difficulty,
+                gameCount = list.size
+        )
+        additionStat.calculateTimes(list)
+
+        return additionStat
+    }
 
 
     fun newOperationList(): ArrayList<Operation> {

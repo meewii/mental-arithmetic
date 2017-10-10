@@ -16,13 +16,13 @@ class StatsActivity : BaseActivity() {
         AndroidInjection.inject(this)
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_score)
+        setContentView(R.layout.activity_stats)
 
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Create the adapter that will return a fragment for each of the 5
+        // Create the adapter that will return a fragment for each of the 4
         // primary sections of the activity.
         val scorePagerAdapter = StatsPagerAdapter(supportFragmentManager)
 

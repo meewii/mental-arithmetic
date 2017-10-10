@@ -3,7 +3,7 @@ package com.meewii.mentalarithmetic.ui.stats
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.meewii.mentalarithmetic.ui.score.ScoreFragment.Companion.sectionsMap
+import com.meewii.mentalarithmetic.ui.stats.StatsFragment.Companion.sectionsMap
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -15,7 +15,7 @@ class StatsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     // Return a PlaceholderFragment (defined as a static inner class below).
     override fun getItem(position: Int): Fragment = StatsFragment.newInstance(position)
 
-    override fun getCount(): Int = 5
+    override fun getCount(): Int = 4
 
     override fun getPageTitle(position: Int): CharSequence? {
         if(sectionsMap[position] != null) {
