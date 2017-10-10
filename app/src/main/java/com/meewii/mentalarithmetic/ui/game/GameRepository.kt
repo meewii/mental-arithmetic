@@ -1,6 +1,8 @@
 package com.meewii.mentalarithmetic.ui.game
 
 import android.app.Application
+import android.util.Log
+import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.data.database.ScoreDao
 import com.meewii.mentalarithmetic.data.database.ScoreEntry
 import com.meewii.mentalarithmetic.models.Difficulty
@@ -22,12 +24,32 @@ class GameRepository @Inject constructor(
         return Operation(operator, operands[0], operands[1])
     }
 
-    fun generateScore(operator: Operator, difficulty: Difficulty): ScoreEntry =
-            ScoreEntry(
-                    operator = operator,
-                    difficulty = difficulty,
-                    created_at = System.currentTimeMillis(),
-                    user_id = 1)
+
+
+    fun generateScore(operator: Operator, difficulty: Difficulty): ScoreEntry {
+        var savedScore = ScoreEntry(
+                operator = operator,
+                difficulty = difficulty,
+                created_at = System.currentTimeMillis(),
+                user_id = 1)
+
+        val rowId = scoreDao.insert(savedScore)
+
+        if(rowId > 0) {
+            savedScore = scoreDao.getRow(rowId)
+        } else {
+            Log.e(Const.APP_TAG, "[GameRepository#generateScore] Error while upserting Score")
+        }
+
+        return savedScore
+    }
+
+    fun saveScore(score: ScoreEntry) = scoreDao.insert(score)
+
+    fun getScores(difficulty: Difficulty): List<ScoreEntry>? =
+            scoreDao.getAllWithDifficulty(difficulty)
+
+
 
 
     fun newOperationList(): ArrayList<Operation> {
@@ -40,10 +62,5 @@ class GameRepository @Inject constructor(
     fun addOperationToList(operation: Operation) {
         operationList.add(operation)
     }
-
-    fun saveScore(score: ScoreEntry) = scoreDao.insert(score)
-
-    fun getScores(difficulty: Difficulty): List<ScoreEntry>? =
-            scoreDao.getAllWithDifficulty(difficulty)
 
 }

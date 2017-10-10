@@ -87,6 +87,7 @@ class ScoredGameViewModel @Inject constructor(
      */
     fun saveCurrentScore(currentScore: ScoreEntry = liveScore.value!!) {
         currentScore.updated_at = System.currentTimeMillis()
+        currentScore.duration = liveGameDuration.value!!
         gameRepository.saveScore(currentScore)
     }
 
