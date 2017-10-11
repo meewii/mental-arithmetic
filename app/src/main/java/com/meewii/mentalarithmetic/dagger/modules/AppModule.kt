@@ -2,19 +2,17 @@ package com.meewii.mentalarithmetic.dagger.modules
 
 import android.app.Application
 import android.arch.lifecycle.ViewModelProvider
+import com.meewii.mentalarithmetic.common.ViewModelFactory
 import com.meewii.mentalarithmetic.core.App
 import com.meewii.mentalarithmetic.dagger.components.ViewModelComponent
 import com.meewii.mentalarithmetic.dagger.scopes.ActivityScope
-import com.meewii.mentalarithmetic.ui.game.ScoredGameActivity
-import com.meewii.mentalarithmetic.ui.game.TrainingGameActivity
-import com.meewii.mentalarithmetic.ui.game.ViewModelFactory
-import com.meewii.mentalarithmetic.ui.nav.HomeNavActivity
-import com.meewii.mentalarithmetic.ui.nav.PickDifficultyNavActivity
-import com.meewii.mentalarithmetic.ui.nav.PickOperatorNavActivity
-import com.meewii.mentalarithmetic.ui.score.ScoreActivity
-import com.meewii.mentalarithmetic.ui.score.ScoreFragment
-import com.meewii.mentalarithmetic.ui.stats.StatsActivity
-import com.meewii.mentalarithmetic.ui.stats.StatsFragment
+import com.meewii.mentalarithmetic.modules.game.scored.ScoredGameActivity
+import com.meewii.mentalarithmetic.modules.game.training.TrainingGameActivity
+import com.meewii.mentalarithmetic.modules.nav.views.HomeNavActivity
+import com.meewii.mentalarithmetic.modules.nav.views.PickDifficultyNavActivity
+import com.meewii.mentalarithmetic.modules.nav.views.PickOperatorNavActivity
+import com.meewii.mentalarithmetic.modules.statistics.views.StatsActivity
+import com.meewii.mentalarithmetic.modules.statistics.views.StatsFragment
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -51,14 +49,6 @@ abstract class AppModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = arrayOf())
     internal abstract fun contributePickDifficultyNavActivityInjector(): PickDifficultyNavActivity
-
-    @ActivityScope
-    @ContributesAndroidInjector(modules = arrayOf())
-    internal abstract fun contributeScoreActivityInjector(): ScoreActivity
-
-    @ActivityScope
-    @ContributesAndroidInjector(modules = arrayOf())
-    internal abstract fun contributeScoreFragmentInjector(): ScoreFragment
 
     @ActivityScope
     @ContributesAndroidInjector(modules = arrayOf())

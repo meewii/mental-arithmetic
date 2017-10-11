@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.nav.HomeNavActivity"
+            android:name=".modules.nav.views.HomeNavActivity"
             android:label="@string/activity_home"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
@@ -25,87 +25,75 @@
         </activity>
 
         <activity
-            android:name=".ui.nav.PickOperatorNavActivity"
+            android:name=".modules.nav.views.PickOperatorNavActivity"
             android:label="@string/activity_pick_operation_type"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:parentActivityName=".ui.nav.HomeNavActivity"
+            android:parentActivityName=".modules.nav.views.HomeNavActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.nav.HomeNavActivity"/>
+                android:value=".modules.nav.views.HomeNavActivity"/>
         </activity>
 
         <activity
-            android:name=".ui.nav.PickDifficultyNavActivity"
+            android:name=".modules.nav.views.PickDifficultyNavActivity"
             android:label="@string/activity_pick_difficulty"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:parentActivityName=".ui.nav.PickOperatorNavActivity"
+            android:parentActivityName=".modules.nav.views.PickOperatorNavActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.nav.PickOperatorNavActivity"/>
+                android:value=".modules.nav.views.PickOperatorNavActivity"/>
         </activity>
 
         <activity
-            android:name=".ui.game.TrainingGameActivity"
+            android:name=".modules.game.training.TrainingGameActivity"
             android:label="@string/activity_training_game"
             android:screenOrientation="portrait"
             android:configChanges="orientation"
-            android:parentActivityName=".ui.nav.PickDifficultyNavActivity"
+            android:parentActivityName=".modules.nav.views.PickDifficultyNavActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.nav.PickDifficultyNavActivity"/>
+                android:value=".modules.nav.views.PickDifficultyNavActivity"/>
         </activity>
 
         <activity
-            android:name=".ui.game.ScoredGameActivity"
+            android:name=".modules.game.scored.ScoredGameActivity"
             android:label="@string/activity_scored_game"
             android:screenOrientation="portrait"
             android:configChanges="orientation"
-            android:parentActivityName=".ui.nav.HomeNavActivity"
+            android:parentActivityName=".modules.nav.views.HomeNavActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.nav.HomeNavActivity"/>
+                android:value=".modules.nav.views.HomeNavActivity"/>
         </activity>
 
         <activity
-            android:name=".ui.activities.CreditsActivity"
+            android:name=".modules.staticpage.CreditsActivity"
             android:label="@string/activity_credits"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:parentActivityName=".ui.nav.HomeNavActivity"
+            android:parentActivityName=".modules.nav.views.HomeNavActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.nav.HomeNavActivity"/>
+                android:value=".modules.nav.views.HomeNavActivity"/>
         </activity>
 
-        <!--<activity-->
-            <!--android:name=".ui.score.ScoreActivity"-->
-            <!--android:label="@string/activity_score"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:configChanges="orientation|keyboardHidden"-->
-            <!--android:parentActivityName=".ui.nav.HomeNavActivity"-->
-            <!--android:theme="@style/AppTheme.NoActionBar">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value=".ui.nav.HomeNavActivity"/>-->
-        <!--</activity>-->
-
         <activity
-            android:name=".ui.stats.StatsActivity"
+            android:name=".modules.statistics.views.StatsActivity"
             android:label="@string/activity_stats"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
-            android:parentActivityName=".ui.nav.HomeNavActivity"
+            android:parentActivityName=".modules.nav.views.HomeNavActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.nav.HomeNavActivity"/>
+                android:value=".modules.nav.views.HomeNavActivity"/>
         </activity>
 
         <meta-data android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />

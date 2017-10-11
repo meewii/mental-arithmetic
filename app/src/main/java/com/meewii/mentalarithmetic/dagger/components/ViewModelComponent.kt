@@ -1,9 +1,9 @@
 package com.meewii.mentalarithmetic.dagger.components
 
-import com.meewii.mentalarithmetic.ui.game.ScoredGameViewModel
-import com.meewii.mentalarithmetic.ui.game.TrainingGameViewModel
-import com.meewii.mentalarithmetic.ui.score.ScoreViewModel
-import com.meewii.mentalarithmetic.ui.stats.StatsViewModel
+import com.meewii.mentalarithmetic.modules.game.scored.ScoredGameViewModel
+import com.meewii.mentalarithmetic.modules.game.started.StartedGamesViewModel
+import com.meewii.mentalarithmetic.modules.game.training.TrainingGameViewModel
+import com.meewii.mentalarithmetic.modules.statistics.viewmodels.StatsViewModel
 import dagger.Subcomponent
 
 @Subcomponent
@@ -16,6 +16,5 @@ interface ViewModelComponent {
 
     fun trainingGameViewModel(): TrainingGameViewModel
     fun scoredGameViewModel(): ScoredGameViewModel
-    fun scoreViewModel(): ScoreViewModel
     fun statsViewModel(): StatsViewModel
 }
