@@ -1,6 +1,5 @@
 package com.meewii.mentalarithmetic.ui
 
-import android.arch.lifecycle.LifecycleRegistryOwner
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
@@ -14,7 +13,7 @@ import android.view.ViewGroup
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-abstract class BaseFragment(@LayoutRes private val layoutRes: Int = -1): Fragment(), LifecycleRegistryOwner {
+abstract class BaseFragment(@LayoutRes private val layoutRes: Int = -1): Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

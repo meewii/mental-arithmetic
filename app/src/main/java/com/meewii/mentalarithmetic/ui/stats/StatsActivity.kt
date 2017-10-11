@@ -2,11 +2,10 @@ package com.meewii.mentalarithmetic.ui.stats
 
 import android.arch.lifecycle.LifecycleRegistry
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
 import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.ui.BaseActivity
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_score.*
+import kotlinx.android.synthetic.main.activity_stats.*
 
 class StatsActivity : BaseActivity() {
 
@@ -18,7 +17,6 @@ class StatsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stats)
 
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

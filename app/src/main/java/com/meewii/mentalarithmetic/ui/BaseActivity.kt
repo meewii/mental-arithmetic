@@ -1,7 +1,6 @@
 package com.meewii.mentalarithmetic.ui
 
 import android.app.Activity
-import android.arch.lifecycle.LifecycleRegistryOwner
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
@@ -13,7 +12,7 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.content_game.*
 import javax.inject.Inject
 
-abstract class BaseActivity(@LayoutRes private val layoutRes: Int = -1): AppCompatActivity(), LifecycleRegistryOwner {
+abstract class BaseActivity(@LayoutRes private val layoutRes: Int = -1): AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
