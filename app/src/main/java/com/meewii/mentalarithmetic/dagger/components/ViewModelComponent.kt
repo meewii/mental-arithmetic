@@ -17,4 +17,5 @@ interface ViewModelComponent {
     fun trainingGameViewModel(): TrainingGameViewModel
     fun scoredGameViewModel(): ScoredGameViewModel
     fun statsViewModel(): StatsViewModel
+    fun startedGamesViewModel(): StartedGamesViewModel
 }

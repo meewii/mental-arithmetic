@@ -7,6 +7,7 @@ import com.meewii.mentalarithmetic.core.App
 import com.meewii.mentalarithmetic.dagger.components.ViewModelComponent
 import com.meewii.mentalarithmetic.dagger.scopes.ActivityScope
 import com.meewii.mentalarithmetic.modules.game.scored.ScoredGameActivity
+import com.meewii.mentalarithmetic.modules.game.started.StartedGamesActivity
 import com.meewii.mentalarithmetic.modules.game.training.TrainingGameActivity
 import com.meewii.mentalarithmetic.modules.nav.views.HomeNavActivity
 import com.meewii.mentalarithmetic.modules.nav.views.PickDifficultyNavActivity
@@ -65,6 +66,10 @@ abstract class AppModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = arrayOf())
     internal abstract fun contributeTrainingGameActivityInjector(): TrainingGameActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = arrayOf())
+    internal abstract fun contributeStartedGamesActivityInjector(): StartedGamesActivity
 
 
 }

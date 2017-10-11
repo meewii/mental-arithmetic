@@ -10,6 +10,7 @@ import com.meewii.mentalarithmetic.base.BaseNavActivity
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.core.Const.GAME_TYPE_GAME
 import com.meewii.mentalarithmetic.core.Const.GAME_TYPE_TRAINING
+import com.meewii.mentalarithmetic.modules.game.started.StartedGamesActivity
 import com.meewii.mentalarithmetic.modules.nav.NavAdapter
 import com.meewii.mentalarithmetic.modules.staticpage.CreditsActivity
 import com.meewii.mentalarithmetic.modules.statistics.views.StatsActivity
@@ -42,15 +43,19 @@ class HomeNavActivity : BaseNavActivity() {
                     startActivity(intent)
                 }
                 item.contentEquals(navItems[1]) -> {
+                    val intent = Intent(this@HomeNavActivity, StartedGamesActivity::class.java)
+                    startActivity(intent)
+                }
+                item.contentEquals(navItems[2]) -> {
                     sharedPreferences.edit().putString(Const.GAME_TYPE_EXTRA, GAME_TYPE_TRAINING).apply()
                     val intent = Intent(this@HomeNavActivity, PickOperatorNavActivity::class.java)
                     startActivity(intent)
                 }
-                item.contentEquals(navItems[2]) -> {
+                item.contentEquals(navItems[3]) -> {
                     val intent = Intent(this@HomeNavActivity, StatsActivity::class.java)
                     startActivity(intent)
                 }
-                item.contentEquals(navItems[3]) -> {
+                item.contentEquals(navItems[4]) -> {
                     val intent = Intent(this@HomeNavActivity, CreditsActivity::class.java)
                     startActivity(intent)
                 }

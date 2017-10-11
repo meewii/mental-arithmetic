@@ -73,6 +73,18 @@
         </activity>
 
         <activity
+            android:name=".modules.game.started.StartedGamesActivity"
+            android:label="@string/activity_started_game"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            android:parentActivityName=".modules.nav.views.HomeNavActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".modules.nav.views.HomeNavActivity"/>
+        </activity>
+
+        <activity
             android:name=".modules.staticpage.CreditsActivity"
             android:label="@string/activity_credits"
             android:screenOrientation="portrait"

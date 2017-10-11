@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.support.v4.util.ArrayMap
 import com.meewii.mentalarithmetic.dagger.components.ViewModelComponent
 import com.meewii.mentalarithmetic.modules.game.scored.ScoredGameViewModel
+import com.meewii.mentalarithmetic.modules.game.started.StartedGamesViewModel
 import com.meewii.mentalarithmetic.modules.game.training.TrainingGameViewModel
 import com.meewii.mentalarithmetic.modules.statistics.viewmodels.StatsViewModel
 import kotlin.reflect.KFunction
@@ -17,6 +18,7 @@ class ViewModelFactory constructor(viewModelComponent: ViewModelComponent) : Vie
         creators.put(ScoredGameViewModel::class.java, viewModelComponent::scoredGameViewModel)
         creators.put(TrainingGameViewModel::class.java, viewModelComponent::trainingGameViewModel)
         creators.put(StatsViewModel::class.java, viewModelComponent::statsViewModel)
+        creators.put(StartedGamesViewModel::class.java, viewModelComponent::startedGamesViewModel)
     }
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
