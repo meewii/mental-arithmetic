@@ -34,8 +34,8 @@ class ViewModelFactory constructor(viewModelComponent: ViewModelComponent) : Vie
 
         creator ?: throw IllegalArgumentException("unknown model class " + modelClass)
 
-        try {
-            return creator.call() as T
+        return try {
+            creator.call() as T
         } catch (e: Exception) {
             throw RuntimeException(e)
         }

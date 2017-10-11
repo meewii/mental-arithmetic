@@ -116,7 +116,9 @@ abstract class BaseGameActivity : BaseActivity(R.layout.activity_game) {
      */
     protected fun setUpView(baseGameViewModel: BaseGameViewModel) {
         // Toolbar views
-        titleView.text = "${baseGameViewModel.operator.displayName} - ${baseGameViewModel.difficulty.displayName}"
+        titleView.text = String.format(getString(R.string.toolbar_title),
+                baseGameViewModel.operator.displayName,
+                baseGameViewModel.difficulty.displayName)
         timeView.text = getGameDurationString()
 
         // Click listener on the button that submits the user's solution

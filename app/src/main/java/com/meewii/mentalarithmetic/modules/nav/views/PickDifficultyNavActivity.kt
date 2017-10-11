@@ -1,6 +1,5 @@
 package com.meewii.mentalarithmetic.modules.nav.views
 
-import android.arch.lifecycle.LifecycleRegistry
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -18,9 +17,6 @@ class PickDifficultyNavActivity : BaseNavActivity() {
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
-
-    private val registry = LifecycleRegistry(this)
-    override fun getLifecycle(): LifecycleRegistry = registry
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //DI

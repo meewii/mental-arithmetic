@@ -1,5 +1,6 @@
 package com.meewii.mentalarithmetic.modules.statistics.adapters
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,10 @@ import com.meewii.mentalarithmetic.R
 import com.meewii.mentalarithmetic.models.Statistic
 import kotlinx.android.synthetic.main.list_item_stats.view.*
 
-class StatsAdapter(private val scoreList: List<Statistic>?, private val listener: OnItemClickListener) :
+class StatsAdapter(
+        private val context: Context,
+        private val scoreList: List<Statistic>?,
+        private val listener: OnItemClickListener) :
         RecyclerView.Adapter<StatsAdapter.StatsViewHolder>() {
 
     interface OnItemClickListener {
@@ -17,7 +21,7 @@ class StatsAdapter(private val scoreList: List<Statistic>?, private val listener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return StatsViewHolder(layoutInflater.inflate(R.layout.list_item_stats, parent, false))
+        return StatsViewHolder(context, layoutInflater.inflate(R.layout.list_item_stats, parent, false))
     }
 
     override fun onBindViewHolder(holder: StatsViewHolder, position: Int) {
@@ -30,7 +34,7 @@ class StatsAdapter(private val scoreList: List<Statistic>?, private val listener
         else -> scoreList.size
     }
 
-    class StatsViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    class StatsViewHolder(val context: Context, val view: View) : RecyclerView.ViewHolder(view) {
         private val difficultyField = view.difficulty_field!!
         private val gameCountField = view.games_count_field!!
         private val fastestField = view.fastest_field!!
@@ -39,10 +43,10 @@ class StatsAdapter(private val scoreList: List<Statistic>?, private val listener
 
         fun bind(statistic: Statistic, listener: OnItemClickListener) {
             this.difficultyField.text = statistic.difficulty.displayName
-            this.gameCountField.text = "${statistic.gameCount} games"
-            this.fastestField.text = "Fastest: ${statistic.fastestDuration}"
-            this.averageField.text = "Average: ${statistic.averageDuration}"
-            this.slowestField.text = "Slowest: ${statistic.slowestDuration}"
+            this.gameCountField.text = context.resources.getQuantityString(R.plurals.games, statistic.gameCount, statistic.gameCount)
+            this.fastestField.text =  String.format(context.resources.getString(R.string.fastest_duration), statistic.fastestDuration)
+            this.averageField.text =  String.format(context.resources.getString(R.string.average_duration), statistic.averageDuration)
+            this.slowestField.text =  String.format(context.resources.getString(R.string.slowest_duration), statistic.slowestDuration)
 
             view.setOnClickListener({
                 listener.onItemClick(statistic)

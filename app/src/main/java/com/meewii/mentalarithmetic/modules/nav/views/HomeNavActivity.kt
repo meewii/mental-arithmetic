@@ -1,6 +1,5 @@
 package com.meewii.mentalarithmetic.modules.nav.views
 
-import android.arch.lifecycle.LifecycleRegistry
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -15,17 +14,14 @@ import com.meewii.mentalarithmetic.modules.nav.NavAdapter
 import com.meewii.mentalarithmetic.modules.staticpage.CreditsActivity
 import com.meewii.mentalarithmetic.modules.statistics.views.StatsActivity
 import dagger.android.AndroidInjection
-import javax.inject.Inject
-import net.hockeyapp.android.UpdateManager
 import net.hockeyapp.android.CrashManager
+import net.hockeyapp.android.UpdateManager
+import javax.inject.Inject
 
 class HomeNavActivity : BaseNavActivity() {
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
-
-    private val registry = LifecycleRegistry(this)
-    override fun getLifecycle(): LifecycleRegistry = registry
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //DI

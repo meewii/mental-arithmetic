@@ -17,11 +17,11 @@ class OperandGenerator {
             val operandA: Int = getRandomPositiveInt(1, getMaxPositiveInt(difficulty))
             val operandB: Int = getRandomPositiveInt(1, getMaxPositiveInt(difficulty))
 
-            when (operator) {
-                Operator.ADDITION -> return intArrayOf(operandA, operandB)
-                Operator.MULTIPLICATION -> return intArrayOf(operandA, operandB)
-                Operator.SUBTRACTION -> return getOperandsForSubtraction(difficulty)
-                Operator.DIVISION -> return getOperandsForDivision(difficulty)
+            return when (operator) {
+                Operator.ADDITION -> intArrayOf(operandA, operandB)
+                Operator.MULTIPLICATION -> intArrayOf(operandA, operandB)
+                Operator.SUBTRACTION -> getOperandsForSubtraction(difficulty)
+                Operator.DIVISION -> getOperandsForDivision(difficulty)
             }
         }
 
@@ -55,7 +55,7 @@ class OperandGenerator {
          * and different from 1 and 10 (too easy)
          */
         private fun getRandomPositiveInt(min: Int, max: Int): Int {
-            var num: Int = 1
+            var num = 1
             while (num == 1 || num == 10) {
                 num = Random().nextInt(max) + min
             }
@@ -66,15 +66,14 @@ class OperandGenerator {
          * Get random number between min (incl.) and max (incl.)
          * and different from 1 and 10 (too easy)
          */
-        private fun getMaxPositiveInt(difficulty: Difficulty): Int {
-            when(difficulty) {
-                Difficulty.VERY_EASY -> return 6
-                Difficulty.EASY -> return 12
-                Difficulty.MEDIUM -> return 20
-                Difficulty.HARD -> return 100
-                Difficulty.VERY_HARD -> return 1000
-            }
-        }
+        private fun getMaxPositiveInt(difficulty: Difficulty): Int =
+                when(difficulty) {
+                    Difficulty.VERY_EASY -> 6
+                    Difficulty.EASY -> 12
+                    Difficulty.MEDIUM -> 20
+                    Difficulty.HARD -> 100
+                    Difficulty.VERY_HARD -> 1000
+                }
 
     }
 }

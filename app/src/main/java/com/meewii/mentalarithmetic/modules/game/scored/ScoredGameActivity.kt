@@ -1,6 +1,5 @@
 package com.meewii.mentalarithmetic.modules.game.scored
 
-import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -9,8 +8,8 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.View
 import com.meewii.mentalarithmetic.R
-import com.meewii.mentalarithmetic.data.database.ScoreEntry
 import com.meewii.mentalarithmetic.base.BaseGameActivity
+import com.meewii.mentalarithmetic.data.database.ScoreEntry
 import com.meewii.mentalarithmetic.modules.nav.views.HomeNavActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_game.*
@@ -20,9 +19,6 @@ import kotlinx.android.synthetic.main.content_game.*
 class ScoredGameActivity : BaseGameActivity() {
 
     private val gameViewModel by lazy { getViewModel(ScoredGameViewModel::class.java) as ScoredGameViewModel }
-
-    private val registry = LifecycleRegistry(this)
-    override fun getLifecycle(): LifecycleRegistry = registry
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -46,8 +42,8 @@ class ScoredGameActivity : BaseGameActivity() {
     private fun setUpView() {
         // Toolbar views
         scoreLayout.visibility = View.VISIBLE
-        scoreView.text = "0 ${getString(R.string.points)}"
-        livesView.text = "5 ${getString(R.string.remaining_lives)}"
+        scoreView.text = resources.getQuantityString(R.plurals.points, 0, 0)
+        livesView.text = resources.getQuantityString(R.plurals.remaining_lives, 5, 5)
 
         setUpView(gameViewModel)
     }
@@ -100,12 +96,12 @@ class ScoredGameActivity : BaseGameActivity() {
     private fun observeLiveScore() {
         gameViewModel.liveScore.observe(this, Observer<ScoreEntry> { score ->
             if(score == null) {
-                scoreView.text = "0 ${getString(R.string.points)}"
-                livesView.text = "5 ${getString(R.string.remaining_lives)}"
+                scoreView.text = resources.getQuantityString(R.plurals.points, 0, 0)
+                livesView.text = resources.getQuantityString(R.plurals.remaining_lives, 5, 5)
             } else {
-                scoreView.text = score.points.toString()
+                scoreView.text = resources.getQuantityString(R.plurals.points, score.points, score.points)
                 val remainingLives: Int = ScoredGameViewModel.FAIL_LIMIT - score.failedOp
-                livesView.text = "$remainingLives ${getString(R.string.remaining_lives)}"
+                livesView.text = resources.getQuantityString(R.plurals.remaining_lives, remainingLives, remainingLives)
             }
         })
     }

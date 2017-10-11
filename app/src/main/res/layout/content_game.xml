@@ -9,7 +9,8 @@
     app:layout_editor_absoluteX="0dp"
     app:layout_editor_absoluteY="80dp"
     tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="80dp">
+    tools:layout_editor_absoluteY="80dp"
+    tools:keep="@layout/content_game">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -47,7 +48,8 @@
             android:inputType="number"
             android:maxLength="9"
             android:textAlignment="center"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            tools:ignore="LabelFor"/>
 
         <Button
             android:id="@+id/submitButton"

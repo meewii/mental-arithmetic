@@ -12,15 +12,7 @@
     <string name="activity_credits">About this app</string>
     <string name="activity_stats">Statistics</string>
 
-    <!-- Fragments -->
-    <string name="fragment_additions">@string/additions</string>
-    <string name="fragment_subtractions">@string/subtractions</string>
-    <string name="fragment_multiplications">@string/multiplications</string>
-    <string name="fragment_divisions">@string/divisions</string>
-
     <!-- Menus -->
-    <string name="menu_credits">Credits</string>
-    <string name="menu_settings">Settings</string>
     <string-array name="new_game_menu">
         <item>New Game</item>
         <item>Resume Game</item>
@@ -50,7 +42,6 @@
     <string name="credits_icon_text">The Launcher icon was made by Pixel Buddha from
         http://www.flaticon.com/authors/pixel-buddha</string>
 
-    <string name="error_empty_input">Required!</string>
     <string name="submit">submit</string>
     <string name="additions">Additions</string>
     <string name="subtractions">Subtractions</string>
@@ -64,4 +55,24 @@
     <string name="prompt_new_game_title">Game over!</string>
     <string name="prompt_new_game">Do you want to start a new game?</string>
     <string name="quit">Quit</string>
+    <string name="icon_right_arrow">right arrow icon</string>
+    <string name="toolbar_title">%1$s - %2$s</string>
+    <string name="fastest_duration">Fastest: %s</string>
+    <string name="average_duration">Average: %s</string>
+    <string name="slowest_duration">Slowest: %s</string>
+
+    <plurals name="remaining_lives">
+        <item quantity="one">%d remaining life</item>
+        <item quantity="other">%d remaining lives</item>
+    </plurals>
+
+    <plurals name="points">
+        <item quantity="one">%d point</item>
+        <item quantity="other">%d points</item>
+    </plurals>
+
+    <plurals name="games">
+        <item quantity="one">%d game</item>
+        <item quantity="other">%d games</item>
+    </plurals>
 </resources>

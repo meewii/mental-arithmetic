@@ -10,14 +10,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import com.meewii.mentalarithmetic.R
+import com.meewii.mentalarithmetic.base.BaseFragment
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.models.Operator
-import com.meewii.mentalarithmetic.base.BaseFragment
 import com.meewii.mentalarithmetic.models.Statistic
 import com.meewii.mentalarithmetic.modules.statistics.adapters.StatsAdapter
 import com.meewii.mentalarithmetic.modules.statistics.viewmodels.StatsViewModel
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.fragment_score.*
+import kotlinx.android.synthetic.main.fragment_stats.*
 
 class StatsFragment : BaseFragment(R.layout.fragment_stats) {
 
@@ -90,7 +90,7 @@ class StatsFragment : BaseFragment(R.layout.fragment_stats) {
      * Prepare the RecyclerView to receive the list of Scores
      */
     private fun setUpAdapter(list: MutableLiveData<List<Statistic>>, listener: StatsAdapter.OnItemClickListener) {
-        scoreAdapter = StatsAdapter(list.value, listener)
+        scoreAdapter = StatsAdapter(activity, list.value, listener)
         recyclerView.adapter = scoreAdapter
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.layoutManager = LinearLayoutManager(activity)
