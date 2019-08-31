@@ -9,7 +9,7 @@ import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.content_game.*
+import kotlinx.android.synthetic.main.content_game.solutionInput
 import javax.inject.Inject
 
 abstract class BaseActivity(@LayoutRes private val layoutRes: Int = -1): AppCompatActivity() {
@@ -27,7 +27,7 @@ abstract class BaseActivity(@LayoutRes private val layoutRes: Int = -1): AppComp
 
     protected fun hideSoftKeyboard() {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+        currentFocus?.let { inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0) }
     }
 
     protected fun showSoftKeyboard() {

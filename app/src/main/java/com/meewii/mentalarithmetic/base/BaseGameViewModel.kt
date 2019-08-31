@@ -4,12 +4,13 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.SharedPreferences
 import android.text.Editable
+import com.meewii.mentalarithmetic.common.GameRepository
 import com.meewii.mentalarithmetic.core.Const
 import com.meewii.mentalarithmetic.models.Difficulty
+import com.meewii.mentalarithmetic.models.Difficulty.EASY
 import com.meewii.mentalarithmetic.models.Operation
 import com.meewii.mentalarithmetic.models.Operator
 import com.meewii.mentalarithmetic.models.Status
-import com.meewii.mentalarithmetic.common.GameRepository
 
 abstract class BaseGameViewModel constructor(
         private val gameRepository: GameRepository,
@@ -27,8 +28,8 @@ abstract class BaseGameViewModel constructor(
     val operator: Operator
     val difficulty: Difficulty
     init {
-        val op = sharedPreferences.getString(Const.OPERATOR_TYPE_EXTRA, Operator.ADDITION.toString())
-        val di = sharedPreferences.getString(Const.DIFFICULTY_EXTRA, Difficulty.EASY.toString())
+        val op = sharedPreferences.getString(Const.OPERATOR_TYPE_EXTRA, Operator.ADDITION.toString()) ?: Operator.ADDITION.toString()
+        val di = sharedPreferences.getString(Const.DIFFICULTY_EXTRA, EASY.toString()) ?: EASY.toString()
         operator = Operator.valueOf(op)
         difficulty = Difficulty.valueOf(di)
     }
